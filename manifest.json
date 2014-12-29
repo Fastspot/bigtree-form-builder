@@ -2,7 +2,7 @@
     "type": "extension",
     "id": "com.fastspot.form-builder",
     "version": "2.0",
-    "revision": 8,
+    "revision": 9,
     "compatibility": "4.2+",
     "title": "Form Builder",
     "description": "Build awesome forms.",
