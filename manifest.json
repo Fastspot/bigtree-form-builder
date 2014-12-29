@@ -2,7 +2,7 @@
     "type": "extension",
     "id": "com.fastspot.form-builder",
     "version": "2.0",
-    "revision": 3,
+    "revision": 4,
     "compatibility": "4.2+",
     "title": "Form Builder",
     "description": "Build awesome forms.",
@@ -17,7 +17,7 @@
         "email": "tim@fastspot.com"
     },
     "licenses": {
-        "Proprietary": ""
+        "LGPL v3": "http://opensource.org/licenses/LGPL-3.0"
     },
     "components": {
         "module_groups": [],
