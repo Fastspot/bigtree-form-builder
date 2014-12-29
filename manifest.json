@@ -1,7 +1,8 @@
 {
     "type": "extension",
     "id": "com.fastspot.form-builder",
-    "version": "1.6",
+    "version": "2.0",
+    "revision": 2,
     "compatibility": "4.2+",
     "title": "Form Builder",
     "description": "Build awesome forms.",
@@ -120,7 +121,9 @@
                         "preview_url": ""
                     }
                 ],
-                "embed_forms": []
+                "forms": [],
+                "embed_forms": [],
+                "reports": []
             }
         ],
         "templates": [
@@ -193,23 +196,24 @@
         "feeds": [
             false
         ],
-        "field_types": [
-            false
-        ],
-        "tables": [
-            "btx_form_builder_entries",
-            "btx_form_builder_fields",
-            "btx_form_builder_forms"
-        ]
+        "field_types": [],
+        "tables": {
+            "btx_form_builder_entries": "CREATE TABLE `btx_form_builder_entries` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `form` int(11) NOT NULL,   `data` longtext NOT NULL,   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',   PRIMARY KEY (`id`),   KEY `form` (`form`),    FOREIGN KEY (`form`) REFERENCES `btx_form_builder_forms` (`id`) ON DELETE CASCADE ) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "btx_form_builder_fields": "CREATE TABLE `btx_form_builder_fields` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `form` int(11) NOT NULL,   `column` int(11) NOT NULL,   `alignment` char(5) NOT NULL,   `type` varchar(255) NOT NULL DEFAULT '',   `data` longtext NOT NULL,   `position` int(11) NOT NULL,   `random` int(11) DEFAULT NULL,   PRIMARY KEY (`id`),   KEY `form` (`form`),   KEY `column` (`column`),   KEY `position` (`position`),    FOREIGN KEY (`form`) REFERENCES `btx_form_builder_forms` (`id`) ON DELETE CASCADE ) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "btx_form_builder_forms": "CREATE TABLE `btx_form_builder_forms` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `title` varchar(255) NOT NULL DEFAULT '',   `paid` char(2) NOT NULL DEFAULT '',   `base_price` float NOT NULL,   `early_bird_base_price` float NOT NULL,   `early_bird_date` datetime DEFAULT NULL,   `total_collected` float NOT NULL,   `entries` int(11) NOT NULL,   `limit_entries` char(2) NOT NULL DEFAULT '',   `max_entries` int(11) NOT NULL,   `last_entry` datetime DEFAULT NULL,   PRIMARY KEY (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8"
+        }
     },
-    "sql": [
-        "SET foreign_key_checks = 0",
-        "DROP TABLE IF EXISTS `btx_form_builder_entries`",
-        "CREATE TABLE `btx_form_builder_entries` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `form` int(11) NOT NULL,   `data` longtext NOT NULL,   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',   PRIMARY KEY (`id`),   KEY `form` (`form`),   CONSTRAINT `btx_form_builder_entries_ibfk_1` FOREIGN KEY (`form`) REFERENCES `btx_form_builder_forms` (`id`) ON DELETE CASCADE ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8",
-        "DROP TABLE IF EXISTS `btx_form_builder_fields`",
-        "CREATE TABLE `btx_form_builder_fields` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `form` int(11) NOT NULL,   `column` int(11) NOT NULL,   `alignment` char(5) NOT NULL,   `type` varchar(255) NOT NULL DEFAULT '',   `data` longtext NOT NULL,   `position` int(11) NOT NULL,   PRIMARY KEY (`id`),   KEY `form` (`form`),   KEY `column` (`column`),   KEY `position` (`position`),   CONSTRAINT `btx_form_builder_fields_ibfk_1` FOREIGN KEY (`form`) REFERENCES `btx_form_builder_forms` (`id`) ON DELETE CASCADE ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8",
-        "DROP TABLE IF EXISTS `btx_form_builder_forms`",
-        "CREATE TABLE `btx_form_builder_forms` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `title` varchar(255) NOT NULL DEFAULT '',   `paid` char(2) NOT NULL DEFAULT '',   `base_price` float NOT NULL,   `early_bird_base_price` float NOT NULL,   `early_bird_date` datetime DEFAULT NULL,   `total_collected` float NOT NULL,   `entries` int(11) NOT NULL,   `limit_entries` char(2) NOT NULL DEFAULT '',   `max_entries` int(11) NOT NULL,   `last_entry` datetime DEFAULT NULL,   PRIMARY KEY (`id`) ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8",
-        "SET foreign_key_checks = 1"
-    ]
+    "sql_revisions": {
+        "1": [
+            "DROP TABLE IF EXISTS `0`",
+            "DROP TABLE IF EXISTS `1`",
+            "DROP TABLE IF EXISTS `2`",
+            "CREATE TABLE `btx_form_builder_entries` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `form` int(11) NOT NULL,   `data` longtext NOT NULL,   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',   PRIMARY KEY (`id`),   KEY `form` (`form`),    FOREIGN KEY (`form`) REFERENCES `btx_form_builder_forms` (`id`) ON DELETE CASCADE ) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "CREATE TABLE `btx_form_builder_fields` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `form` int(11) NOT NULL,   `column` int(11) NOT NULL,   `alignment` char(5) NOT NULL,   `type` varchar(255) NOT NULL DEFAULT '',   `data` longtext NOT NULL,   `position` int(11) NOT NULL,   PRIMARY KEY (`id`),   KEY `form` (`form`),   KEY `column` (`column`),   KEY `position` (`position`),    FOREIGN KEY (`form`) REFERENCES `btx_form_builder_forms` (`id`) ON DELETE CASCADE ) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "CREATE TABLE `btx_form_builder_forms` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `title` varchar(255) NOT NULL DEFAULT '',   `paid` char(2) NOT NULL DEFAULT '',   `base_price` float NOT NULL,   `early_bird_base_price` float NOT NULL,   `early_bird_date` datetime DEFAULT NULL,   `total_collected` float NOT NULL,   `entries` int(11) NOT NULL,   `limit_entries` char(2) NOT NULL DEFAULT '',   `max_entries` int(11) NOT NULL,   `last_entry` datetime DEFAULT NULL,   PRIMARY KEY (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8"
+        ],
+        "2": [
+            "ALTER TABLE `btx_form_builder_fields` DROP COLUMN `random`"
+        ]
+    }
 }
