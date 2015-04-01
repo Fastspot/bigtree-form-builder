@@ -18,7 +18,7 @@
 				}
 				$something_was_checked = true;
 				
-				$total += $item["price"];
+				$total += floatval(str_replace(array('$',','),'',$item["price"]));
 			} else {
 				$email .= $item["description"].": ---\n";
 			}
@@ -35,7 +35,7 @@
 				}
 				$something_was_checked = true;
 				
-				$total += $item["price"];
+				$total += floatval(str_replace(array('$',','),'',$item["price"]));
 			}
 		}
 	}

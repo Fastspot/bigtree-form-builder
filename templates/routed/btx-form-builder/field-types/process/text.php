@@ -7,7 +7,7 @@
 			$value = 0;
 		}
 		$total += $value;
-		$email .= "$".number_format($v,2);
+		$email .= "$".number_format($value,2);
 	} else {
 		$email .= $_POST[$field_name];
 		$value = $_POST[$field_name];

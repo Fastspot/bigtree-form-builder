@@ -1,15 +1,16 @@
 {
     "type": "extension",
     "id": "com.fastspot.form-builder",
-    "version": "2.0",
-    "revision": 9,
+    "version": "1.0",
+    "revision": 16,
     "compatibility": "4.2+",
     "title": "Form Builder",
-    "description": "Build awesome forms.",
+    "description": "An easy to use form builder allowing the administrative users to easily add fields to a form that stores entries in the database and sends out emails. Also supports paid forms.",
     "keywords": [
         "forms",
         "emails",
-        "submissions"
+        "submissions",
+        "form"
     ],
     "author": {
         "name": "Tim Buckingham",
@@ -187,15 +188,9 @@
                 "extension": "com.fastspot.form-builder"
             }
         ],
-        "callouts": [
-            false
-        ],
-        "settings": [
-            false
-        ],
-        "feeds": [
-            false
-        ],
+        "callouts": [],
+        "settings": [],
+        "feeds": [],
         "field_types": [],
         "tables": {
             "btx_form_builder_entries": "CREATE TABLE `btx_form_builder_entries` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `form` int(11) NOT NULL,   `data` longtext NOT NULL,   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',   PRIMARY KEY (`id`),   KEY `form` (`form`),    FOREIGN KEY (`form`) REFERENCES `btx_form_builder_forms` (`id`) ON DELETE CASCADE ) ENGINE=InnoDB DEFAULT CHARSET=utf8",

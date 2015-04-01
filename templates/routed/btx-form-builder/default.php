@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<?=STATIC_ROOT?>extensions/com.fastspot.form-builder/front-end.css" />
+<link rel="stylesheet" href="<?=STATIC_ROOT?>extensions/com.fastspot.form-builder/css/front-end.css" />
 <h1><?=$page_header?></h1>
 <?=$page_content?>	
 <?
