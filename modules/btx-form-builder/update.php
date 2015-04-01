@@ -1,4 +1,6 @@
 <?
+	$fieldMod = new BigTreeModule("btx_form_builder_fields");
+
 	BigTree::globalizePOSTVars("htmlspecialchars");
 	$form = sqlescape($bigtree["commands"][0]);
 	
@@ -29,9 +31,9 @@
 	
 	// Get all the previous fields so we know which to delete.
 	$fields_to_delete = array();
-	$q = sqlquery("SELECT * FROM btx_form_builder_fields WHERE form = '$form'");
-	while ($f = sqlfetch($q)) {
-		$fields_to_delete[$f["id"]] = $f["id"];
+	$existing_fields = $fieldMod->getMatching("form",$form);
+	foreach ($existing_fields as $field) {
+		$fields_to_delete[$field["id"]] = $field["id"];
 	}
 	
 	foreach ($_POST["type"] as $key => $type) {
@@ -44,10 +46,14 @@
 			// If we're starting a set of columns and don't have an alignment it's a new set.
 			if (!$alignment) {
 				if (!$id) {
-					$column = BigTreeAutoModule::createItem("btx_form_builder_fields",array("form" => $form,"type" => "column","position" => $position));
+					$column = $fieldMod->add(array(
+						"form" => $form,
+						"type" => "column",
+						"position" => $position
+					),false,false,true);
 				} else {
 					$column = $id;
-					BigTreeAutoModule::updateItem("btx_form_builder_fields",$id,array("position" => $position));
+					$fieldMod->update($id,"position",$position,true);
 				}
 				$alignment = "left";
 			// Otherwise we're starting the second column of the set, just change the alignment.
@@ -61,9 +67,24 @@
 			}
 		} elseif ($type) {
 			if ($id) {
-				BigTreeAutoModule::updateItem("btx_form_builder_fields",$id,array("type" => $type,"data" => $_POST["data"][$key],"position" => $position,"column" => $column,"alignment" => $alignment));
+				// Update the field, ignore cache
+				$fieldMod->update($id,array(
+					"type" => $type,
+					"data" => $_POST["data"][$key],
+					"position" => $position,
+					"column" => $column,
+					"alignment" => $alignment
+				),false,true);
 			} else {
-				BigTreeAutoModule::createItem("btx_form_builder_fields",array("form" => $form,"type" => $type,"data" => $_POST["data"][$key],"position" => $position,"column" => $column,"alignment" => $alignment));
+				// Add the field, ignore cache
+				$fieldMod->add(array(
+					"form" => $form,
+					"type" => $type,
+					"data" => $_POST["data"][$key],
+					"position" => $position,
+					"column" => $column,
+					"alignment" => $alignment
+				),false,false,true);
 			}
 		}
 		$position--;
@@ -71,7 +92,7 @@
 
 	// Delete fields that no longer exist in the form
 	foreach ($fields_to_delete as $id) {
-		BigTreeAutoModule::deleteItem("btx_form_builder_fields",$id);
+		$fieldMod->delete($id);
 	}
 	
 	$admin->growl("Form Builder","Updated Form");

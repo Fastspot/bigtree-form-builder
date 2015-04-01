@@ -18,7 +18,7 @@
 
 	$data = $_POST;
 ?>
-<input type="hidden" name="id[<?=$key?>]" value="<?=$id?>" />
+<input type="hidden" name="id[<?=$key?>]" value="<?=$_POST["id"]?>" />
 <input type="hidden" name="type[<?=$key?>]" value="<?=$type?>" />
 <input type="hidden" name="data[<?=$key?>]" value="<?=htmlspecialchars(json_encode($data))?>" />
 <div class="form_builder_wrapper">

@@ -106,7 +106,7 @@
 						$_POST["name"] = "form_builder_element_$count";
 						$_POST["type"] = $subfield["type"];
 						$_POST["id"] = $subfield["id"];
-						echo '<div class="form_builder_element form_builder_'.$t.'" data-type="'.$subfield["type"].'" id="form_builder_element_'.$count.'">';
+						echo '<div class="form_builder_element form_builder_'.$subfield["type"].'" data-type="'.$subfield["type"].'" id="form_builder_element_'.$count.'">';
 						include EXTENSION_ROOT."ajax/redraw-field.php";
 						echo '</div>';
 					}
