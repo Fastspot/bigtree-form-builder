@@ -1,8 +1,8 @@
 {
     "type": "extension",
     "id": "com.fastspot.form-builder",
-    "version": "1.0",
-    "revision": 16,
+    "version": "1.0.1",
+    "revision": 17,
     "compatibility": "4.2+",
     "title": "Form Builder",
     "description": "An easy to use form builder allowing the administrative users to easily add fields to a form that stores entries in the database and sends out emails. Also supports paid forms.",
@@ -135,23 +135,23 @@
                 "resources": [
                     {
                         "id": "page_header",
-                        "type": "text",
                         "title": "Page Header",
                         "subtitle": "",
+                        "type": "text",
                         "options": []
                     },
                     {
                         "id": "page_content",
-                        "type": "html",
                         "title": "Page Content",
                         "subtitle": "",
+                        "type": "html",
                         "options": []
                     },
                     {
                         "id": "form",
-                        "type": "list",
                         "title": "Form",
                         "subtitle": "",
+                        "type": "list",
                         "options": {
                             "list_type": "db",
                             "allow-empty": "No",
@@ -162,24 +162,51 @@
                     },
                     {
                         "id": "emails",
-                        "type": "textarea",
                         "title": "Email Addresses",
                         "subtitle": "(to send submissions notifications to \u2014 separate with commas)",
+                        "type": "textarea",
                         "options": []
                     },
                     {
                         "id": "thank_you_page_header",
-                        "type": "text",
                         "title": "Thank You Page Header",
                         "subtitle": "",
+                        "type": "text",
                         "options": []
                     },
                     {
                         "id": "thank_you_page_content",
-                        "type": "html",
                         "title": "Thank You Page Content",
                         "subtitle": "",
+                        "type": "html",
                         "options": []
+                    },
+                    {
+                        "id": "matrix",
+                        "title": "Matrix",
+                        "subtitle": "",
+                        "type": "matrix",
+                        "options": {
+                            "max": "3",
+                            "style": "list",
+                            "columns": [
+                                {
+                                    "type": "text",
+                                    "id": "title",
+                                    "title": "Title",
+                                    "subtitle": "",
+                                    "display_title": "on",
+                                    "options": ""
+                                },
+                                {
+                                    "type": "textarea",
+                                    "id": "description",
+                                    "title": "Description",
+                                    "subtitle": "",
+                                    "options": ""
+                                }
+                            ]
+                        }
                     }
                 ],
                 "module": "0",

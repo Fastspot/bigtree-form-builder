@@ -24,5 +24,8 @@ Form Elements
 Changelog
 ---------
 
-### 2.0 Release
+### 1.0.1 Release
+- Added a check to make sure users don't have duplicate values in select / radio / checkboxes when saving
+
+### 1.0 Release
 - First public release for BigTree 4.2
