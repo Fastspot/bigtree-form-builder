@@ -1,8 +1,8 @@
 {
     "type": "extension",
     "id": "com.fastspot.form-builder",
-    "version": "1.0.1",
-    "revision": 17,
+    "version": "1.0.2",
+    "revision": 18,
     "compatibility": "4.2+",
     "title": "Form Builder",
     "description": "An easy to use form builder allowing the administrative users to easily add fields to a form that stores entries in the database and sends out emails. Also supports paid forms.",
@@ -24,7 +24,7 @@
         "module_groups": [],
         "modules": [
             {
-                "id": "141",
+                "id": "3",
                 "group": null,
                 "name": "Form Builder",
                 "route": "com.fastspot.form-builder*btx-form-builder",
@@ -39,21 +39,21 @@
                 "extension": "com.fastspot.form-builder",
                 "actions": [
                     {
-                        "id": "803",
-                        "module": "141",
+                        "id": "7",
+                        "module": "3",
                         "name": "View Forms",
                         "route": "",
                         "in_nav": "on",
                         "form": null,
-                        "view": "98",
+                        "view": "3",
                         "report": null,
                         "class": "list",
                         "level": "0",
                         "position": "3"
                     },
                     {
-                        "id": "804",
-                        "module": "141",
+                        "id": "8",
+                        "module": "3",
                         "name": "Add Form",
                         "route": "add",
                         "in_nav": "on",
@@ -65,8 +65,8 @@
                         "position": "2"
                     },
                     {
-                        "id": "805",
-                        "module": "141",
+                        "id": "9",
+                        "module": "3",
                         "name": "Settings",
                         "route": "settings",
                         "in_nav": "on",
@@ -80,8 +80,8 @@
                 ],
                 "views": [
                     {
-                        "id": "98",
-                        "module": "141",
+                        "id": "3",
+                        "module": "3",
                         "title": "Forms",
                         "description": "",
                         "type": "searchable",
@@ -97,7 +97,7 @@
                                 "title": "Entries",
                                 "parser": "",
                                 "width": 222,
-                                "numeric": false
+                                "numeric": true
                             },
                             "last_entry": {
                                 "title": "Last Entry",
@@ -118,8 +118,8 @@
                             "edit": "on",
                             "delete": "on"
                         },
-                        "related_form": "0",
-                        "preview_url": ""
+                        "preview_url": "",
+                        "related_form": null
                     }
                 ],
                 "forms": [],
@@ -211,12 +211,14 @@
                 ],
                 "module": "0",
                 "level": "0",
-                "position": "16",
+                "position": "0",
                 "extension": "com.fastspot.form-builder"
             }
         ],
         "callouts": [],
-        "settings": [],
+        "settings": [
+            false
+        ],
         "feeds": [],
         "field_types": [],
         "tables": {
