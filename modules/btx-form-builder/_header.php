@@ -6,5 +6,5 @@
 	if (!$admin->settingExists("settings")) {
 		$admin->createSetting(array("id" => "settings","system" => "on","name" => "Form Builder Settings"));
 	}
-	$settings = $cms->getSetting("settings");
+	$settings = (array)$cms->getSetting("settings");
 ?>
