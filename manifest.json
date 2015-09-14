@@ -1,8 +1,8 @@
 {
     "type": "extension",
     "id": "com.fastspot.form-builder",
-    "version": "1.0.2",
-    "revision": 18,
+    "version": "1.0.3",
+    "revision": 19,
     "compatibility": "4.2+",
     "title": "Form Builder",
     "description": "An easy to use form builder allowing the administrative users to easily add fields to a form that stores entries in the database and sends out emails. Also supports paid forms.",
@@ -180,45 +180,16 @@
                         "subtitle": "",
                         "type": "html",
                         "options": []
-                    },
-                    {
-                        "id": "matrix",
-                        "title": "Matrix",
-                        "subtitle": "",
-                        "type": "matrix",
-                        "options": {
-                            "max": "3",
-                            "style": "list",
-                            "columns": [
-                                {
-                                    "type": "text",
-                                    "id": "title",
-                                    "title": "Title",
-                                    "subtitle": "",
-                                    "display_title": "on",
-                                    "options": ""
-                                },
-                                {
-                                    "type": "textarea",
-                                    "id": "description",
-                                    "title": "Description",
-                                    "subtitle": "",
-                                    "options": ""
-                                }
-                            ]
-                        }
                     }
                 ],
                 "module": "0",
                 "level": "0",
-                "position": "0",
+                "position": "1",
                 "extension": "com.fastspot.form-builder"
             }
         ],
         "callouts": [],
-        "settings": [
-            false
-        ],
+        "settings": [],
         "feeds": [],
         "field_types": [],
         "tables": {
