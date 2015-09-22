@@ -25,7 +25,9 @@
 .form_builder_object.form_builder_full .form_builder_text { width: 610px !important; }
 .form_builder_object.form_builder_last { margin-right: 0; }
 
-.form_builder_triplets { float: left; width: 33%; }
+.form_builder_triplets { float: left; width: 15%; }
+
+#form_builder_max_entries { margin-top: 15px; }
 
 /* Icons */
 .form_builder_element .icon { background: url(../images/icons.svg) no-repeat; float: right; height: 16px; width: 16px; }
