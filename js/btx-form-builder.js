@@ -65,7 +65,6 @@ var BTXFormBuilder = (function() {
 		$("#form_builder_is_paid").click(function() {
 			$("#form_builder_base_price").toggle();
 			$("#form_builder_early_bird").toggle();
-			$("#form_builder_limit_checkbox").toggle();
 			$("#form_builder_paid_extras").toggle();
 		});
 		$("#form_builder_early_bird input").click(function() {

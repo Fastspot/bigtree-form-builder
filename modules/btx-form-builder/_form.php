@@ -22,15 +22,21 @@
 		<label>Form Title</label>
 		<input type="text" name="title" placeholder="Please enter a title to describe your form." value="<?=$form["title"]?>" />
 	</fieldset>
+	<fieldset>
+		<div id="form_builder_limit_checkbox">
+			<input type="checkbox" name="limit_entries" id="form_builder_limit_entries"<? if ($form["limit_entries"]) { ?> checked="checked"<? } ?> />
+			<label class="for_checkbox">Limit Number of Entries</label>
+		</div>
+		<div id="form_builder_max_entries" style="display: none;">
+			<label>Maximum Number of Entries</label>
+			<input type="text" name="max_entries" value="<?=$form["max_entries"]?>" />
+		</div>
+	</fieldset>
 	<? if (!empty($settings["accept_payments"])) { ?>
 	<fieldset>
 		<div class="form_builder_triplets">
 			<input type="checkbox" name="paid" id="form_builder_is_paid"<? if ($form["paid"]) { ?> checked="checked"<? } ?> />
 			<label class="for_checkbox">Paid Form</label>	
-		</div>
-		<div id="form_builder_limit_checkbox" class="form_builder_triplets"<? if (!$form["paid"]) { ?> style="display: none;"<? } ?>>
-			<input type="checkbox" name="limit_entries" id="form_builder_limit_entries"<? if ($form["limit_entries"]) { ?> checked="checked"<? } ?> />
-			<label class="for_checkbox">Limit Number of Entries</label>
 		</div>
 		<div id="form_builder_early_bird" class="form_builder_triplets"<? if (!$form["paid"]) { ?> style="display: none;"<? } ?>>
 			<input type="checkbox" name="early_bird" <? if ($form["early_bird_date"]) { ?> checked="checked"<? } ?> />
@@ -50,11 +56,7 @@
 				<input type="text" name="early_bird_base_price" value="$<?=number_format($form["early_bird_base_price"],2)?>" placeholder="Enter a numeric value." />
 			</fieldset>
 		</div>
-		<div class="left" id="form_builder_max_entries"<? if (!$form["limit_entries"]) { ?> style="display: none;"<? } ?>>
-			<label>Maximum Number of Entries</label>
-			<input type="text" name="max_entries" value="<?=$form["max_entries"]?>" />
-		</div>
-		<div class="right" id="form_builder_early_bird_date"<? if (!$form["early_bird_date"]) { ?> style="display: none;"<? } ?>>
+		<div class="left" id="form_builder_early_bird_date"<? if (!$form["early_bird_date"]) { ?> style="display: none;"<? } ?>>
 			<label>Early Bird Cut-off Date <small>(i.e. February 22, 2011 @ 5:30pm)</small></label>
 			<input type="text" name="early_bird_date" value="<? if ($form["early_bird_date"]) { echo date("F j, Y @ g:ia",strtotime($form["early_bird_date"])); } ?>" />
 		</div>
