@@ -8,6 +8,9 @@
 		} else {
 			$directory = "files/form-builder/";
 		}
+		if(BigTree::directoryContents($directory) === false){
+			BigTree::makeDirectory($directory);
+		}
 		$value = $storage->store($_FILES[$field_name]["tmp_name"],$_FILES[$field_name]["name"],$directory);
 		$email .= $cms->replaceRelativeRoots($value);
 	} else {
