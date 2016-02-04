@@ -5,7 +5,7 @@
 	
 	$email .= $d["label"]."\n";
 	
-	if(checkdate($_POST[$field_name]["month"], $_POST[$field_name]["day"], $_POST[$field_name]["year"])){
+	if (checkdate($_POST[$field_name]["month"], $_POST[$field_name]["day"], $_POST[$field_name]["year"])) {
 		$value = $_POST[$field_name]["year"]."-".$_POST[$field_name]["month"]."-".$_POST[$field_name]["day"];
 		$email .= date("F j, Y",strtotime($value));	
 	}
