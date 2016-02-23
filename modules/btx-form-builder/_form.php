@@ -27,7 +27,7 @@
 			<input type="checkbox" name="limit_entries" id="form_builder_limit_entries"<? if ($form["limit_entries"]) { ?> checked="checked"<? } ?> />
 			<label class="for_checkbox">Limit Number of Entries</label>
 		</div>
-		<div id="form_builder_max_entries" style="display: none;">
+		<div id="form_builder_max_entries"<? if (!$form["limit_entries"]) { ?> style="display: none;"<? } ?>>
 			<label>Maximum Number of Entries</label>
 			<input type="text" name="max_entries" value="<?=$form["max_entries"]?>" />
 		</div>
