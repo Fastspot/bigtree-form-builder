@@ -2,7 +2,7 @@
     "type": "extension",
     "id": "com.fastspot.form-builder",
     "version": "1.1",
-    "revision": 20,
+    "revision": 21,
     "compatibility": "4.2+",
     "title": "Form Builder",
     "description": "An easy to use form builder allowing the administrative users to easily add fields to a form that stores entries in the database and sends out emails. Also supports paid forms.",
@@ -151,7 +151,7 @@
                         "id": "form",
                         "title": "Form",
                         "subtitle": "",
-                        "type": "list",
+                        "type": "com.fastspot.form-builder*form-builder-picker",
                         "options": {
                             "list_type": "db",
                             "allow-empty": "No",
