@@ -1,4 +1,8 @@
-<?
+<?php
+	/**
+	 * @global array $bigtree
+	 */
+	
 	$form = BTXFormBuilder::getForm($bigtree["commands"][0]);
 
 	// Figure out what the headers should be…
@@ -26,11 +30,12 @@
 				$columns[] = $label;
 			}
 		}
+		
 		return $columns;
 	};
 	
 	// We can only show four columns because we're limited on space
-	$columns = array_slice($get_table_header($form["fields"]),0,4);
+	$columns = array_slice($get_table_header($form["fields"]), 0, 4);
 	$per_col = floor(744 / count($columns)) - 20;
 ?>
 <h3>Entries in &ldquo;<?=$form["title"]?>&rdquo;</h3>
@@ -41,13 +46,13 @@
 	</summary>
 	<header>
 		<span class="view_column" style="width: 114px;">Date Submitted</span>
-		<? foreach ($columns as $column) { ?>
+		<?php foreach ($columns as $column) { ?>
 		<span class="view_column" style="width: <?=$per_col?>px;"><?=$column?></span>
-		<? } ?>
+		<?php } ?>
 		<span class="view_actions" style="width: 80px;">Actions</span>
 	</header>
 	<ul id="results">
-		<? include EXTENSION_ROOT."ajax/entries-page.php" ?>
+		<?php include EXTENSION_ROOT."ajax/entries-page.php" ?>
 	</ul>
 </div>
 <script type="text/javascript">

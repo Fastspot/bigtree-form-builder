@@ -42,7 +42,7 @@ var BTXFormBuilder = (function() {
 				 .on("change","select",saveSelectState);
 			
 		// When the window scrolls, the element list should follow so they can always be dragged over.
-		$(window).scroll(function(ev) {
+		$(window).scroll(function() {
 			var y = window.scrollY;
 			
 			if (y > ListTop || (y < ListTop && List.css("margin-top") != "0px")) {
@@ -67,10 +67,12 @@ var BTXFormBuilder = (function() {
 			$("#form_builder_early_bird").toggle();
 			$("#form_builder_paid_extras").toggle();
 		});
+
 		$("#form_builder_early_bird input").click(function() {
 			$("#form_builder_early_base_price").toggle();
 			$("#form_builder_early_bird_date").toggle();
 		});
+
 		$("#form_builder_limit_entries").click(function() {
 			$("#form_builder_max_entries").toggle();
 		});
@@ -83,6 +85,7 @@ var BTXFormBuilder = (function() {
 		try {
 			Container.droppable("destroy");
 		} catch (error) {}
+
 		$(".form_builder_column").each(function(el) {
 			try {
 				$(el).droppable("destroy");
@@ -108,7 +111,7 @@ var BTXFormBuilder = (function() {
 				}
 			}
 		}).sortable();
-	};
+	}
 
 	function saveCheckboxState() {
 		var data_field = $(this).parents(".form_builder_element").eq(0).find("input").eq(2);
@@ -123,16 +126,17 @@ var BTXFormBuilder = (function() {
 	function saveRadioState() {
 		var data_field = $(this).parents(".form_builder_element").eq(0).find("input").eq(2);
 		var data = JSON.parse(data_field.val());
-		var radios = $(this).parents(".form_builder_element").eq(0).find("input[type=radio]")
+		var radios = $(this).parents(".form_builder_element").eq(0).find("input[type=radio]");
 		var index = radios.index(this);
 
 		// Clear the selected state of all the other radios
 		radios.not(this).prop("checked",false);
 		
 		// Save the selected stated in the JSON and store it back
-		for (i in data.list) {
+		for (var i in data.list) {
 			data.list[i].selected = (i == index);
 		}
+
 		data_field.val(JSON.stringify(data));
 	}
 
@@ -142,7 +146,7 @@ var BTXFormBuilder = (function() {
 		var data = JSON.parse(data_field.val());
 		
 		// Save the selected stated in the JSON and store it back
-		for (i in data.list) {
+		for (var i in data.list) {
 			data.list[i].selected = (i == index);
 		}
 		data_field.val(JSON.stringify(data));

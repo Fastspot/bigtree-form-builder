@@ -1,5 +1,5 @@
-<?
-	$data = json_decode($_POST["data"],true);
+<?php
+	$data = json_decode($_POST["data"], true);
 	$paid = $_POST["paid"];
 	$type = trim($_POST["type"]);
 
@@ -8,9 +8,8 @@
 	if ($type != "section" && $type != "captcha") {
 ?>
 <fieldset>
-	<input type="checkbox" class="checkbox" name="required"<? if ($data["required"]) { ?> checked="checked"<? } ?> />
+	<input type="checkbox" class="checkbox" name="required"<?php if ($data["required"]) { ?> checked="checked"<?php } ?> />
 	<label class="for_checkbox">Required</label>
 </fieldset>
-<?
+<?php
 	}
-?>

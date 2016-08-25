@@ -1,4 +1,8 @@
-<?
+<?php
+	/**
+	 * @global array $bigtree
+	 */
+	
 	$form = BTXFormBuilder::getForm($bigtree["commands"][0]);
 ?>
 <div class="container">

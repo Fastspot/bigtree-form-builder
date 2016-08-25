@@ -1,46 +1,61 @@
-<?
-	if ($d["label"]) {
-		$email .= $d["label"]."\n";
-		$email .= str_repeat("-",strlen($d["label"]))."\n";
+<?php
+	/**
+	 * @global array $field_data
+	 * @global array $form
+	 * @global array $settings
+	 * @global string $field_name
+	 */
+	
+	if ($field_data["label"]) {
+		$email_body .= $field_data["label"]."\n";
+		$email_body .= str_repeat("-", strlen($field_data["label"]))."\n";
 	}
 	
 	$value = $_POST[$field_name];
+	$confirmation_email_value = array();
 	$something_was_checked = false;
 	
 	if (is_array($value)) {
-		foreach ($d["list"] as $item) {
+		foreach ($field_data["list"] as $item) {
 			$v = $item["value"] ? $item["value"] : $item["description"];
-			if (in_array($v,$value)) {
+			
+			if (in_array($v, $value)) {
 				if ($v == $item["description"]) {
-					$email .= $item["description"].": Yes\n";
+					$email_body .= $item["description"].": Yes\n";
 				} else {
-					$email .= $item["description"].": ".$item["value"]."\n";
+					$email_body .= $item["description"].": ".$item["value"]."\n";
 				}
-				$something_was_checked = true;
 				
-				$total += floatval(str_replace(array('$',','),'',$item["price"]));
+				$confirmation_email_value[] = $item["description"];
+				$something_was_checked = true;
+				$total += floatval(str_replace(array('$', ','), '', $item["price"]));
 			} else {
-				$email .= $item["description"].": ---\n";
+				$email_body .= $item["description"].": ---\n";
 			}
 		}
-		$email .= "\n\n";
+		
+		$email_body .= "\n\n";
 	} else {
-		foreach ($d["list"] as $item) {
+		foreach ($field_data["list"] as $item) {
 			$v = $item["value"] ? $item["value"] : $item["description"];
+			
 			if ($value == $v) {
 				if ($v == $item["description"]) {
-					$email .= $item["description"].": Yes\n";
+					$email_body .= $item["description"].": Yes\n";
 				} else {
-					$email .= $item["description"].": ".$item["value"]."\n";
+					$email_body .= $item["description"].": ".$item["value"]."\n";
 				}
-				$something_was_checked = true;
 				
-				$total += floatval(str_replace(array('$',','),'',$item["price"]));
+				$something_was_checked = true;
+				$confirmation_email_value[] = $item["description"];
+				$total += floatval(str_replace(array('$', ','), '', $item["price"]));
 			}
 		}
 	}
 	
-	if ($d["required"] && !$something_was_checked) {
+	if ($field_data["required"] && !$something_was_checked) {
 		$errors[] = $field_name;
 	}
-?>
+	
+	$confirmation_email_value = implode(", ", $confirmation_email_value);
+	

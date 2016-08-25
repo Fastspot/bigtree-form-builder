@@ -1,11 +1,23 @@
+<?php
+	/**
+	 * @global array $data
+	 * @global bool $paid
+	 */
+?>
 <label>
-	<?=htmlspecialchars($data["label"])?>
-	<? if ($data["required"]) { ?>
+	<?php
+		echo htmlspecialchars($data["label"]);
+		
+		if ($data["required"]) {
+	?>
 	<span class="required">*</span>
-	<? } ?>
+	<?php
+		}
+	?>
 </label>
-<? foreach ($data["list"] as $item) { ?>
+<?php foreach ($data["list"] as $item) { ?>
 <div class="form_builder_option">
-	<input type="checkbox"<? if ($item["selected"]) { ?> checked="checked"<? } ?> class="form_builder_checkbox custom_control" /> <?=htmlspecialchars($item["description"])?>
+	<input type="checkbox"<?php if ($item["selected"]) { ?> checked="checked"<?php } ?> class="form_builder_checkbox custom_control" />
+	<?=htmlspecialchars($item["description"])?>
 </div>
-<? } ?>
+<?php } ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 	$bigtree["css"][] = "btx-form-builder.css";
 	$bigtree["js"][] = "btx-form-builder.js";
 
@@ -6,5 +6,5 @@
 	if (!$admin->settingExists("settings")) {
 		$admin->createSetting(array("id" => "settings","system" => "on","name" => "Form Builder Settings"));
 	}
+	
 	$settings = (array)$cms->getSetting("settings");
-?>

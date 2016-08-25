@@ -1,27 +1,42 @@
-<link rel="stylesheet" href="<?=STATIC_ROOT?>extensions/com.fastspot.form-builder/css/front-end.css" />
-<h1><?=$page_header?></h1>
-<?=$page_content?>	
-<?
+<?php
+	/**
+	 * @global array $form
+	 * @global array $settings
+	 * @global string $page_content
+	 * @global string $page_header
+	 * @global string $page_link
+	 */
+	
+	if (empty($settings["no_css"])) {
+?>
+<link rel="stylesheet" href="<?=STATIC_ROOT?>extensions/com.fastspot.form-builder/css/front-end.css"/>
+<?php
+	}
+	
+	echo "<h1>$page_header</h1>";
+	echo $page_content;
+	
 	if ($form["limit_entries"] && $form["entries"] >= $form["max_entries"]) {
 ?>
 <h2>Maximum Entries Reached</h2>
 <p>This form has reached the maximum number of entries.</p>
-<?	
+<?php
 	} else {
 ?>
 <form method="post" action="<?=$page_link?>process/" enctype="multipart/form-data" class="form_builder">
-	<?
+	<?php
 		$error_count = count($_SESSION["form_builder"]["errors"]);
+		
 		if ($error_count) {
 	?>
 	<div class="form_builder_errors">
-		<? if ($error_count == 1) { ?>
+		<?php if ($error_count == 1) { ?>
 		<p>A required field was missing. Please fill out all required fields and submit again.</p>
-		<? } else { ?>
+		<?php } else { ?>
 		<p>Required fields were missing. Please fill out all required fields out and submit again.</p>
-		<? } ?>
+		<?php } ?>
 	</div>
-	<?	
+	<?php
 		}
 		
 		if ($_SESSION["form_builder"]["payment_error"]) {
@@ -30,192 +45,211 @@
 		<p>Checkout failed — your credit card has not been charged.</p>
 		<p class="form_builder_alert">The error returned was: <?=$_SESSION["form_builder"]["payment_error"]?></p>
 	</div>
-	<?
+	<?php
 		}
 	?>
 	<div class="form_builder_required_message">
 		<p><span class="form_builder_required_star">*</span> = required field</p>
 	</div>
-	<?		
+	<?php
 		// Setup price watchers.
-		$check_watch = array();
-		$radio_watch = array();
-		$select_watch = array();
-
+		$check_watch = $radio_watch = $select_watch = $text_watch = array();
 		$last_field = false;
 		$count = 0;
+		
 		foreach ($form["fields"] as $field) {
 			$count++;
-			$t = $field["type"];
-			$d = json_decode($field["data"],true);
+			$field_type = $field["type"];
+			$field_data = json_decode($field["data"], true);
 
-			if ($t != "column") {
-				if ($d["name"]) {
-					$field_name = $d["name"];
+			if ($field_type != "column") {
+				if ($field_data["name"]) {
+					$field_name = $field_data["name"];
 				} else {
 					$field_name = "data_".$field["id"];
 				}
+				
 				$error = false;
+				
 				if (isset($_SESSION["form_builder"]["fields"])) {
 					$default = $_SESSION["form_builder"]["fields"][$field_name];
 				} else {
-					if (isset($d["default"])) {
-						$default = $d["default"];
+					if (isset($field_data["default"])) {
+						$default = $field_data["default"];
 					} else {
-						$default = false;			
+						$default = false;
 					}
 				}
+				
 				if (is_array($_SESSION["form_builder"]["errors"]) && in_array($field_name,$_SESSION["form_builder"]["errors"])) {
 					$error = true;
 				}
-				include "field-types/draw/$t.php";
+				
+				include "field-types/draw/$field_type.php";
 			} else {
 				if ($last_field == "column") {
 					echo '<div class="form_builder_column form_builder_last">';
 				} else {
 					echo '<div class="form_builder_column">';
 				}
+				
 				foreach ($field["fields"] as $subfield) {
 					$count++;
-					$d = json_decode($subfield["data"],true);
-					if ($d["name"]) {
-						$field_name = $d["name"];
+					$field_data = json_decode($subfield["data"],true);
+					
+					if ($field_data["name"]) {
+						$field_name = $field_data["name"];
 					} else {
 						$field_name = "data_".$subfield["id"];
 					}
+					
 					$error = false;
+					
 					if (isset($_SESSION["form_builder"]["fields"])) {
 						$default = $_SESSION["form_builder"]["fields"][$field_name];
 					} else {
-						if (isset($d["default"])) {
-							$default = $d["default"];
+						if (isset($field_data["default"])) {
+							$default = $field_data["default"];
 						} else {
-							$default = false;			
+							$default = false;
 						}
 					}
+					
 					if (is_array($_SESSION["form_builder"]["errors"]) && in_array($field_name,$_SESSION["form_builder"]["errors"])) {
 						$error = true;
 					}
+					
 					include "field-types/draw/".$subfield["type"].".php";
 				}
+				
 				echo '</div>';
 			}
-			$last_field = $t;
+			$last_field = $field_type;
 		}
 	?>
 	<input type="submit" class="form_builder_submit" value="Submit" />
 </form>
-<?
+<?php
 		// Make the price watchers
 		if ($form["paid"]) {
 			if ($form["early_bird_date"] && strtotime($form["early_bird_date"]) > time()) {
-				$bp = $form["early_bird_base_price"] ? $form["early_bird_base_price"] : $form["base_price"];			
+				$base_price = $form["early_bird_base_price"] ? $form["early_bird_base_price"] : $form["base_price"];
 			} else {
-				$bp = $form["base_price"] ? $form["base_price"] : "0.00";
+				$base_price = $form["base_price"] ? $form["base_price"] : "0.00";
 			}
 ?>
 <script type="text/javascript">
 	(function() {
 		var PreviousValues = {};
-		var Total = <?=$bp?>;
+		var Total = <?=$base_price?>;
 
 		function formatMoney(places, symbol, thousand, decimal) {
 			places = !isNaN(places = Math.abs(places)) ? places : 2;
 			symbol = symbol !== undefined ? symbol : "$";
 			thousand = thousand || ",";
 			decimal = decimal || ".";
-			var number = this, 
+			var number = this,
 			    negative = number < 0 ? "-" : "",
 			    i = parseInt(number = Math.abs(+number || 0).toFixed(places), 10) + "",
 			    j = (j = i.length) > 3 ? j % 3 : 0;
 			return symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
 		}
 
-		var element;
-		<?
+		<?php
 			// Text fields to watch for price changes
 			foreach ($text_watch as $id) {
 		?>
-		element = document.getElementById("<?=$id?>");
-		element.addEventListener("change",function() {
+		document.getElementById("<?=$id?>").addEventListener("change", function() {
 			var old_price = PreviousValues[this.getAttribute("name")];
+			
 			if (old_price) {
 				Total -= old_price;
 			}
+			
 			var price = parseFloat(this.value.replace(/[^0-9-.]/g, ''));
+			
 			if (price < 0) {
 				price = 0;
 			}
+			
 			this.value = formatMoney(price);
+			
 			if (isNaN(price)) {
 				PreviousValues[this.getAttribute("name")] = 0;
 			} else {
 				Total += price;
 				PreviousValues[this.getAttribute("name")] = price;
 			}
+			
 			document.getElementById("form_builder_total").innerHTML = formatMoney(Total);
 		});
-		<?
+		<?php
 			}
 
 			// Check boxes to watch for price changes
 			foreach ($check_watch as $id) {
 		?>
-		element = document.getElementById("<?=$id?>");
-		element.onchange = function() {
+		document.getElementById("<?=$id?>").addEventListener("change", function() {
 			var price = this.getAttribute("data-price");
+			
 			if (this.checked) {
 				Total += parseFloat(price);
 			} else {
 				Total -= parseFloat(price);
 			}
+			
 			document.getElementById("form_builder_total").innerHTML = formatMoney(Total);
-		};
-		<?
+		});
+		<?php
 			}
 
 			// Radio buttons to watch for price changes
 			foreach ($radio_watch as $id) {
 		?>
-		element = document.getElementById("<?=$id?>");
-		element.onchange = function() {
+		document.getElementById("<?=$id?>").addEventListener("change", function() {
 			var old_price = PreviousValues[this.getAttribute("name")];
+			var price = this.getAttribute("data-price");
+			
 			if (old_price) {
 				Total -= old_price;
 			}
-			var price = this.getAttribute("data-price");
+			
 			Total += parseFloat(price);
 			PreviousValues[this.getAttribute("name")] = parseFloat(price);
 			document.getElementById("form_builder_total").innerHTML = formatMoney(Total);
-		};
-		<?
+		});
+		<?php
 			}
 
 			// Select boxes to watch for price changes
 			foreach ($select_watch as $id) {
 		?>
-		element = document.getElementById("<?=$id?>");
-		element.onchange = function() {
+		document.getElementById("<?=$id?>").addEventListener("change", function() {
 			var old_price = PreviousValues[this.getAttribute("name")];
+			var price = parseFloat(this.options[this.selectedIndex].getAttribute("data-price"));
+			
 			if (old_price) {
 				Total -= old_price;
 			}
-			var price = parseFloat(this.options[this.selectedIndex].getAttribute("data-price"));
+			
 			Total += price;
 			PreviousValues[this.getAttribute("name")] = price;
 			document.getElementById("form_builder_total").innerHTML = formatMoney(Total);
-		};
-		<?
+		});
+		<?php
 			}
 		?>
 
-		window.addEventListener("load",function() {
+		window.addEventListener("load", function() {
 			var element;
+			var value;
+			
 			<?
 				// Get all the fields that affect price and get our initial total
 				foreach ($text_watch as $id) {
 			?>
 			element = document.getElementById("<?=$id?>");
+			
 			if (element.value) {
 				var price = parseFloat(element.value.replace(/[^0-9-.]/g, ''));
 				if (price < 0) {
@@ -231,6 +265,7 @@
 				foreach ($check_watch as $id) {
 			?>
 			element = document.getElementById("<?=$id?>");
+			
 			if (element.checked) {
 				Total += parseFloat(i.getAttribute("data-price"));
 			}
@@ -240,6 +275,7 @@
 				foreach ($radio_watch as $id) {
 			?>
 			element = document.getElementById("<?=$id?>");
+			
 			if (element.checked) {
 				Total += parseFloat(i.getAttribute("data-price"));
 				PreviousValues[i.getAttribute("name")] = parseFloat(i.getAttribute("data-price"));
@@ -250,7 +286,8 @@
 				foreach ($select_watch as $id) {
 			?>
 			element = document.getElementById("<?=$id?>");
-			var value = parseFloat(element.options[element.selectedIndex].getAttribute("data-price"));
+			value = parseFloat(element.options[element.selectedIndex].getAttribute("data-price"));
+			
 			if (value) {
 				Total += value;
 				PreviousValues[element.getAttribute("name")] = parseFloat(element.options[element.selectedIndex].getAttribute("data-price"));
@@ -258,6 +295,7 @@
 			<?
 				}
 			?>
+			
 			document.getElementById("form_builder_total").innerHTML = formatMoney(Total);
 		});
 	})();
@@ -269,4 +307,3 @@
 		unset($_SESSION["form_builder"]["errors"]);
 		unset($_SESSION["form_builder"]["fields"]);
 	}
-?>

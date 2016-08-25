@@ -1,8 +1,8 @@
 {
     "type": "extension",
     "id": "com.fastspot.form-builder",
-    "version": "1.0.3",
-    "revision": 19,
+    "version": "1.1",
+    "revision": 20,
     "compatibility": "4.2+",
     "title": "Form Builder",
     "description": "An easy to use form builder allowing the administrative users to easily add fields to a form that stores entries in the database and sends out emails. Also supports paid forms.",
@@ -24,7 +24,7 @@
         "module_groups": [],
         "modules": [
             {
-                "id": "3",
+                "id": "4",
                 "group": null,
                 "name": "Form Builder",
                 "route": "com.fastspot.form-builder*btx-form-builder",
@@ -39,21 +39,21 @@
                 "extension": "com.fastspot.form-builder",
                 "actions": [
                     {
-                        "id": "7",
-                        "module": "3",
+                        "id": "15",
+                        "module": "4",
                         "name": "View Forms",
                         "route": "",
                         "in_nav": "on",
                         "form": null,
-                        "view": "3",
+                        "view": "5",
                         "report": null,
                         "class": "list",
                         "level": "0",
                         "position": "3"
                     },
                     {
-                        "id": "8",
-                        "module": "3",
+                        "id": "16",
+                        "module": "4",
                         "name": "Add Form",
                         "route": "add",
                         "in_nav": "on",
@@ -65,8 +65,8 @@
                         "position": "2"
                     },
                     {
-                        "id": "9",
-                        "module": "3",
+                        "id": "17",
+                        "module": "4",
                         "name": "Settings",
                         "route": "settings",
                         "in_nav": "on",
@@ -80,8 +80,8 @@
                 ],
                 "views": [
                     {
-                        "id": "3",
-                        "module": "3",
+                        "id": "5",
+                        "module": "4",
                         "title": "Forms",
                         "description": "",
                         "type": "searchable",
@@ -191,7 +191,20 @@
         "callouts": [],
         "settings": [],
         "feeds": [],
-        "field_types": [],
+        "field_types": [
+            {
+                "id": "com.fastspot.form-builder*form-builder-picker",
+                "name": "Form Builder Form",
+                "use_cases": {
+                    "templates": "on",
+                    "modules": "on",
+                    "callouts": "on",
+                    "settings": "on"
+                },
+                "self_draw": "on",
+                "extension": "com.fastspot.form-builder"
+            }
+        ],
         "tables": {
             "btx_form_builder_entries": "CREATE TABLE `btx_form_builder_entries` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `form` int(11) NOT NULL,   `data` longtext NOT NULL,   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',   PRIMARY KEY (`id`),   KEY `form` (`form`),    FOREIGN KEY (`form`) REFERENCES `btx_form_builder_forms` (`id`) ON DELETE CASCADE ) ENGINE=InnoDB DEFAULT CHARSET=utf8",
             "btx_form_builder_fields": "CREATE TABLE `btx_form_builder_fields` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `form` int(11) NOT NULL,   `column` int(11) NOT NULL,   `alignment` char(5) NOT NULL,   `type` varchar(255) NOT NULL DEFAULT '',   `data` longtext NOT NULL,   `position` int(11) NOT NULL,   `tester` int(11) DEFAULT NULL,   PRIMARY KEY (`id`),   KEY `form` (`form`),   KEY `column` (`column`),   KEY `position` (`position`),    FOREIGN KEY (`form`) REFERENCES `btx_form_builder_forms` (`id`) ON DELETE CASCADE ) ENGINE=InnoDB DEFAULT CHARSET=utf8",

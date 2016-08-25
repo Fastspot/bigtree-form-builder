@@ -112,6 +112,46 @@
 			$mod = new BigTreeModule("btx_form_builder_entries");
 			return $mod->get($id);
 		}
+		
+		/*
+			Function: parseTokens
+				Parses the token array for a field and modifies it (token_list is by reference).
+			
+			Parameters:
+				token_list - An array of tokens (as keys) and values
+				type - A field type
+				label - The field label
+				value - The value to store
+				reset - Call if using a second data set to re-init duplicates array
+		*/
+		
+		static function parseTokens(&$token_list, $type, $label, $value, $reset = false) {
+			static $duplicates = array();
+			
+			if ($reset) {
+				$duplicates = array();
+				return false;
+			}
+			
+			if ($type !== "columns" && $type !== "captcha" && $type !== "section") {
+				if (isset($duplicates[$label])) {
+					$duplicates[$label]++;
+					$token_list[$label."--".$duplicates[$label]] = $value;
+				} else {
+					if (!isset($token_list[$label])) {
+						$token_list[$label] = $value;
+					} else {
+						$duplicates[$label] = 2;
+						
+						$existing_value = $token_list[$label];
+						unset($token_list[$label]);
+						
+						$token_list[$label."--1"] = $existing_value;
+						$token_list[$label."--2"] = $value;
+					}
+				}
+			}
+		}
 
 		/*
 			Function: searchEntries

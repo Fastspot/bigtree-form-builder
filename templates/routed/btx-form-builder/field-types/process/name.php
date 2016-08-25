@@ -1,18 +1,25 @@
-<?
-	if (!$d["label"]) {
-		$d["label"] = "Name";
+<?php
+	/**
+	 * @global array $field_data
+	 * @global array $form
+	 * @global array $settings
+	 * @global string $field_name
+	 */
+	
+	if (!$field_data["label"]) {
+		$field_data["label"] = "Name";
 	}
 	
 	$value = $_POST[$field_name];
-	$count++;
 	
-	$email .= $d["label"]."\n";
-	$email .= str_repeat("-",strlen($d["label"]))."\n";
-	$email .= "First: ".$value["first"]."\n";
-	$email .= "Last: ".$value["last"];
-	$email .= "\n\n";
+	$email_body .= $field_data["label"]."\n";
+	$email_body .= str_repeat("-", strlen($field_data["label"]))."\n";
+	$email_body .= "First: ".$value["first"]."\n";
+	$email_body .= "Last: ".$value["last"];
+	$email_body .= "\n\n";
 	
-	if ($d["required"] && (!$value["first"] || !$value["last"])) {
+	$confirmation_email_value = trim($value["first"]." ".$value["last"]);
+	
+	if ($field_data["required"] && (!$value["first"] || !$value["last"])) {
 		$errors[] = $field_name;
 	}
-?>

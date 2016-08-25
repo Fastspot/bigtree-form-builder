@@ -1,11 +1,22 @@
+<?php
+	/**
+	 * @global array $data
+	 * @global bool $paid
+	 */
+?>
 <label>
-	<?=htmlspecialchars($data["label"])?>
-	<? if ($data["required"]) { ?>
+	<?php
+		echo htmlspecialchars($data["label"]);
+		
+		if ($data["required"]) {
+	?>
 	<span class="required">*</span>
-	<? } ?>
+	<?php
+		}
+	?>
 </label>
 <select class="custom_control">
-	<? foreach ($data["list"] as $item) { ?>
-	<option value="<?=htmlspecialchars($item["value"])?>"<? if ($item["selected"]) {?> selected="selected"<? } ?>><?=htmlspecialchars($item["description"])?></option>
-	<? } ?>
+	<?php foreach ($data["list"] as $item) { ?>
+	<option value="<?=htmlspecialchars($item["value"])?>"<?php if ($item["selected"]) {?> selected="selected"<?php } ?>><?=htmlspecialchars($item["description"])?></option>
+	<?php } ?>
 </select>

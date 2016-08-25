@@ -1,17 +1,34 @@
-<?
+<?php
+	/**
+	 * @global array $bigtree
+	 * @global int $form
+	 */
+	
 	// Make sure this page is never cached.
 	if (!defined("BIGTREE_DO_NOT_CACHE")) {
-		define("BIGTREE_DO_NOT_CACHE",true);
+		define("BIGTREE_DO_NOT_CACHE", true);
 	}
 	
-	$form = BTXFormBuilder::getForm($form);
+	// $form is an array in newer form builder
+	if (!is_array($form)) {
+		$form = array(
+			"form" => $form,
+			"email_field" => false,
+			"email_template" => false
+		);
+	}
+	
+	$email_template = $form["email_template"];
+	$email_subject = $form["email_subject"];
+	$email_field = $form["email_field"];
+	$form = BTXFormBuilder::getForm($form["form"]);
 	$settings = $cms->getSetting("settings");
 	
 	// Make sure we're serving over HTTPS
 	if ($form["paid"]) {
 		$cms->makeSecure();
-
-		$form["fields"] = array_merge($form["fields"],array(
+		
+		$form["fields"] = array_merge($form["fields"], array(
 			// Section Header
 			array(
 				"type" => "section",
@@ -26,7 +43,7 @@
 				"data" => json_encode(array(
 					"name" => "fb_cc_billing_name",
 					"required" => true,
-					"label" => "Billing Name"	
+					"label" => "Billing Name"
 				))
 			),
 			// Billing Email
@@ -57,8 +74,7 @@
 			)
 		));
 		
-		$page_link = str_replace("http://","https://",WWW_ROOT).$bigtree["page"]["path"]."/";
+		$page_link = str_replace("http://", "https://", WWW_ROOT).$bigtree["page"]["path"]."/";
 	} else {
 		$page_link = WWW_ROOT.$bigtree["page"]["path"]."/";
 	}
-?>

@@ -1,8 +1,19 @@
+<?php
+	/**
+	 * @global array $data
+	 * @global bool $paid
+	 */
+?>
 <label>
-	<?=htmlspecialchars($data["label"])?>
-	<? if ($data["required"]) { ?>
+	<?php
+		echo htmlspecialchars($data["label"]);
+		
+		if ($data["required"]) {
+	?>
 	<span class="required">*</span>
-	<? } ?>
+	<?php
+		}
+	?>
 </label>
 <div class="form_builder_object form_builder_full">
 	<input type="text" class="form_builder_text" />

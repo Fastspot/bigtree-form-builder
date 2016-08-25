@@ -1,3 +1,9 @@
+<?php
+	/**
+	 * @global array $data
+	 * @global bool $paid
+	 */
+?>
 <fieldset>
 	<label>Section Title</label>
 	<input type="text" name="title" value="<?=htmlspecialchars($data["title"])?>" />

@@ -1,3 +1,8 @@
+<?php
+	/**
+	 * @global array $settings
+	 */
+?>
 <h4>Formatting</h4>
 <a href="#" class="section" name="section"><span></span>Section Break</a>
 <a href="#" class="columns" name="columns"><span></span>Columns</a>
@@ -15,6 +20,6 @@
 <a href="#" class="email" name="email"><span></span>Email</a>
 <a href="#" class="url" name="url"><span></span>Website</a>
 <a href="#" class="phone" name="phone"><span></span>Phone</a>
-<? if ($settings["recaptcha"]["site_key"] && $settings["recaptcha"]["secret_key"]) { ?>
+<?php if ($settings["recaptcha"]["site_key"] && $settings["recaptcha"]["secret_key"]) { ?>
 <a href="#" class="captcha" name="captcha"><span></span>reCAPTCHA</a>
-<? } ?>
+<?php } ?>

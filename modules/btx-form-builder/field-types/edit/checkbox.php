@@ -1,4 +1,9 @@
-<?
+<?php
+	/**
+	 * @global array $data
+	 * @global bool $paid
+	 */
+	
 	// Format pricing if paid.
 	if ($paid) {
 		foreach ($data["list"] as &$option) {
@@ -23,8 +28,8 @@
 		element: "#checkbox_option_list",
 		name: "list",
 		title: "Options",
-		columns: ["Value","Description"<? if ($paid) { ?>,"Price Change"<? } ?>],
-		keys: [{ key: "value", type: "text" },{ key: "description", type: "text" }<? if ($paid) { ?>,{ key: "price", type: "text" }<? } ?>],
+		columns: ["Value","Description"<?php if ($paid) { ?>,"Price Change"<?php } ?>],
+		keys: [{ key: "value", type: "text" },{ key: "description", type: "text" }<?php if ($paid) { ?>,{ key: "price", type: "text" }<?php } ?>],
 		existing: <?=json_encode($data["list"])?>
 	});
 
@@ -32,6 +37,7 @@
 	$("#checkbox_option_list").parents("form").submit(function(ev) {
 		var value_list = [];
 		var ok = true;
+		
 		$("#checkbox_option_list input").each(function(index,el) {
 			// Only want values
 			if ($(el).attr("name").indexOf("value") > -1) {
@@ -43,6 +49,7 @@
 				value_list.push(v);
 			}
 		});
+		
 		if (!ok) {
 			ev.stopImmediatePropagation();
 			ev.preventDefault();
