@@ -24,6 +24,15 @@ Form Elements
 Changelog
 ---------
 
+### 1.2 Release
+- Fixed potential XSS attack via redraw-field (thanks to Haojun Hou in ADLab of Venustech)
+- Fixed drawing back to back column sets breaking the display
+
+### 1.1 Release
+- Auto responder email support
+- Fixed limiting entries not showing properly after being checked while editing
+- Fixed invalid dates coming through date fields (thanks to Jordan Mason)
+
 ### 1.0.1 Release
 - Added a check to make sure users don't have duplicate values in select / radio / checkboxes when saving
 

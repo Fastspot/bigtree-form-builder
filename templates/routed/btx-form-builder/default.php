@@ -89,6 +89,9 @@
 			} else {
 				if ($last_field == "column") {
 					echo '<div class="form_builder_column form_builder_last">';
+
+					// Reset so that if someone did back to back columns it draws properly
+					$field_type = "second_column";
 				} else {
 					echo '<div class="form_builder_column">';
 				}
@@ -124,6 +127,7 @@
 				
 				echo '</div>';
 			}
+
 			$last_field = $field_type;
 		}
 	?>

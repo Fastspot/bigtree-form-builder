@@ -1,8 +1,10 @@
 <?php
 	$required = false;
 	$label = "";
-	$type = trim($_POST["type"]);
-	$key = str_replace("form_builder_element_", "", $_POST["name"]);
+	$key = htmlspecialchars(str_replace("form_builder_element_", "", $_POST["name"]));
+
+	// We URLify to prevent any kind of weird include jacking via ../
+	$type = BigTreeCMS::urlify(trim($_POST["type"]));
 	
 	// Clean up prices
 	if ($_POST["list"]["list"]) {
@@ -19,8 +21,8 @@
 	
 	$data = $_POST;
 ?>
-<input type="hidden" name="id[<?=$key?>]" value="<?=$_POST["id"]?>" />
-<input type="hidden" name="type[<?=$key?>]" value="<?=$type?>" />
+<input type="hidden" name="id[<?=$key?>]" value="<?=htmlspecialchars($_POST["id"])?>" />
+<input type="hidden" name="type[<?=$key?>]" value="<?=htmlspecialchars($type)?>" />
 <input type="hidden" name="data[<?=$key?>]" value="<?=htmlspecialchars(json_encode($data))?>" />
 <div class="form_builder_wrapper">
 	<span class="icon"></span>
