@@ -74,7 +74,7 @@
 			)
 		));
 		
-		$page_link = str_replace("http://", "https://", WWW_ROOT).$bigtree["page"]["path"]."/";
+		$page_link = str_replace("http://", "https://", $cms->getLink($bigtree["page"]["id"]));
 	} else {
-		$page_link = WWW_ROOT.$bigtree["page"]["path"]."/";
+		$page_link = $cms->getLink($bigtree["page"]["id"]);
 	}
