@@ -1,7 +1,12 @@
 <?php
 	/**
 	 * @global array $form
+	 * @global BigTreeAdmin $admin
 	 */
+
+	if (method_exists($admin, "drawCSRFToken")) {
+		$admin->drawCSRFToken();
+	}
 ?>
 <section>
 	<?php

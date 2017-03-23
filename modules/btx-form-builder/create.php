@@ -1,4 +1,12 @@
 <?php
+	/**
+	 * @global BigTreeAdmin $admin
+	 */
+
+	if (method_exists($admin, "verifyCSRFToken")) {
+		$admin->verifyCSRFToken();
+	}
+
 	// Get cleaned up prices, dates, and entries
 	if ($_POST["early_bird"]) {
 		$early_bird_date = "'".date("Y-m-d H:i:s", strtotime(str_replace("@", "", $_POST["early_bird_date"])))."'";

@@ -1,7 +1,12 @@
 <?php
 	/**
 	 * @global array $bigtree
+	 * @global BigTreeAdmin $admin
 	 */
+
+	if (method_exists($admin, "verifyCSRFToken")) {
+		$admin->verifyCSRFToken();
+	}
 	
 	$fieldMod = new BigTreeModule("btx_form_builder_fields");
 	$form = sqlescape($bigtree["commands"][0]);

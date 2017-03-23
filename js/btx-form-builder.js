@@ -50,12 +50,15 @@ var BTXFormBuilder = (function() {
 				ListScrollTimer = setTimeout(function() {
 					var container_height = Container.height();
 					var new_offset = (window.scrollY - ListTop) + 10;
+					
 					if ((new_offset + ListHeight) > container_height) {
 						new_offset = container_height - ListHeight;
 					}
+
 					if (new_offset < 0) {
 						new_offset = 0;
 					}
+
 					List.css({ "margin-top": new_offset + "px" });
 				},100);
 			}
@@ -96,6 +99,7 @@ var BTXFormBuilder = (function() {
 		$(".form_builder_column").droppable({
 			drop: function(event,ui) {
 				var type = ui.draggable.attr("name");
+				
 				if (type) {
 					addElement(this,event,ui);
 				}
@@ -106,6 +110,7 @@ var BTXFormBuilder = (function() {
 		Container.droppable({
 			drop: function(event,ui) {
 				var type = ui.draggable.attr("name");
+				
 				if (type) {
 					addElement(this,event,ui);
 				}
@@ -149,6 +154,7 @@ var BTXFormBuilder = (function() {
 		for (var i in data.list) {
 			data.list[i].selected = (i == index);
 		}
+
 		data_field.val(JSON.stringify(data));
 	}
 	
@@ -157,6 +163,7 @@ var BTXFormBuilder = (function() {
 		if (event.timeStamp == LastDropTimestamp) {
 			return false;
 		}
+		
 		LastDropTimestamp = event.timeStamp;
 		
 		// The "container" is basically anything that got the event, so we need to find the container that is droppable

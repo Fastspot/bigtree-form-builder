@@ -43,9 +43,9 @@
 ?>
 <li id="row_<?=$entry["id"]?>">
 	<section class="view_column" style="width: 114px;"><?=date("m/d/Y", strtotime($entry["created_at"]))?></section>
-	<? foreach ($record as $item) { ?>
+	<?php foreach ($record as $item) { ?>
 	<section class="view_column" style="width: <?=$per_col?>px;"><?=BigTree::safeEncode(strip_tags($item))?></section>
-	<? } ?>
+	<?php } ?>
 	<section class="view_action">
 		<a href="<?=ADMIN_ROOT?>com.fastspot.form-builder*btx-form-builder/view-entry/<?=$entry["id"]?>/" class="icon_view_details"></a>
 	</section>

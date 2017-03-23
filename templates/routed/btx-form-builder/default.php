@@ -248,7 +248,7 @@
 			var element;
 			var value;
 			
-			<?
+			<?php
 				// Get all the fields that affect price and get our initial total
 				foreach ($text_watch as $id) {
 			?>
@@ -263,7 +263,7 @@
 				PreviousValues[item.getAttribute("name")] = price;
 				element.value = formatMoney(price);
 			}
-			<?
+			<?php
 				}
 	
 				foreach ($check_watch as $id) {
@@ -273,7 +273,7 @@
 			if (element.checked) {
 				Total += parseFloat(i.getAttribute("data-price"));
 			}
-			<?
+			<?php
 				}
 				
 				foreach ($radio_watch as $id) {
@@ -284,7 +284,7 @@
 				Total += parseFloat(i.getAttribute("data-price"));
 				PreviousValues[i.getAttribute("name")] = parseFloat(i.getAttribute("data-price"));
 			}
-			<?
+			<?php
 				}
 				
 				foreach ($select_watch as $id) {
@@ -296,7 +296,7 @@
 				Total += value;
 				PreviousValues[element.getAttribute("name")] = parseFloat(element.options[element.selectedIndex].getAttribute("data-price"));
 			}
-			<?
+			<?php
 				}
 			?>
 			
@@ -304,7 +304,7 @@
 		});
 	})();
 </script>
-<?
+<?php
 		}
 
 		unset($_SESSION["form_builder"]["payment_error"]);

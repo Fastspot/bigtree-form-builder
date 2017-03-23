@@ -7,7 +7,7 @@
 ?>
 <div class="container">
 	<form method="post" action="<?=MODULE_ROOT?>update/<?=$form["id"]?>/" class="module">
-		<? include "_form.php" ?>
+		<?php include "_form.php" ?>
 		<footer>
 			<input type="submit" class="button blue" value="Update" />	
 		</footer>

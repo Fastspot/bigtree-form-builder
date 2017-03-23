@@ -23,6 +23,7 @@
 		static function getForm($id) {
 			$id = sqlescape($id);
 			$form = sqlfetch(sqlquery("SELECT * FROM btx_form_builder_forms WHERE id = '$id'"));
+			
 			if (!$form) {
 				return false;
 			}
