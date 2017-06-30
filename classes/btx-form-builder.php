@@ -5,6 +5,7 @@
 	*/
 
 	class BTXFormBuilder extends BigTreeModule {
+
 		public $Table = "btx_form_builder_forms";
 
 		public static $SearchPageCount = false;
@@ -121,6 +122,32 @@
 		static function getEntry($id) {
 			$mod = new BigTreeModule("btx_form_builder_entries");
 			return $mod->get($id);
+		}
+
+		/*
+			Function: getFormUsage
+				Returns an array of pages that use this form.
+
+			Parameters:
+				id - Form ID
+
+			Returns:
+				An array.
+		*/
+
+		static function getFormUsage($id) {
+			$pages = array();
+			$q = sqlquery("SELECT * FROM bigtree_pages WHERE (template = 'btx-form-builder' OR template = 'form-builder' OR template = 'com.fastspot.form-builder*btx-form-builder') ORDER BY nav_title ASC");
+
+			while ($page = sqlfetch($q)) {
+				$page["resources"] = json_decode($page["resources"], true);
+
+				if ($page["resources"]["form"]["form"] == $id) {
+					$pages[] = $page;
+				}
+			}
+
+			return $pages;
 		}
 		
 		/*
