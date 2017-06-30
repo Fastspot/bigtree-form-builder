@@ -137,12 +137,13 @@
 
 		static function getFormUsage($id) {
 			$pages = array();
-			$q = sqlquery("SELECT * FROM bigtree_pages WHERE (template = 'btx-form-builder' OR template = 'form-builder' OR template = 'com.fastspot.form-builder*btx-form-builder') ORDER BY nav_title ASC");
+			$q = sqlquery("SELECT * FROM bigtree_pages WHERE template LIKE '%form-builder%' ORDER BY nav_title ASC");
 
 			while ($page = sqlfetch($q)) {
 				$page["resources"] = json_decode($page["resources"], true);
 
-				if ($page["resources"]["form"]["form"] == $id) {
+				if ((is_array($page["resources"]["form"]) && $page["resources"]["form"]["form"] == $id) ||
+					$page["resources"]["form"] == $id) {
 					$pages[] = $page;
 				}
 			}
