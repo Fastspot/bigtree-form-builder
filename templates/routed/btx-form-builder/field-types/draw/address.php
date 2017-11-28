@@ -8,9 +8,9 @@
 	 * @global int $count
 	 * @global string $field_name
 	 */
-	
+
 	$required = $field_data["required"] ? " form_builder_required" : "";
-	
+
 	if (!$default["country"]) {
 		$default["country"] = "United States";
 	}
@@ -39,7 +39,16 @@
 	</div>
 
 	<div class="form_builder_split form_builder_split_last_col">
+		<?php if ($field_data["state_list"]) { ?>
+		<select <?php if ($field_data["required"]) { ?> class="form_builder_required<?php if ($error) { ?> form_builder_error<?php } ?>"<?php } ?> name="<?=$field_name?>[state]" id="form_builder_field_<?=$count?>">
+			<option value=""></option>
+			<?php foreach (BigTree::$StateList as $state_code => $state_name) { ?>
+			<option value="<?=htmlspecialchars($state_code)?>"<?php if ($state_code == $default["state"]) { ?> selected="selected"<?php } ?>><?=htmlspecialchars($state_name)?></option>
+			<?php } ?>
+		</select>
+		<?php } else { ?>
 		<input type="text" name="<?=$field_name?>[state]" id="form_builder_field_<?=$count?>" class="form_builder_text<?=$required?><?php if ($error && !$default["state"]) { ?> form_builder_error<?php } ?>" value="<?=htmlspecialchars($default["state"])?>" />
+		<?php } ?>
 		<label for="form_builder_field_<?=($count++)?>" class="form_builder_sublabel">State / Province / Region</label>
 	</div>
 
@@ -49,7 +58,15 @@
 	</div>
 
 	<div class="form_builder_split form_builder_split_last_row form_builder_split_last_col">
+		<?php if ($field_data["country_list"]) { ?>
+		<select <?php if ($field_data["required"]) { ?> class="form_builder_required<?php if ($error) { ?> form_builder_error<?php } ?>"<?php } ?> name="<?=$field_name?>[country]" id="form_builder_field_<?=$count?>">
+			<?php foreach (BigTree::$CountryList as $item) { ?>
+			<option value="<?=htmlspecialchars($item)?>"<?php if ($item == $default["country"]) { ?> selected="selected"<?php } ?>><?=htmlspecialchars($item)?></option>
+			<?php } ?>
+		</select>
+		<?php } else { ?>
 		<input type="text" name="<?=$field_name?>[country]" id="form_builder_field_<?=$count?>" class="form_builder_text<?=$required?><?php if ($error && !$default["country"]) { ?> form_builder_error<?php } ?>" value="<?=htmlspecialchars($default["country"])?>" />
+		<?php } ?>
 		<label for="form_builder_field_<?=$count?>" class="form_builder_sublabel">Country</label>
 	</div>
 </fieldset>
