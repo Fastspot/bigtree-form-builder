@@ -33,7 +33,7 @@
 		<?php if ($error_count == 1) { ?>
 		<p>A required field was missing. Please fill out all required fields and submit again.</p>
 		<?php } else { ?>
-		<p>Required fields were missing. Please fill out all required fields out and submit again.</p>
+		<p>Required fields were missing. Please fill out all required fields and submit again.</p>
 		<?php } ?>
 	</div>
 	<?php
