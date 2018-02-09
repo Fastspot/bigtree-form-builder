@@ -15,6 +15,25 @@
 		} else {
 			$directory = "files/form-builder/";
 		}
+
+		// If allowed file types are set, make sure it's allowed
+		if (is_array($field_data["allowed_filetypes"]) && count($field_data["allowed_filetypes"])) {
+			$extension = pathinfo($_FILES[$field_name]["name"], PATHINFO_EXTENSION);
+			$ok = false;
+
+			foreach ($field_data["allowed_filetypes"] as $type) {
+				$clean_ext = ltrim(trim($type["extension"]), ".");
+
+				if ($clean_ext == $extension) {
+					$ok = true;
+					break;
+				}
+			}
+
+			if (!$ok) {
+				$errors[] = $field_name;
+			}
+		}
 		
 		$value = $storage->store($_FILES[$field_name]["tmp_name"], $_FILES[$field_name]["name"], $directory);
 		$email_body .= $cms->replaceRelativeRoots($value);

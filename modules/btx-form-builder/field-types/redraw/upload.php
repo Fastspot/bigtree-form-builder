@@ -15,4 +15,18 @@
 		}
 	?>
 </label>
-<input type="file" class="form_builder_upload custom_control" />
+<div class="form_builder_object form_builder_full">
+	<input type="file" class="form_builder_upload custom_control" />
+	<?php
+		if (is_array($data["allowed_filetypes"]) && count($data["allowed_filetypes"])) {
+			$types = array();
+
+			foreach ($data["allowed_filetypes"] as $type) {
+				$types[] = ltrim(trim($type["extension"]), ".");
+			}
+	?>
+	<label>Allowed File Types: <?=implode(", ", $types)?></label>
+	<?php
+		}
+	?>
+</div>
