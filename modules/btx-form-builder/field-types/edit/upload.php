@@ -13,6 +13,10 @@
 	<input type="text" name="directory" value="<?=htmlspecialchars($data["directory"])?>" />
 </fieldset>
 <fieldset>
+	<label>Maximum File Size <small>(in bytes, leave empty for no limit)</small></label>
+	<input type="text" name="max_file_size" value="<?=(!empty($data["max_file_size"]) ? intval($data["max_file_size"]) : "")?>" />
+</fieldset>
+<fieldset>
 	<div id="form_builder_allowed_filetypes"></div>
 </fieldset>
 
