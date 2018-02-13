@@ -20,13 +20,20 @@
 				<input id="fb_field_accept_payments" type="checkbox"<?php if (empty($pg->Service)) { ?> disabled="disabled"<?php } ?> name="accept_payments"<?php if (!empty($settings["accept_payments"])) { ?> checked="checked"<?php } ?> />
 				<label for="fb_field_accept_payments" class="for_checkbox">Enable Payment Processing</label>
 			</fieldset>
+
 			<fieldset>
 				<input id="fb_field_no_css" type="checkbox"<?php if (!empty($settings["no_css"])) { ?> checked="checked"<?php } ?> name="no_css" />
 				<label for="fb_field_no_css" class="for_checkbox">Don't Use Included CSS <small>(in front end template)</small></label>
 			</fieldset>
+
 			<fieldset>
 				<input id="fb_field_no_page_header" type="checkbox"<?php if (!empty($settings["dont_draw_page_header"])) { ?> checked="checked"<?php } ?> name="dont_draw_page_header" />
 				<label for="fb_field_no_page_header" class="for_checkbox">Don't Draw Page Header <small>(for when your layout draws $page_header separately)</small></label>
+			</fieldset>
+
+			<fieldset>
+				<input id="fb_field_no_columns" type="checkbox"<?php if (!empty($settings["disable_columns"])) { ?> checked="checked"<?php } ?> name="disable_columns" />
+				<label for="fb_field_no_columns" class="for_checkbox">Disable Columns Field Type</label>
 			</fieldset>
 
 			<hr>
@@ -50,10 +57,12 @@
 			<h3>reCAPTCHA</h3>
 			<p>To enable reCAPTCHA support you must <a href="http://www.google.com/recaptcha/" target="_blank">sign up here</a>. After adding your domains to reCAPTCHA, enter your Site and Secret keys below.</p>
 			<br />
+			
 			<fieldset>
 				<label for="fb_field_site_key"><strong>Site</strong> Key</label>
 				<input id="fb_field_site_key" type="text" name="recaptcha[site_key]" value="<?=htmlspecialchars($settings["recaptcha"]["site_key"])?>" />
 			</fieldset>
+
 			<fieldset>
 				<label for="fb_field_secret_key"><strong>Secret</strong> Key</label>
 				<input id="fb_field_secret_key" type="text" name="recaptcha[secret_key]" value="<?=htmlspecialchars($settings["recaptcha"]["secret_key"])?>" />

@@ -5,7 +5,13 @@
 ?>
 <h4>Formatting</h4>
 <a href="#" class="section" name="section"><span></span>Section Break</a>
+<?php
+	if (empty($settings["disable_columns"])) {
+?>
 <a href="#" class="columns" name="columns"><span></span>Columns</a>
+<?php
+	}
+?>
 <h4>Standard</h4>
 <a href="#" class="text" name="text"><span></span>Single Line Text</a>
 <a href="#" class="textarea" name="textarea"><span></span>Paragraph Text</a>
@@ -20,6 +26,10 @@
 <a href="#" class="email" name="email"><span></span>Email</a>
 <a href="#" class="url" name="url"><span></span>Website</a>
 <a href="#" class="phone" name="phone"><span></span>Phone</a>
-<?php if ($settings["recaptcha"]["site_key"] && $settings["recaptcha"]["secret_key"]) { ?>
+<?php
+	if ($settings["recaptcha"]["site_key"] && $settings["recaptcha"]["secret_key"]) {
+?>
 <a href="#" class="captcha" name="captcha"><span></span>reCAPTCHA</a>
-<?php } ?>
+<?php
+	}
+?>
