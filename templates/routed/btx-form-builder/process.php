@@ -11,6 +11,24 @@
 	$total = 0;
 	$email_body = "";
 	$errors = $entry = $confirmation_email_tokens = $duplicate_labels = array();
+	$form_closed = false;
+
+	// Check to make sure this form didn't close or reach max entries while being filled out
+	if ($form["scheduling"]) {
+		if (!empty($form["scheduling_open_date"]) && strtotime($form["scheduling_open_date"]) > time()) {
+			$form_closed = true;
+		} elseif (!empty($form["scheduling_close_date"]) && strtotime($form["scheduling_close_date"]) < time()) {
+			$form_closed = true;
+		}
+	}
+
+	if ($form["limit_entries"] && $form["entries"] >= $form["max_entries"]) {
+		$form_closed = true;
+	}
+
+	if ($form_closed) {
+		BigTree::redirect($page_link);
+	}
 	
 	// Start up the running total if we're paid.
 	if ($form["paid"]) {

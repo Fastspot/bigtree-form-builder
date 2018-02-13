@@ -64,21 +64,23 @@ var BTXFormBuilder = (function() {
 			}
 		});
 		
-		// Paid toggles
+		// Tab toggles
 		$("#form_builder_is_paid").click(function() {
-			$("#form_builder_base_price").toggle();
-			$("#form_builder_early_bird").toggle();
-			$("#form_builder_paid_extras").toggle();
+			$("#form_builder_payment_tab_link").toggle();
 		});
 
-		$("#form_builder_early_bird input").click(function() {
-			$("#form_builder_early_base_price").toggle();
-			$("#form_builder_early_bird_date").toggle();
+		$("#form_builder_early_bird").click(function() {
+			$("#form_builder_early_bird_container").toggle();
 		});
 
 		$("#form_builder_limit_entries").click(function() {
-			$("#form_builder_max_entries").toggle();
+			$("#form_builder_limits_tab_link").toggle();
 		});
+
+		$("#form_builder_scheduling").click(function() {
+			$("#form_builder_scheduling_tab_link").toggle();
+		});
+
 
 		// Setup drop zones and other stuff that needs to be repeated later
 		initDropZones();

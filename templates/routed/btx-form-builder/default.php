@@ -6,22 +6,48 @@
 	 * @global string $page_header
 	 * @global string $page_link
 	 */
+
+	$form_closed = false;
 	
 	if (empty($settings["no_css"])) {
 ?>
 <link rel="stylesheet" href="<?=STATIC_ROOT?>extensions/com.fastspot.form-builder/css/front-end.css"/>
 <?php
 	}
+
+	if (!empty($settings["text_wrapper"])) {
+		echo $settings["text_wrapper"];
+	}
 	
-	echo "<h1>$page_header</h1>";
+	if (empty($settings["dont_draw_page_header"])) {
+		echo "<h1>$page_header</h1>";
+	}
+
 	echo $page_content;
 	
 	if ($form["limit_entries"] && $form["entries"] >= $form["max_entries"]) {
+		$form_closed = true;
 ?>
 <h2>Maximum Entries Reached</h2>
 <p>This form has reached the maximum number of entries.</p>
 <?php
-	} else {
+	}
+
+	if ($form["scheduling"]) {
+		if (!empty($form["scheduling_open_date"]) && strtotime($form["scheduling_open_date"]) > time()) {
+			$form_closed = true;
+			echo $form["scheduling_before_message"];
+		} elseif (!empty($form["scheduling_close_date"]) && strtotime($form["scheduling_close_date"]) < time()) {
+			$form_closed = true;
+			echo $form["scheduling_after_message"];
+		}
+	}
+
+	if (!empty($settings["text_wrapper_end"])) {
+		echo $settings["text_wrapper_end"];
+	}
+
+	if (!$form_closed) {
 ?>
 <form method="post" action="<?=$page_link?>process/" enctype="multipart/form-data" class="form_builder">
 	<?php
