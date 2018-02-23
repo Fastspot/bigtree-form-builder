@@ -13,7 +13,7 @@
 		</div>
 	</header>
 
-	<form method="post" action="<?=MODULE_ROOT?>update/<?=$form["id"]?>/" class="module">
+	<form method="post" action="<?=MODULE_ROOT?><?php if (!empty($form["id"])) { ?>update/<?=$form["id"]?>/<?php } else { ?>create/<?php } ?>" class="module">
 		<section id="form_builder_properties_tab"<?php if (!empty($bigtree["form"]["id"]) && empty($_GET["template"])) { ?> style="display: none;"<?php } ?>>
 			<?php include "_properties.php" ?>
 		</section>
