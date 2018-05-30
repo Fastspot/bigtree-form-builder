@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="overflow: initial;">
 	<header>
 		<div class="sticky_controls">
 			<div class="shadow">
@@ -31,7 +31,7 @@
 		</section>
 		<footer>
 			<a href="#" class="next button">Next Step &raquo;</a>
-			<input type="submit" class="button blue" value="Update" />	
+			<input type="submit" class="button blue" value="<?php if (!empty($form["id"])) { ?>Update<?php } else { ?>Create<?php } ?>" />	
 		</footer>
 	</form>
 </div>

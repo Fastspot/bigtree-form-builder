@@ -51,7 +51,7 @@
 ?>
 <form method="post" action="<?=$page_link?>process/" enctype="multipart/form-data" class="form_builder">
 	<?php
-		$error_count = count($_SESSION["form_builder"]["errors"]);
+		$error_count = is_array($_SESSION["form_builder"]["errors"]) ? count($_SESSION["form_builder"]["errors"]) : 0;
 		
 		if ($error_count) {
 	?>

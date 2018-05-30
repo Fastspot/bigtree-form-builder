@@ -40,29 +40,6 @@ var BTXFormBuilder = (function() {
 				 .on("click","input[type=radio]",saveRadioState)
 				 .on("click","input[type=checkbox]",saveCheckboxState)
 				 .on("change","select",saveSelectState);
-			
-		// When the window scrolls, the element list should follow so they can always be dragged over.
-		$(window).scroll(function() {
-			var y = window.scrollY;
-			
-			if (y > ListTop || (y < ListTop && List.css("margin-top") != "0px")) {
-				clearTimeout(ListScrollTimer);
-				ListScrollTimer = setTimeout(function() {
-					var container_height = Container.height();
-					var new_offset = (window.scrollY - ListTop) + 10;
-					
-					if ((new_offset + ListHeight) > container_height) {
-						new_offset = container_height - ListHeight;
-					}
-
-					if (new_offset < 0) {
-						new_offset = 0;
-					}
-
-					List.css({ "margin-top": new_offset + "px" });
-				},100);
-			}
-		});
 		
 		// Tab toggles
 		$("#form_builder_is_paid").click(function() {

@@ -1,8 +1,8 @@
 {
     "type": "extension",
     "id": "com.fastspot.form-builder",
-    "version": "2.1",
-    "revision": 29,
+    "version": "2.1.1",
+    "revision": 30,
     "compatibility": "4.2+",
     "title": "Form Builder",
     "description": "An easy to use form builder allowing the administrative users to easily add fields to a form that stores entries in the database and sends out emails. Also supports paid forms.",
@@ -24,7 +24,7 @@
         "module_groups": [],
         "modules": [
             {
-                "id": "12",
+                "id": "13",
                 "group": null,
                 "name": "Form Builder",
                 "route": "com.fastspot.form-builder*btx-form-builder",
@@ -39,21 +39,21 @@
                 "extension": "com.fastspot.form-builder",
                 "actions": [
                     {
-                        "id": "54",
-                        "module": "12",
+                        "id": "57",
+                        "module": "13",
                         "name": "View Forms",
                         "route": "",
                         "in_nav": "on",
                         "form": null,
-                        "view": "18",
+                        "view": "19",
                         "report": null,
                         "class": "list",
                         "level": "0",
                         "position": "3"
                     },
                     {
-                        "id": "55",
-                        "module": "12",
+                        "id": "58",
+                        "module": "13",
                         "name": "Add Form",
                         "route": "add",
                         "in_nav": "on",
@@ -65,8 +65,8 @@
                         "position": "2"
                     },
                     {
-                        "id": "56",
-                        "module": "12",
+                        "id": "59",
+                        "module": "13",
                         "name": "Settings",
                         "route": "settings",
                         "in_nav": "on",
@@ -80,8 +80,8 @@
                 ],
                 "views": [
                     {
-                        "id": "18",
-                        "module": "12",
+                        "id": "19",
+                        "module": "13",
                         "title": "Forms",
                         "description": "",
                         "type": "searchable",
