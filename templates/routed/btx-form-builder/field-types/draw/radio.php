@@ -16,7 +16,7 @@
 	<label>
 		<?php
 			echo htmlspecialchars($field_data["label"]);
-			
+
 			if ($field_data["required"]) {
 		?>
 		<span class="form_builder_required_star">*</span>
@@ -26,11 +26,12 @@
 	</label>
 	<?php
 		}
-		
+
 		foreach ($field_data["list"] as $item) {
 	?>
 	<div class="form_builder_radio">
 		<input type="radio" id="form_builder_field_<?=$count?>" name="<?=$field_name?>" value="<?=htmlspecialchars($item["value"])?>" <?php if ($default == $item["value"] || ($default === false && $item["selected"])) { ?>checked="checked" <?php } ?> data-price="<?=$item["price"]?>" />
+		<span class="form_builder_radio_indicator"></span>
 		<label class="form_builder_for_checkbox" for="form_builder_field_<?=$count?>"><?=htmlspecialchars($item["description"])?></label>
 	</div>
 	<?php
@@ -38,7 +39,7 @@
 			if ($form["paid"]) {
 				$radio_watch[] = "form_builder_field_$count";
 			}
-			
+
 			$count++;
 		}
 	?>
