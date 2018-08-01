@@ -18,7 +18,7 @@
 	$bigtree["html_fields"][] = "form_builder_scheduling_before_message";
 	$bigtree["html_fields"][] = "form_builder_scheduling_after_message";
 ?>
-<div class="contain" id="form_builder_early_bird_container">
+<div class="contain">
 	<fieldset class="left">
 		<label for="form_builder_scheduling_open_date">Open Date <small>(form will show the "Before" message prior to opening)</small></label>
 		<input id="form_builder_scheduling_open_date" type="text" name="scheduling_open_date" class="date_time_picker" value="<?=$form["scheduling_open_date"]?>" />
