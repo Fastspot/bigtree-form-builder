@@ -24,7 +24,7 @@
 	<div class="form_builder_select">
 		<select id="form_builder_field_<?=$count?>" name="<?=$field_name?>"<?php if ($field_data["required"]) { ?> class="form_builder_required<?php if ($error) { ?> form_builder_error<?php } ?>"<?php } ?>>
 			<?php foreach ($field_data["list"] as $item) { ?>
-			<option value="<?=htmlspecialchars($item["value"])?>"<?php if ($item["value"] == $default || ($default === false && $item["selected"])) { ?> selected="selected"<?php } ?> data-price="<?=$item["price"]?>"><?=htmlspecialchars($item["description"])?></option>
+			<option value="<?=htmlspecialchars($item["value"])?>"<?php if ($item["value"] == $default || ($default === false && $item["selected"])) { ?> selected="selected"<?php } ?> data-price="<?=floatval(str_replace(array('$', ','), '', $item["price"]))?>"><?=htmlspecialchars($item["description"])?></option>
 			<?php } ?>
 		</select>
 	</div>

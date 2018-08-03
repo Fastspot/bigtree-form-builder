@@ -443,7 +443,7 @@ var BTXFormBuilder = (function() {
 	function editElement(ev) {
 		ev.preventDefault();
 
-		var paid = $("#form_builder_is_paid").attr("checked");
+		var paid = $("#form_builder_is_paid").prop("checked");
 		var element = $(this).parents(".form_builder_element").eq(0);
 		
 		// Save information

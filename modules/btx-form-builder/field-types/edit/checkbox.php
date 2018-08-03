@@ -7,6 +7,8 @@
 	// Format pricing if paid.
 	if ($paid) {
 		foreach ($data["list"] as &$option) {
+			$option["price"] = floatval(str_replace(array('$', ','), '', $option["price"]));
+
 			if ($option["price"] < 0) {
 				$option["price"] = '- $'.number_format(abs($option["price"]),2);
 			} else {
