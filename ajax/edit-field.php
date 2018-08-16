@@ -1,4 +1,5 @@
 <?php
+	$settings = (array) $cms->getSetting("settings");
 	$data = json_decode($_POST["data"], true);
 	$paid = $_POST["paid"];
 	$type = trim($_POST["type"]);

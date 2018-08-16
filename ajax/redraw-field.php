@@ -1,4 +1,5 @@
 <?php
+	$settings = (array) $cms->getSetting("settings");
 	$required = false;
 	$label = "";
 	$key = htmlspecialchars(str_replace("form_builder_element_", "", $_POST["name"]));

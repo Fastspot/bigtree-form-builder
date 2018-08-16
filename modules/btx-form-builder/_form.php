@@ -40,7 +40,7 @@
 	BigTreeFormNavBar.init();
 
 	$(document).ready(function() {
-		BTXFormBuilder.init(<?=($form["object_count"] ? $form["object_count"] : "0")?>);
+		BTXFormBuilder.init(<?=($form["object_count"] ? $form["object_count"] : "0")?>, "<?=(!empty($settings["phone_default_intl"]) ? "intl" : "usa")?>", "<?=$settings["phone_default_country_code"]?>");
 	});
 </script>
 <?php
