@@ -27,14 +27,9 @@
 <input type="hidden" name="data[<?=$key?>]" value="<?=htmlspecialchars(json_encode($data))?>" />
 <div class="form_builder_wrapper">
 	<span class="icon"></span>
-    <?php
-        $directory = EXTENSION_ROOT."modules/btx-form-builder/field-types/redraw/";
-        $scannedDirectory = array_diff(scandir($directory), ['..', '.']);
-        if (!in_array("$type.php", $scannedDirectory)) {
-            throw new Exception;
-        }
-        include $directory . $type . ".php";
-    ?>
+	<?php
+		include EXTENSION_ROOT."modules/btx-form-builder/field-types/redraw/".BigTree::cleanFile($type).".php";
+	?>
 </div>
 <div class="form_builder_controls">
 	<a href="#" class="icon_small icon_small_edit"></a>
