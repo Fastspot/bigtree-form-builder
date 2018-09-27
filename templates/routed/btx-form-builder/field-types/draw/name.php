@@ -29,12 +29,12 @@
 	</label>
 	<div class="form_builder_wrap">
 		<div class="form_builder_firstname">
-			<input type="text" name="<?=$field_name?>[first]" id="form_builder_field_<?=$count?>" class="<?=implode(" ",$classes)?><?php if ($error && !$default["first"]) { ?> form_builder_error<?php } ?>" value="<?=htmlspecialchars($default["first"])?>" />
+			<input type="text" name="<?=$field_name?>[first]" id="form_builder_field_<?=$count?>" class="<?=implode(" ",$classes)?><?php if ($error && !$default["first"]) { ?> form_builder_error<?php } ?>" value="<?=htmlspecialchars($default["first"])?>" autocomplete="given-name" />
 			<label for="form_builder_field_<?=($count++)?>" class="form_builder_sublabel">First</label>
 		</div>
 		
 		<div class="form_builder_lastname">
-			<input type="text" name="<?=$field_name?>[last]" id="form_builder_field_<?=$count?>" class="<?=implode(" ",$classes)?><?php if ($error && !$default["last"]) { ?> form_builder_error<?php } ?>" value="<?=htmlspecialchars($default["last"])?>" />
+			<input type="text" name="<?=$field_name?>[last]" id="form_builder_field_<?=$count?>" class="<?=implode(" ",$classes)?><?php if ($error && !$default["last"]) { ?> form_builder_error<?php } ?>" value="<?=htmlspecialchars($default["last"])?>" autocomplete="family-name" />
 			<label for="form_builder_field_<?=$count?>" class="form_builder_sublabel">Last</label>
 		</div>
 	</div>

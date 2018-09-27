@@ -31,5 +31,5 @@
 			}
 		?>
 	</label>
-	<input type="email" id="form_builder_field_<?=$count?>" name="<?=$field_name?>" class="<?=implode(" ", $classes)?>" value="<?=htmlspecialchars($default)?>" />
+	<input type="email" id="form_builder_field_<?=$count?>" name="<?=$field_name?>" class="<?=implode(" ", $classes)?>" value="<?=htmlspecialchars($default)?>" autocomplete="email" />
 </fieldset>
