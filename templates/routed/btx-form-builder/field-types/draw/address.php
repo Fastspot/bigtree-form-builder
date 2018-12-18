@@ -18,12 +18,12 @@
 	$section_token = "section-".BigTreeCMS::urlify($field_data["label"]);
 ?>
 <fieldset class="form_builder_address">
-	<label for="form_builder_field_<?=$count?>">
+	<legend for="form_builder_field_<?=$count?>">
 		<?=htmlspecialchars($field_data["label"])?>
 		<?php if ($field_data["required"]) { ?>
 		<span class="form_builder_required_star">*</span>
 		<?php } ?>
-	</label>
+	</legend>
 
 	<div class="form_builder_full">
 		<input type="text" name="<?=$field_name?>[street]" id="form_builder_field_<?=$count?>" class="form_builder_text<?=$required?><?php if ($error && !$default["street"]) { ?> form_builder_error<?php } ?>" value="<?=htmlspecialchars($default["street"])?>" autocomplete="<?=$section_token?> address-line1" />

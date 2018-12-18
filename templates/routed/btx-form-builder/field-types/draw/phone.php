@@ -16,7 +16,7 @@
 	$section_token = "section-".BigTreeCMS::urlify($field_data["label"]);
 ?>
 <fieldset>
-	<label for="form_builder_field_<?=$count?>">
+	<legend for="form_builder_field_<?=$count?>">
 		<?php
 			echo htmlspecialchars($field_data["label"]);
 			
@@ -26,7 +26,7 @@
 		<?php
 			}
 		?>
-	</label>
+	</legend>
 	<div class="form_builder_wrap">
 		<?php
 			if (empty($field_data["international"])) {

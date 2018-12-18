@@ -13,7 +13,7 @@
 	<?php
 		if ($field_data["label"]) {
 	?>
-	<label>
+	<legend>
 		<?php
 			echo htmlspecialchars($field_data["label"]);
 
@@ -23,7 +23,7 @@
 		<?php
 			}
 		?>
-	</label>
+	</legend>
 	<?php
 		}
 

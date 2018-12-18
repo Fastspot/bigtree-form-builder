@@ -10,7 +10,7 @@
 	 */
 ?>
 <fieldset>
-	<label for="form_builder_field_<?=$count?>">
+	<legend for="form_builder_field_<?=$count?>">
 		<?php
 			echo htmlspecialchars($field_data["label"]);
 			
@@ -20,7 +20,7 @@
 		<?php
 			}
 		?>
-	</label>
+	</legend>
 
 	<div class="form_builder_date_2">
 		<input type="text" maxlength="2" name="<?=$field_name?>[month]" id="form_builder_field_<?=$count?>" class="form_builder_text<?php if ($field_data["required"]) { ?> form_builder_required<?php if ($error && !$default["month"]) { ?> form_builder_error<?php } ?><?php } ?>" value="<?=htmlspecialchars($default["month"])?>" />
