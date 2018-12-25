@@ -3,7 +3,8 @@
 ---------------------------*/
 
 	.form_builder fieldset { clear: both; display: block; margin: 0 0 35px 0; /* overflow: hidden;  */}
-	.form_builder label { color: #87939A; display: block; font-family: OpenSansSemibold, sans-serif; font-style: normal; font-weight: normal; font-size: 17px; margin: 0 0 10px 0; }
+	.form_builder label,
+	.form_builder legend { color: #87939A; display: block; font-family: OpenSansSemibold, sans-serif; font-style: normal; font-weight: normal; font-size: 17px; margin: 0 0 10px 0; }
 	.form_builder label.required { }
 	.form_builder label.form_builder_for_checkbox { -moz-user-select: none; -ms-user-select: none; -webkit-user-select: none; float: left; font-size: 12px; user-select: none; color: #22323E; font-family: OpenSansRegular, sans-serif; font-style: normal; font-weight: normal; }
 	.form_builder .form_builder_sublabel { font-size: 11px; padding: 5px 0 0 0; margin: 0; color: #999; }
