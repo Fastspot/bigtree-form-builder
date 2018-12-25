@@ -18,7 +18,7 @@
 	$section_token = "section-".BigTreeCMS::urlify($field_data["label"]);
 ?>
 <fieldset>
-	<label for="form_builder_field_<?=$count?>">
+	<legend for="form_builder_field_<?=$count?>">
 		<?php
 			echo htmlspecialchars($field_data["label"]);
 			
@@ -28,7 +28,7 @@
 		<?php
 			}
 		?>
-	</label>
+	</legend>
 	<div class="form_builder_wrap">
 		<div class="form_builder_firstname">
 			<input type="text" name="<?=$field_name?>[first]" id="form_builder_field_<?=$count?>" class="<?=implode(" ",$classes)?><?php if ($error && !$default["first"]) { ?> form_builder_error<?php } ?>" value="<?=htmlspecialchars($default["first"])?>" autocomplete="<?=$section_token?> given-name" />

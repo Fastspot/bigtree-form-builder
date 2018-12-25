@@ -15,10 +15,10 @@
 	);
 ?>
 <fieldset>
-	<label for="form_builder_field_<?=$count?>">
+	<legend for="form_builder_field_<?=$count?>">
 		Credit Card
 		<span class="form_builder_required_star">*</span>
-	</label>
+	</legend>
 	
 	<div class="form_builder_wrap">
 		<div class="form_builder_card_number">
