@@ -64,7 +64,7 @@
 
 		<div class="form_builder_item">
 			<?php if ($field_data["country_list"]) { ?>
-			<select class="form_build_select<?php if ($field_data["required"]) { ?> form_builder_required<?php if ($error) { ?> form_builder_error<?php } } ?>" id="form_builder_field_<?=$count?>" name="<?=$field_name?>[country]">
+			<select class="form_builder_select<?php if ($field_data["required"]) { ?> form_builder_required<?php if ($error) { ?> form_builder_error<?php } } ?>" id="form_builder_field_<?=$count?>" name="<?=$field_name?>[country]">
 				<?php foreach (BigTree::$CountryList as $item) { ?>
 				<option value="<?=htmlspecialchars($item)?>"<?php if ($item == $default["country"]) { ?> selected="selected"<?php } ?>><?=htmlspecialchars($item)?></option>
 				<?php } ?>

@@ -28,7 +28,7 @@
 		?>
 	</legend>
 	
-	<div class="form_builder_row form_builder_row_inline">
+	<div class="form_builder_row">
 		<?php
 			if (empty($field_data["international"])) {
 		?>

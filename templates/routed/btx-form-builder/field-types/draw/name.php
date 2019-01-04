@@ -30,7 +30,7 @@
 		?>
 	</legend>
 	
-	<div class="form_builder_row form_builder_row_inline">
+	<div class="form_builder_row">
 		<div class="form_builder_item form_builder_item_firstname">
 			<input class="<?=implode(" ",$classes)?><?php if ($error && !$default["first"]) { ?> form_builder_error<?php } ?>" id="form_builder_field_<?=$count?>" type="text" name="<?=$field_name?>[first]" value="<?=htmlspecialchars($default["first"])?>" autocomplete="<?=$section_token?> given-name" />
 			<label class="form_builder_sublabel" for="form_builder_field_<?=($count++)?>">First</label>
