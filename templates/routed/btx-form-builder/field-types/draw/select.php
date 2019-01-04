@@ -9,8 +9,8 @@
 	 * @global string $field_name
 	 */
 ?>
-<fieldset>
-	<label for="form_builder_field_<?=$count?>">
+<fieldset class="form_builder_fieldset form_builder_fieldset_select">
+	<label class="form_builder_label" for="form_builder_field_<?=$count?>">
 		<?php
 			echo htmlspecialchars($field_data["label"]);
 
@@ -21,8 +21,9 @@
 			}
 		?>
 	</label>
-	<div class="form_builder_select">
-		<select id="form_builder_field_<?=$count?>" name="<?=$field_name?>"<?php if ($field_data["required"]) { ?> class="form_builder_required<?php if ($error) { ?> form_builder_error<?php } ?>"<?php } ?>>
+
+	<div class="form_builder_item">
+		<select class="form_builder_select<?php if ($field_data["required"]) { ?> form_builder_required<?php if ($error) { ?> form_builder_error<?php } } ?>" id="form_builder_field_<?=$count?>" name="<?=$field_name?>">
 			<?php foreach ($field_data["list"] as $item) { ?>
 			<option value="<?=htmlspecialchars($item["value"])?>"<?php if ($item["value"] == $default || ($default === false && $item["selected"])) { ?> selected="selected"<?php } ?> data-price="<?=floatval(str_replace(array('$', ','), '', $item["price"]))?>"><?=htmlspecialchars($item["description"])?></option>
 			<?php } ?>

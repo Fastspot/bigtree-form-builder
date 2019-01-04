@@ -17,8 +17,8 @@
 	
 	$section_token = "section-".BigTreeCMS::urlify($field_data["label"]);
 ?>
-<fieldset>
-	<legend for="form_builder_field_<?=$count?>">
+<fieldset class="form_builder_fieldset form_builder_fieldset_name">
+	<legend class="form_builder_legend" for="form_builder_field_<?=$count?>">
 		<?php
 			echo htmlspecialchars($field_data["label"]);
 			
@@ -29,15 +29,16 @@
 			}
 		?>
 	</legend>
-	<div class="form_builder_wrap">
-		<div class="form_builder_firstname">
-			<input type="text" name="<?=$field_name?>[first]" id="form_builder_field_<?=$count?>" class="<?=implode(" ",$classes)?><?php if ($error && !$default["first"]) { ?> form_builder_error<?php } ?>" value="<?=htmlspecialchars($default["first"])?>" autocomplete="<?=$section_token?> given-name" />
-			<label for="form_builder_field_<?=($count++)?>" class="form_builder_sublabel">First</label>
+	
+	<div class="form_builder_row form_builder_row_inline">
+		<div class="form_builder_item form_builder_item_firstname">
+			<input class="<?=implode(" ",$classes)?><?php if ($error && !$default["first"]) { ?> form_builder_error<?php } ?>" id="form_builder_field_<?=$count?>" type="text" name="<?=$field_name?>[first]" value="<?=htmlspecialchars($default["first"])?>" autocomplete="<?=$section_token?> given-name" />
+			<label class="form_builder_sublabel" for="form_builder_field_<?=($count++)?>">First</label>
 		</div>
 		
-		<div class="form_builder_lastname">
-			<input type="text" name="<?=$field_name?>[last]" id="form_builder_field_<?=$count?>" class="<?=implode(" ",$classes)?><?php if ($error && !$default["last"]) { ?> form_builder_error<?php } ?>" value="<?=htmlspecialchars($default["last"])?>" autocomplete="<?=$section_token?> family-name" />
-			<label for="form_builder_field_<?=$count?>" class="form_builder_sublabel">Last</label>
+		<div class="form_builder_item form_builder_item_lastname">
+			<input class="<?=implode(" ",$classes)?><?php if ($error && !$default["last"]) { ?> form_builder_error<?php } ?>" id="form_builder_field_<?=$count?>" type="text" name="<?=$field_name?>[last]" value="<?=htmlspecialchars($default["last"])?>" autocomplete="<?=$section_token?> family-name" />
+			<label class="form_builder_sublabel" for="form_builder_field_<?=$count?>">Last</label>
 		</div>
 	</div>
 </fieldset>

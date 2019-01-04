@@ -9,8 +9,8 @@
 	 * @global string $field_name
 	 */
 ?>
-<fieldset>
-	<legend for="form_builder_field_<?=$count?>">
+<fieldset class="form_builder_fieldset form_builder_fieldset_date">
+	<legend class="form_builder_legend" for="form_builder_field_<?=$count?>">
 		<?php
 			echo htmlspecialchars($field_data["label"]);
 			
@@ -22,18 +22,20 @@
 		?>
 	</legend>
 
-	<div class="form_builder_date_2">
-		<input type="text" maxlength="2" name="<?=$field_name?>[month]" id="form_builder_field_<?=$count?>" class="form_builder_text<?php if ($field_data["required"]) { ?> form_builder_required<?php if ($error && !$default["month"]) { ?> form_builder_error<?php } ?><?php } ?>" value="<?=htmlspecialchars($default["month"])?>" />
-		<label for="form_builder_field_<?=($count++)?>" class="form_builder_sublabel form_builder_centered">MM</label>
-	</div>
+	<div class="form_builder_row form_builder_row_inline">
+		<div class="form_builder_item form_builder_item_date_2">
+			<input class="form_builder_text<?php if ($field_data["required"]) { ?> form_builder_required<?php if ($error && !$default["month"]) { ?> form_builder_error<?php } ?><?php } ?>" id="form_builder_field_<?=$count?>" type="text" maxlength="2" name="<?=$field_name?>[month]" value="<?=htmlspecialchars($default["month"])?>" />
+			<label class="form_builder_sublabel form_builder_sublabel_centered" for="form_builder_field_<?=($count++)?>">MM</label>
+		</div>
 
-	<div class="form_builder_date_2">
-		<input type="text" maxlength="2" name="<?=$field_name?>[day]" id="form_builder_field_<?=$count?>" class="form_builder_text<?php if ($field_data["required"]) { ?> form_builder_required<?php if ($error && !$default["day"]) { ?> form_builder_error<?php } ?><?php } ?>" value="<?=htmlspecialchars($default["day"])?>" />
-		<label for="form_builder_field_<?=($count++)?>" class="form_builder_sublabel form_builder_centered">DD</label>
-	</div>
-	
-	<div class="form_builder_date_4">
-		<input type="text" maxlength="4" name="<?=$field_name?>[year]" id="form_builder_field_<?=$count?>" class="form_builder_text<?php if ($field_data["required"]) { ?> form_builder_required<?php if ($error && !$default["year"]) { ?> form_builder_error<?php } ?><?php } ?>" value="<?=htmlspecialchars($default["year"])?>" />
-		<label for="form_builder_field_<?=$count?>" class="form_builder_sublabel form_builder_centered">YYYY</label>
+		<div class="form_builder_item form_builder_item_date_2">
+			<input class="form_builder_text<?php if ($field_data["required"]) { ?> form_builder_required<?php if ($error && !$default["day"]) { ?> form_builder_error<?php } ?><?php } ?>" id="form_builder_field_<?=$count?>" type="text" maxlength="2" name="<?=$field_name?>[day]" value="<?=htmlspecialchars($default["day"])?>" />
+			<label class="form_builder_sublabel form_builder_sublabel_centered" for="form_builder_field_<?=($count++)?>">DD</label>
+		</div>
+		
+		<div class="form_builder_item form_builder_item_date_4">
+			<input class="form_builder_text<?php if ($field_data["required"]) { ?> form_builder_required<?php if ($error && !$default["year"]) { ?> form_builder_error<?php } ?><?php } ?>" id="form_builder_field_<?=$count?>" type="text" maxlength="4" name="<?=$field_name?>[year]" value="<?=htmlspecialchars($default["year"])?>" />
+			<label class="form_builder_sublabel form_builder_sublabel_centered" for="form_builder_field_<?=$count?>">YYYY</label>
+		</div>
 	</div>
 </fieldset>

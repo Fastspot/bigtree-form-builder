@@ -14,11 +14,11 @@
 		define("BTXFORMBUILDER_CAPTCHA_USED", true);
 ?>
 <script src='https://www.google.com/recaptcha/api.js'></script>
-<fieldset>
+<fieldset class="form_builder_fieldset form_builder_fieldset_captcha">
 	<?php
 		if ($field_data["label"]) {
 	?>
-	<label>
+	<label class="form_builder_label">
 		<?=htmlspecialchars($field_data["label"])?>
 		<span class="form_builder_required_star">*</span>
 	</label>
@@ -27,15 +27,13 @@
 		
 		if ($field_data["instructions"]) {
 	?>
-	<p><?=htmlspecialchars($field_data["instructions"])?></p>
+	<p class="form_builder_captcha_instructions"><?=htmlspecialchars($field_data["instructions"])?></p>
 	<?php
 		}
 		
 		if ($error) {
 	?>
-	<div class="form_builder_captcha_error">
-		<p>The code you entered was not correct.  Please try again.</p>
-	</div>
+	<p class="form_builder_captcha_error">The code you entered was not correct.  Please try again.</p>
 	<?php
 		}
 	?>

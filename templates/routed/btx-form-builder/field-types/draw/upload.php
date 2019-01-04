@@ -43,8 +43,8 @@
 		$sub_label_parts[] = '<span id="form_builder_file_size_error_'.$count.'">Maximum File Size: '.BigTree::formatBytes(intval($field_data["max_file_size"])).'</span>';
 	}
 ?>
-<fieldset>
-	<label for="form_builder_field_<?=$count?>">
+<fieldset class="form_builder_fieldset form_builder_fieldset_upload">
+	<label class="form_builder_label" for="form_builder_field_<?=$count?>">
 		<?php
 			echo htmlspecialchars($field_data["label"]);
 			
@@ -55,14 +55,17 @@
 			}
 		?>
 	</label>
-	<input type="file" id="form_builder_field_<?=$count?>" name="<?=$field_name?>" <?php if (count($classes)) { ?>class="<?=implode(" ", $classes)?>" <?php } ?>value="<?=htmlspecialchars($field_data["default"])?>" <?php if (!is_null($accept)) { ?> accept="<?=implode(",", $accept)?>"<?php } ?> />
-	<?php
-		if (count($sub_label_parts)) {
-	?>
-	<div class="form_builder_sublabel"><?=implode("&nbsp;&nbsp; | &nbsp;&nbsp;", $sub_label_parts)?></div>
-	<?php
-		}
-	?>
+
+	<div class="form_builder_item">
+		<input class="<?php if (count($classes)) { ?><?=implode(" ", $classes)?><?php } ?>" type="file" id="form_builder_field_<?=$count?>" name="<?=$field_name?>" value="<?=htmlspecialchars($field_data["default"])?>" <?php if (!is_null($accept)) { ?> accept="<?=implode(",", $accept)?>"<?php } ?> />
+		<?php
+			if (count($sub_label_parts)) {
+		?>
+		<div class="form_builder_sublabel"><?=implode("&nbsp;&nbsp; | &nbsp;&nbsp;", $sub_label_parts)?></div>
+		<?php
+			}
+		?>
+	</div>
 </fieldset>
 <?php
 	if (!empty($field_data["max_file_size"])) {

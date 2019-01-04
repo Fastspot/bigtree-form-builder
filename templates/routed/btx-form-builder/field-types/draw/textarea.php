@@ -23,8 +23,8 @@
 		$classes[] = "form_builder_error";
 	}
 ?>
-<fieldset>
-	<label for="form_builder_field_<?=$count?>">
+<fieldset class="form_builder_fieldset form_builder_fieldset_textarea">
+	<label class="form_builder_label" for="form_builder_field_<?=$count?>">
 		<?php
 			echo htmlspecialchars($field_data["label"]);
 			
@@ -35,5 +35,8 @@
 			}
 		?>
 	</label>
-	<textarea id="form_builder_field_<?=$count?>" name="<?=$field_name?>"<?php if (count($classes)) { ?> class="<?=implode(" ", $classes)?>"<?php } ?> placeholder="<?=htmlspecialchars($field_data["placeholder"])?>"><?=htmlspecialchars($default)?></textarea>
+
+	<div class="form_builder_item">
+		<textarea class="form_builder_textarea <?php if (count($classes)) { ?><?=implode(" ", $classes)?><?php } ?>" id="form_builder_field_<?=$count?>" name="<?=$field_name?>" placeholder="<?=htmlspecialchars($field_data["placeholder"])?>"><?=htmlspecialchars($default)?></textarea>
+	</div>
 </fieldset>
