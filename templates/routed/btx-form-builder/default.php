@@ -28,8 +28,10 @@
 	if ($form["limit_entries"] && $form["entries"] >= $form["max_entries"]) {
 		$form_closed = true;
 ?>
-<h2>Maximum Entries Reached</h2>
-<p>This form has reached the maximum number of entries.</p>
+<div class="form_builder_max_entries">
+	<h2 class="form_builder_max_entries_title">Maximum Entries Reached</h2>
+	<p class="form_builder_max_entries_caption">This form has reached the maximum number of entries.</p>
+</div>
 <?php
 	}
 
@@ -49,17 +51,17 @@
 
 	if (!$form_closed) {
 ?>
-<form method="post" action="<?=$page_link?>process/" enctype="multipart/form-data" class="form_builder">
+<form class="form_builder" method="post" action="<?=$page_link?>process/" enctype="multipart/form-data">
 	<?php
 		$error_count = is_array($_SESSION["form_builder"]["errors"]) ? count($_SESSION["form_builder"]["errors"]) : 0;
 		
 		if ($error_count) {
 	?>
-	<div class="form_builder_errors">
+	<div class="form_builder_errors_message">
 		<?php if ($error_count == 1) { ?>
-		<p>A required field was missing. Please fill out all required fields and submit again.</p>
+		<p class="form_builder_errors_label">A required field was missing. Please fill out all required fields and submit again.</p>
 		<?php } else { ?>
-		<p>Required fields were missing. Please fill out all required fields and submit again.</p>
+		<p class="form_builder_errors_label">Required fields were missing. Please fill out all required fields and submit again.</p>
 		<?php } ?>
 	</div>
 	<?php
@@ -67,16 +69,14 @@
 		
 		if ($_SESSION["form_builder"]["payment_error"]) {
 	?>
-	<div class="form_builder_errors">
-		<p>Checkout failed — your credit card has not been charged.</p>
+	<div class="form_builder_errors_message">
+		<p class="form_builder_error_label">Checkout failed — your credit card has not been charged.</p>
 		<p class="form_builder_alert">The error returned was: <?=$_SESSION["form_builder"]["payment_error"]?></p>
 	</div>
 	<?php
 		}
 	?>
-	<div class="form_builder_required_message">
-		<p><span class="form_builder_required_star">*</span> = required field</p>
-	</div>
+	<p class="form_builder_required_message"><span class="form_builder_required_star">*</span><span class="form_builder_required_label"> = required field</span></p>
 	<?php
 		// Setup price watchers.
 		$check_watch = $radio_watch = $select_watch = $text_watch = array();
@@ -114,7 +114,7 @@
 				include "field-types/draw/$field_type.php";
 			} else {
 				if ($last_field == "column") {
-					echo '<div class="form_builder_column form_builder_last">';
+					echo '<div class="form_builder_column form_builder_column_last">';
 
 					// Reset so that if someone did back to back columns it draws properly
 					$field_type = "second_column";

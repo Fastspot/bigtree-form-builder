@@ -10,6 +10,6 @@
 	 */
 ?>
 <div class="form_builder_section_header">
-	<h2><?=htmlspecialchars($field_data["title"])?></h2>
-	<p><?=nl2br(htmlspecialchars($field_data["description"]))?></p>
+	<h2 class="form_builder_section_title"><?=htmlspecialchars($field_data["title"])?></h2>
+	<p class="form_builder_section_description"><?=nl2br(htmlspecialchars($field_data["description"]))?></p>
 </div>
