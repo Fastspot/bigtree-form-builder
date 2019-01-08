@@ -57,11 +57,11 @@
 		
 		if ($error_count) {
 	?>
-	<div class="form_builder_errors">
+	<div class="form_builder_errors_message">
 		<?php if ($error_count == 1) { ?>
-		<p class="form_builder_error">A required field was missing. Please fill out all required fields and submit again.</p>
+		<p class="form_builder_errors_label">A required field was missing. Please fill out all required fields and submit again.</p>
 		<?php } else { ?>
-		<p class="form_builder_error">Required fields were missing. Please fill out all required fields and submit again.</p>
+		<p class="form_builder_errors_label">Required fields were missing. Please fill out all required fields and submit again.</p>
 		<?php } ?>
 	</div>
 	<?php
@@ -69,8 +69,8 @@
 		
 		if ($_SESSION["form_builder"]["payment_error"]) {
 	?>
-	<div class="form_builder_errors">
-		<p class="form_builder_error">Checkout failed — your credit card has not been charged.</p>
+	<div class="form_builder_errors_message">
+		<p class="form_builder_error_label">Checkout failed — your credit card has not been charged.</p>
 		<p class="form_builder_alert">The error returned was: <?=$_SESSION["form_builder"]["payment_error"]?></p>
 	</div>
 	<?php
@@ -114,7 +114,7 @@
 				include "field-types/draw/$field_type.php";
 			} else {
 				if ($last_field == "column") {
-					echo '<div class="form_builder_column form_builder_last">';
+					echo '<div class="form_builder_column form_builder_column_last">';
 
 					// Reset so that if someone did back to back columns it draws properly
 					$field_type = "second_column";

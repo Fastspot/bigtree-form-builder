@@ -1,10 +1,12 @@
-/*---------------------------
-  Formbuilder
----------------------------*/
+/* ==========================================================================
+	Formbuilder
+============================================================================= */
 
 .form_builder_fieldset {
 	width: 100%;
 
+	border: 0;
+	clear: both;
 	display: block;
 	margin: 40px 0;
 	padding: 0;
@@ -56,9 +58,9 @@
 }
 
 
-/*---------------------------
-  Text/Textarea Input
----------------------------*/
+/* ==========================================================================
+	Text/Textarea Input
+============================================================================= */
 
 .form_builder_text,
 .form_builder_textarea {
@@ -76,15 +78,10 @@
 	min-height: 140px;
 }
 
-.form_builder_fieldset.error input,
-.form_builder_fieldset.error textarea {
-	border-color: #CC0000;
-}
 
-
-/*---------------------------
-  Checkboxes/Radios
----------------------------*/
+/* ==========================================================================
+	Checkboxes/Radios
+============================================================================= */
 
 .form_builder_checkbox,
 .form_builder_radio {
@@ -131,9 +128,9 @@
 }
 
 
-/*---------------------------
-  Select
----------------------------*/
+/* ==========================================================================
+	Select
+============================================================================= */
 
 .form_builder_select {
 	width: 100%;
@@ -155,24 +152,9 @@
 }
 
 
-/* Phone Styles */
-
-.form_builder_phone_country:before {
-	color: #999;
-	content: "+";
-	float: left;
-	font-family: OpenSansSemibold, sans-serif;
-	font-size: 14px;
-	font-style: normal;
-	font-weight: normal;
-	line-height: 40px;
-	margin: 0 5px 0 0;
-}
-
-
-/*---------------------------
-  File Upload
----------------------------*/
+/* ==========================================================================
+	File Upload
+============================================================================= */
 
 .form_builder_upload {
 	border: 1px solid rgba(0, 0, 0, .15);
@@ -183,9 +165,9 @@
 }
 
 
-/*---------------------------
-  Name
----------------------------*/
+/* ==========================================================================
+	Name
+============================================================================= */
 
 @media screen and (min-width: 400px) {
 
@@ -216,9 +198,9 @@
 }
 
 
-/*---------------------------
-  Date
----------------------------*/
+/* ==========================================================================
+	Date
+============================================================================= */
 
 .form_builder_fieldset_date .form_builder_text {
 	text-align: center;
@@ -253,9 +235,9 @@
 }
 
 
-/*---------------------------
-  Phone
----------------------------*/
+/* ==========================================================================
+	Phone
+============================================================================= */
 
 .form_builder_fieldset_phone .form_builder_text {
 	text-align: center;
@@ -295,10 +277,21 @@
 	}
 }
 
+.form_builder_item_phone_country:before {
+	position: absolute;
+	top: 12px;
+	left: -10px;
 
-/*---------------------------
-  Credit Card
----------------------------*/
+	color: #999;
+	content: "+";
+	font-family: OpenSansSemibold, sans-serif;
+	font-size: 14px;
+}
+
+
+/* ==========================================================================
+	Credit Card
+============================================================================= */
 
 .form_builder_item_card_date {
 	display: flex;
@@ -308,7 +301,7 @@
 @media screen and (min-width: 740px) {
 
 	.form_builder_item_card_date {
-		width: 50%;
+		width: 270px;
 	}
 }
 
@@ -323,7 +316,7 @@
 @media screen and (min-width: 740px) {
 
 	.form_builder_item_card_date .form_builder_card_month {
-		width: calc(40% - 5px);
+		width: 90px;
 	}
 }
 
@@ -334,21 +327,25 @@
 @media screen and (min-width: 740px) {
 
 	.form_builder_item_card_date .form_builder_card_year {
-		width: calc(60% - 5px);
+		width: 160px;
 	}
+}
+
+.form_builder_item_card_code {
+	width: 50%;
 }
 
 @media screen and (min-width: 740px) {
 
 	.form_builder_item_card_code {
-		width: 50%;
+		width: 160px;
 	}
 }
 
 
-/*---------------------------
-  Submit
----------------------------*/
+/* ==========================================================================
+	Submit
+============================================================================= */
 
 .form_builder_submit {
 	background: #000;
@@ -366,28 +363,28 @@
 }
 
 
-/*---------------------------
-  Errors
----------------------------*/
-
-.form_builder_required_message {
-	font-size: 14px;
-}
+/* ==========================================================================
+	Errors
+============================================================================= */
 
 .form_builder_required_star {
 	color: #CC0000;
 	font-size: 20px;
 }
 
-.form_builder_errors {
-	background: #CC0000;
-	padding: 10px;
+.form_builder_errors_message {
 	margin: 40px 0;
 }
 
+.form_builder_errors_label {
+	background: #CC0000;
+	color: #fff;
+	margin: 0;
+	padding: 8px 10px;
+}
+
 .form_builder_error {
-	color: #FFF;
-	font-size: 12px;
+	border: 1px solid #CC0000;
 	margin: 0;
 }
 
@@ -401,37 +398,45 @@
 }
 
 
-/*---------------------------
-  Section
----------------------------*/
+/* ==========================================================================
+	Section
+============================================================================= */
 
-.form_builder .error {
-	border-color: #AD6672 !important;
+@media screen and (min-width: 740px) {
+
+	.form_builder_column {
+		width: calc(50% - 10px);
+
+		float: left;
+
+		padding-right: 10px;
+	}
+}
+
+@media screen and (min-width: 740px) {
+
+	.form_builder_column_last {
+		padding-right: 0;
+		padding-left: 10px;
+	}
 }
 
 .form_builder_section_header {
-	margin: 0 0 15px 0;
-	padding: 0 0 15px 0;
+	margin-bottom: 40px;
 }
 
 .form_builder_section_header_description {
 	margin: 0;
 }
 
-.form_builder_total_section {
-	border: none;
-	padding: 0;
-}
 
-
-/*---------------------------
-  Captcha
----------------------------*/
+/* ==========================================================================
+	Captcha Error
+============================================================================= */
 
 .form_builder_captcha_error {
 	background: #CC0000;
-	border-radius: 3px;
 	color: #FFF;
-	margin: 0 0 10px 0;
-	padding: 10px;
+	margin: 0 0 20px 0;
+	padding: 8px 10px;
 }
