@@ -21,7 +21,7 @@
 	
 	$section_token = "section-".BigTreeCMS::urlify($field_data["label"]);
 ?>
-<fieldset>
+<fieldset id="<?=$field_name?>">
 	<legend for="form_builder_field_<?=$count?>">
 		<?php
 			echo htmlspecialchars($field_data["label"]);
@@ -33,5 +33,5 @@
 			}
 		?>
 	</legend>
-	<input type="email" id="form_builder_field_<?=$count?>" name="<?=$field_name?>" class="<?=implode(" ", $classes)?>" value="<?=htmlspecialchars($default)?>" autocomplete="<?=$section_token?> email" />
+	<input type="email" id="form_builder_field_<?=$count?>" name="<?=$field_name?>" class="<?=implode(" ", $classes)?>" value="<?=htmlspecialchars($default)?>" autocomplete="<?=$section_token?> email"<?php if (!empty($field_data["required"])) { ?> required<?php } ?>>
 </fieldset>

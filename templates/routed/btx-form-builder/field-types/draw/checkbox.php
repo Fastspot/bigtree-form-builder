@@ -9,7 +9,7 @@
 	 * @global string $field_name
 	 */
 ?>
-<fieldset>
+<fieldset id="<?=$field_name?>">
 	<?php
 		if ($field_data["label"]) {
 	?>
@@ -17,7 +17,7 @@
 		<?php
 			echo htmlspecialchars($field_data["label"]);
 
-			if ($field_data["required"]) {
+			if (!empty($field_data["required"])) {
 		?>
 		<span class="form_builder_required_star">*</span>
 		<?php
@@ -31,7 +31,7 @@
 			$value = $item["value"] ? htmlspecialchars($item["value"]) : htmlspecialchars($item["description"]);
 	?>
 	<div class="form_builder_checkbox">
-		<input type="checkbox" id="form_builder_field_<?=$count?>" name="<?=$field_name?><?php if (count($field_data["list"]) > 1) { ?>[]<?php } ?>" value="<?=$value?>"<?php if ((is_array($default) && in_array($value,$default)) || ($default === false && $item["selected"])) { ?> checked="checked"<?php } ?> data-price="<?=floatval(str_replace(array('$', ','), '', $item["price"]))?>" />
+		<input type="checkbox" id="form_builder_field_<?=$count?>" name="<?=$field_name?><?php if (count($field_data["list"]) > 1) { ?>[]<?php } ?>" value="<?=$value?>"<?php if ((is_array($default) && in_array($value,$default)) || ($default === false && $item["selected"])) { ?> checked="checked"<?php } ?> data-price="<?=floatval(str_replace(array('$', ','), '', $item["price"]))?>">
 		<span class="form_builder_checkbox_indicator"></span>
 		<label class="form_builder_for_checkbox" for="form_builder_field_<?=$count?>"><?=htmlspecialchars($item["description"])?><?php if ($field_data["required"] && !$field_data["label"]) { ?><span class="form_builder_required_star">*</span><?php } ?></label>
 	</div>

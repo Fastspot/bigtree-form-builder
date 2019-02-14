@@ -32,6 +32,10 @@
 
 	.form_builder .form_builder_errors { background: #CC0000; padding: 10px; border-radius: 3px; margin: 0 0 25px 0; }
 	.form_builder .form_builder_errors p { color: #FFF; font-size: 12px; margin: 0; }
+	.form_builder .form_builder_error_list { list-style: none; margin: 10px 0 0 0; }
+	.form_builder .form_builder_error_list_entry { font-size: 12px; margin: 0 0 5px 15px; }
+	.form_builder .form_builder_error_list_entry::before { content: "\2022";  color: #FFF; font-weight: bold; display: inline-block; width: 1em; margin-left: -1em; }
+	.form_builder .form_builder_error_list_entry_link { color: #FFF; text-decoration: underline; }
 	.form_builder .form_builder_errors .form_builder_alert { margin: 0; font-size: 14px; }
 	.form_builder .form_builder_file_size_error { color: #CC0000; }
 	

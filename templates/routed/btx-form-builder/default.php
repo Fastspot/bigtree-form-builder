@@ -56,11 +56,17 @@
 		if ($error_count) {
 	?>
 	<div class="form_builder_errors">
-		<?php if ($error_count == 1) { ?>
-		<p>A required field was missing. Please fill out all required fields and submit again.</p>
-		<?php } else { ?>
-		<p>Required fields were missing. Please fill out all required fields and submit again.</p>
-		<?php } ?>
+		<p>The following required fields are missing or have an incorrect value:</p>
+		<ul class="form_builder_error_list" aria-label="Form Errors">
+			<?php
+				foreach ($_SESSION["form_builder"]["errors"] as $field_id) {
+					$field = BTXFormBuilder::getField(substr($field_id, 18));
+			?>
+			<li class="form_builder_error_list_entry"><a href="#<?=$field_id?>" class="form_builder_error_list_entry_link"><?=$field["data"]["label"]?></a></li>
+			<?php
+				}
+			?>
+		</ul>
 	</div>
 	<?php
 		}
@@ -89,12 +95,7 @@
 			$field_data = json_decode($field["data"], true);
 
 			if ($field_type != "column") {
-				if ($field_data["name"]) {
-					$field_name = $field_data["name"];
-				} else {
-					$field_name = "data_".$field["id"];
-				}
-				
+				$field_name = "form_builder_data_".$field["id"];
 				$error = false;
 				
 				if (isset($_SESSION["form_builder"]["fields"])) {
@@ -124,14 +125,8 @@
 				
 				foreach ($field["fields"] as $subfield) {
 					$count++;
-					$field_data = json_decode($subfield["data"],true);
-					
-					if ($field_data["name"]) {
-						$field_name = $field_data["name"];
-					} else {
-						$field_name = "data_".$subfield["id"];
-					}
-					
+					$field_data = json_decode($subfield["data"], true);
+					$field_name = "form_builder_data_".$subfield["id"];
 					$error = false;
 					
 					if (isset($_SESSION["form_builder"]["fields"])) {

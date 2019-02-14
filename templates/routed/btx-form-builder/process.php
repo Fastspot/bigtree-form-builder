@@ -46,20 +46,16 @@
 		
 		// If it's not a column, just process it.
 		if ($field_type != "column") {
-			if ($field_data["name"]) {
-				$field_name = $field_data["name"];
-			} else {
-				$field_name = "data_".$field["id"];
-			}
-			
+			$field_name = "form_builder_data_".$field["id"];
 			$value = $confirmation_email_value = false;
+		
 			include "field-types/process/$field_type.php";
 			
 			if ($value !== false && $field["id"]) {
 				$entry[$field["id"]] = $value;
 			}
 			
-			if ($field_data["required"] && ($value === "" || $value === false)) {
+			if ($field_data["required"] && ($value === "" || $value === false || is_null($value))) {
 				$errors[] = $field_name;
 			}
 			
@@ -70,29 +66,26 @@
 		} else {
 			foreach ($field["fields"] as $subfield) {
 				$field_data = json_decode($subfield["data"], true);
-				
-				if ($field_data["name"]) {
-					$field_name = $field_data["name"];
-				} else {
-					$field_name = "data_".$subfield["id"];
-				}
-				
+				$field_name = "form_builder_data_".$subfield["id"];				
 				$value = $confirmation_email_value = false;
+
 				include "field-types/process/".$subfield["type"].".php";
 				
 				if ($value !== false) {
 					$entry[$subfield["id"]] = $value;
 				}
 				
-				if ($field_data["required"] && ($value === "" || $value === false)) {
+				if ($field_data["required"] && ($value === "" || $value === false || is_null($value))) {
 					$errors[] = $field_name;
 				}
 				
 				BTXFormBuilder::parseTokens($confirmation_email_tokens, $field_type,
-					$field_data["label"], $confirmation_email_value);
+											$field_data["label"], $confirmation_email_value);
 			}
 		}
 	}
+
+	$errors = array_unique($errors);
 	
 	// If we had errors, redirect back with the saved data and errors.
 	if (count($errors)) {

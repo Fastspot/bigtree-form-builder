@@ -14,7 +14,7 @@
 		define("BTXFORMBUILDER_CAPTCHA_USED", true);
 ?>
 <script src='https://www.google.com/recaptcha/api.js'></script>
-<fieldset>
+<fieldset id="<?=$field_name?>">
 	<?php
 		if ($field_data["label"]) {
 	?>

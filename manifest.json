@@ -1,8 +1,8 @@
 {
     "type": "extension",
     "id": "com.fastspot.form-builder",
-    "version": "2.2.1",
-    "revision": 32,
+    "version": "2.3",
+    "revision": 33,
     "compatibility": "4.2+",
     "title": "Form Builder",
     "description": "An easy to use form builder allowing the administrative users to easily add fields to a form that stores entries in the database and sends out emails. Also supports paid forms.",
@@ -24,106 +24,565 @@
         "module_groups": [],
         "modules": [
             {
-                "id": "13",
-                "group": null,
-                "name": "Form Builder",
-                "route": "com.fastspot.form-builder*btx-form-builder",
-                "class": "BTXFormBuilder",
-                "icon": "form",
-                "gbp": {
-                    "name": "",
-                    "table": "",
-                    "other_table": ""
-                },
-                "position": "0",
-                "extension": "com.fastspot.form-builder",
-                "actions": [
+                "actions": [],
+                "views": [],
+                "forms": [
                     {
-                        "id": "57",
-                        "module": "13",
-                        "name": "View Forms",
-                        "route": "",
-                        "in_nav": "on",
-                        "form": null,
-                        "view": "19",
-                        "report": null,
-                        "class": "list",
-                        "level": "0",
-                        "position": "3"
-                    },
-                    {
-                        "id": "58",
-                        "module": "13",
-                        "name": "Add Form",
-                        "route": "add",
-                        "in_nav": "on",
-                        "form": null,
-                        "view": null,
-                        "report": null,
-                        "class": "add",
-                        "level": "0",
-                        "position": "2"
-                    },
-                    {
-                        "id": "59",
-                        "module": "13",
-                        "name": "Settings",
-                        "route": "settings",
-                        "in_nav": "on",
-                        "form": null,
-                        "view": null,
-                        "report": null,
-                        "class": "server",
-                        "level": "2",
-                        "position": "1"
-                    }
-                ],
-                "views": [
-                    {
-                        "id": "19",
-                        "module": "13",
-                        "title": "Forms",
-                        "description": "",
-                        "type": "searchable",
-                        "table": "btx_form_builder_forms",
-                        "fields": {
-                            "title": {
-                                "title": "Title",
-                                "parser": "",
-                                "width": 222,
-                                "numeric": false
+                        "id": "3",
+                        "module": "3",
+                        "title": "Category",
+                        "table": "btx_events_categories",
+                        "fields": [
+                            {
+                                "column": "parent",
+                                "type": "list",
+                                "title": "Parent Category",
+                                "subtitle": "",
+                                "options": {
+                                    "list_type": "db",
+                                    "allow-empty": "Yes",
+                                    "pop-table": "btx_events_categories",
+                                    "pop-description": "name",
+                                    "pop-sort": "`name` ASC",
+                                    "column": "parent"
+                                }
                             },
-                            "entries": {
-                                "title": "Entries",
-                                "parser": "",
-                                "width": 222,
-                                "numeric": true
+                            {
+                                "column": "name",
+                                "type": "text",
+                                "title": "Name",
+                                "subtitle": "",
+                                "options": {
+                                    "column": "name"
+                                }
                             },
-                            "last_entry": {
-                                "title": "Last Entry",
-                                "parser": "if ($value) { $value = date(\"F j @ g:ia\",strtotime($value)); }",
-                                "width": 222,
-                                "numeric": false
+                            {
+                                "column": "route",
+                                "type": "route",
+                                "title": "Route",
+                                "subtitle": "",
+                                "options": {
+                                    "source": "name",
+                                    "column": "route"
+                                }
                             }
-                        },
-                        "options": {
-                            "sort_column": "title",
-                            "sort_direction": "ASC",
-                            "per_page": "15",
-                            "filter": ""
-                        },
-                        "actions": {
-                            "entries": "{\"name\":\"Entries\",\"class\":\"icon_view\",\"route\":\"entries\",\"function\":\"\"}",
-                            "export": "{\"name\":\"Export\",\"class\":\"icon_export\",\"route\":\"export\",\"function\":\"\"}",
-                            "edit": "on",
-                            "delete": "on"
-                        },
-                        "preview_url": "",
-                        "related_form": null
+                        ],
+                        "default_position": "Bottom",
+                        "return_view": "3",
+                        "return_url": "",
+                        "tagging": "",
+                        "hooks": null
+                    },
+                    {
+                        "id": "5",
+                        "module": "5",
+                        "title": "Category",
+                        "table": "btx_social_feed_categories",
+                        "fields": [
+                            {
+                                "column": "name",
+                                "type": "text",
+                                "title": "Name",
+                                "subtitle": "",
+                                "options": {
+                                    "column": "name"
+                                }
+                            }
+                        ],
+                        "default_position": "",
+                        "return_view": "6",
+                        "return_url": "",
+                        "tagging": "",
+                        "hooks": {
+                            "pre": null,
+                            "post": null,
+                            "publish": ""
+                        }
+                    },
+                    {
+                        "id": "4",
+                        "module": "3",
+                        "title": "Event",
+                        "table": "btx_events_events",
+                        "fields": [
+                            {
+                                "column": "title",
+                                "type": "text",
+                                "title": "Title",
+                                "subtitle": "",
+                                "options": {
+                                    "column": "title"
+                                }
+                            },
+                            {
+                                "column": "description",
+                                "type": "html",
+                                "title": "Description",
+                                "subtitle": "",
+                                "options": {
+                                    "column": "description"
+                                }
+                            },
+                            {
+                                "column": "image",
+                                "type": "upload",
+                                "title": "Image",
+                                "subtitle": "(crops to 600x400)",
+                                "options": {
+                                    "directory": "files/events/",
+                                    "image": "on",
+                                    "min_width": "600",
+                                    "min_height": "400",
+                                    "preview_prefix": "",
+                                    "crops": {
+                                        "1": {
+                                            "prefix": "",
+                                            "width": "600",
+                                            "height": "400",
+                                            "grayscale": ""
+                                        }
+                                    },
+                                    "column": "image"
+                                }
+                            },
+                            {
+                                "column": "__mtm-1__",
+                                "type": "many-to-many",
+                                "title": "Categories",
+                                "subtitle": "",
+                                "options": {
+                                    "mtm-connecting-table": "btx_events_event_categories",
+                                    "mtm-my-id": "event",
+                                    "mtm-other-id": "category",
+                                    "mtm-other-table": "btx_events_categories",
+                                    "mtm-other-descriptor": "name",
+                                    "mtm-sort": "`name` ASC",
+                                    "mtm-list-parser": "BTXEvents::parseMTM",
+                                    "column": "__mtm-1__"
+                                }
+                            },
+                            {
+                                "column": "all_day",
+                                "type": "com.fastspot.events*date-chooser",
+                                "title": "Date Chooser",
+                                "subtitle": "",
+                                "options": {
+                                    "function": "BTXEvents::drawFormDateTime",
+                                    "process_function": "BTXEvents::parseFormDateTime",
+                                    "column": "all_day"
+                                }
+                            },
+                            {
+                                "column": "route",
+                                "type": "route",
+                                "title": "Route",
+                                "subtitle": "",
+                                "options": {
+                                    "source": "title",
+                                    "column": "route"
+                                }
+                            }
+                        ],
+                        "default_position": "",
+                        "return_view": "4",
+                        "return_url": "",
+                        "tagging": "",
+                        "hooks": {
+                            "pre": "",
+                            "post": "",
+                            "publish": "BTXEvents::publishHook"
+                        }
+                    },
+                    {
+                        "id": "9",
+                        "module": "9",
+                        "title": "Great Module",
+                        "table": "great_module_table",
+                        "fields": [
+                            {
+                                "column": "title",
+                                "type": "text",
+                                "title": "Title",
+                                "subtitle": "",
+                                "options": []
+                            },
+                            {
+                                "column": "description",
+                                "type": "textarea",
+                                "title": "Description",
+                                "subtitle": "",
+                                "options": []
+                            }
+                        ],
+                        "default_position": "",
+                        "return_view": null,
+                        "return_url": "",
+                        "tagging": "",
+                        "hooks": []
+                    },
+                    {
+                        "id": "2",
+                        "module": "2",
+                        "title": "Quote",
+                        "table": "demo_quotes",
+                        "fields": [
+                            {
+                                "title": "Quote",
+                                "subtitle": "",
+                                "type": "datetime",
+                                "options": null,
+                                "column": "quote"
+                            },
+                            {
+                                "title": "Author",
+                                "subtitle": "",
+                                "type": "text",
+                                "options": null,
+                                "column": "author"
+                            },
+                            {
+                                "title": "Source",
+                                "subtitle": "",
+                                "type": "callouts",
+                                "options": null,
+                                "column": "source"
+                            }
+                        ],
+                        "default_position": "Bottom",
+                        "return_view": null,
+                        "return_url": "",
+                        "tagging": "",
+                        "hooks": []
+                    },
+                    {
+                        "id": "7",
+                        "module": "7",
+                        "title": "Random Test Module",
+                        "table": "random_test_module",
+                        "fields": [
+                            {
+                                "title": "title",
+                                "subtitle": "subtitle",
+                                "type": "text",
+                                "options": [],
+                                "column": "title"
+                            },
+                            {
+                                "title": "photo gallery",
+                                "subtitle": "",
+                                "type": "photo-gallery",
+                                "options": {
+                                    "directory": "files/modules/",
+                                    "min_width": "",
+                                    "min_height": "",
+                                    "preview_prefix": ""
+                                },
+                                "column": "matrix"
+                            },
+                            {
+                                "title": "media gallery",
+                                "subtitle": "",
+                                "type": "com.fastspot.media-gallery-field-type*media-gallery",
+                                "options": {
+                                    "max": "",
+                                    "directory": "",
+                                    "min_width": "",
+                                    "min_height": "",
+                                    "preview_prefix": "",
+                                    "columns": [
+                                        {
+                                            "type": "text",
+                                            "id": "caption",
+                                            "title": "Caption",
+                                            "subtitle": "",
+                                            "options": ""
+                                        }
+                                    ]
+                                },
+                                "column": "callouts"
+                            }
+                        ],
+                        "default_position": "",
+                        "return_view": null,
+                        "return_url": "",
+                        "tagging": "",
+                        "hooks": []
+                    },
+                    {
+                        "id": "6",
+                        "module": "1",
+                        "title": "sdgdsgds",
+                        "table": "btx_events_categories",
+                        "fields": [
+                            {
+                                "title": "Parent",
+                                "subtitle": "",
+                                "type": "matrix",
+                                "options": {
+                                    "max": "",
+                                    "style": "list",
+                                    "columns": [
+                                        {
+                                            "type": "html",
+                                            "id": "asdsafsa",
+                                            "title": "asfsaf",
+                                            "subtitle": "",
+                                            "options": "{\"simple\":\"on\",\"simple_by_permission\":\"0\"}"
+                                        }
+                                    ]
+                                },
+                                "column": "parent"
+                            }
+                        ],
+                        "default_position": "Bottom",
+                        "return_view": null,
+                        "return_url": "",
+                        "tagging": "",
+                        "hooks": []
+                    },
+                    {
+                        "id": "8",
+                        "module": "8",
+                        "title": "Test Module",
+                        "table": "test_table",
+                        "fields": [
+                            {
+                                "column": "title",
+                                "type": "text",
+                                "title": "Title",
+                                "subtitle": "",
+                                "options": []
+                            },
+                            {
+                                "column": "description",
+                                "type": "textarea",
+                                "title": "Description",
+                                "subtitle": "",
+                                "options": []
+                            },
+                            {
+                                "column": "route",
+                                "type": "route",
+                                "title": "Route",
+                                "subtitle": "",
+                                "options": {
+                                    "source": [
+                                        "title"
+                                    ]
+                                }
+                            }
+                        ],
+                        "default_position": "Top",
+                        "return_view": null,
+                        "return_url": "",
+                        "tagging": "",
+                        "hooks": []
+                    },
+                    {
+                        "id": "1",
+                        "module": "1",
+                        "title": "Tree",
+                        "table": "demo_trees",
+                        "fields": [
+                            {
+                                "title": "Category",
+                                "subtitle": "",
+                                "type": "list",
+                                "options": {
+                                    "list_type": "db",
+                                    "allow-empty": "Yes",
+                                    "pop-table": "demo_tree_categories",
+                                    "pop-description": "name",
+                                    "pop-sort": "`name` ASC",
+                                    "parser": ""
+                                },
+                                "column": "category"
+                            },
+                            {
+                                "title": "Title",
+                                "subtitle": "",
+                                "type": "textarea",
+                                "options": {
+                                    "validation": "required"
+                                },
+                                "column": "title"
+                            },
+                            {
+                                "title": "Subtitle",
+                                "subtitle": "",
+                                "type": "com.fastspot.link-finder-field-type*link-finder",
+                                "options": [],
+                                "column": "subtitle"
+                            },
+                            {
+                                "title": "Route",
+                                "subtitle": "",
+                                "type": "route",
+                                "options": {
+                                    "source": "title"
+                                },
+                                "column": "route"
+                            },
+                            {
+                                "title": "Content",
+                                "subtitle": "",
+                                "type": "html",
+                                "options": [],
+                                "column": "content"
+                            },
+                            {
+                                "title": "Cover",
+                                "subtitle": "(1200x600 minimum size)",
+                                "type": "com.fastspot.video-field-type*video",
+                                "options": {
+                                    "directory": "files/trees/",
+                                    "image": "on",
+                                    "min_width": "1200",
+                                    "min_height": "600",
+                                    "preview_prefix": "thumb_",
+                                    "crops": [
+                                        {
+                                            "prefix": "",
+                                            "width": "1200",
+                                            "height": "600",
+                                            "grayscale": "",
+                                            "thumbs": [
+                                                "",
+                                                {
+                                                    "prefix": "thumb_",
+                                                    "width": "200",
+                                                    "height": "",
+                                                    "grayscale": ""
+                                                },
+                                                {
+                                                    "prefix": "large_",
+                                                    "width": "775",
+                                                    "height": "",
+                                                    "grayscale": ""
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "prefix": "another_",
+                                            "width": "500",
+                                            "height": "500",
+                                            "grayscale": ""
+                                        }
+                                    ]
+                                },
+                                "column": "cover"
+                            },
+                            {
+                                "title": "Cover Attribution",
+                                "subtitle": "",
+                                "type": "text",
+                                "options": [],
+                                "column": "cover_attribution"
+                            },
+                            {
+                                "title": "Cover Link",
+                                "subtitle": "(include http://)",
+                                "type": "text",
+                                "options": [],
+                                "column": "cover_link"
+                            },
+                            {
+                                "title": "Gallery",
+                                "subtitle": "(275x275 mimimum size)",
+                                "type": "com.fastspot.media-gallery-field-type*media-gallery",
+                                "options": {
+                                    "max": "",
+                                    "enable_manual": "on",
+                                    "directory": "files/trees/",
+                                    "min_width": "275",
+                                    "min_height": "275",
+                                    "preview_prefix": "thumb_",
+                                    "crops": [
+                                        {
+                                            "prefix": "thumb_",
+                                            "width": "275",
+                                            "height": "275",
+                                            "grayscale": ""
+                                        }
+                                    ],
+                                    "thumbs": [
+                                        {
+                                            "prefix": "",
+                                            "width": "1200",
+                                            "height": "1200",
+                                            "grayscale": ""
+                                        }
+                                    ],
+                                    "columns": [
+                                        {
+                                            "type": "text",
+                                            "id": "caption",
+                                            "title": "Caption",
+                                            "subtitle": "",
+                                            "options": ""
+                                        }
+                                    ]
+                                },
+                                "column": "gallery"
+                            },
+                            {
+                                "title": "External Link",
+                                "subtitle": "(optional, include http://)",
+                                "type": "text",
+                                "options": [],
+                                "column": "link"
+                            },
+                            {
+                                "title": "Address",
+                                "subtitle": "",
+                                "type": "text",
+                                "options": {
+                                    "validation": "",
+                                    "sub_type": "address",
+                                    "max_length": ""
+                                },
+                                "column": "address"
+                            },
+                            {
+                                "type": "geocoding",
+                                "options": {
+                                    "fields": [
+                                        "address"
+                                    ]
+                                },
+                                "column": "__geocoding__",
+                                "title": "",
+                                "subtitle": ""
+                            }
+                        ],
+                        "default_position": "Bottom",
+                        "return_view": null,
+                        "return_url": "",
+                        "tagging": "",
+                        "hooks": {
+                            "edit": "DemoTrees::translate",
+                            "pre": "",
+                            "post": "",
+                            "publish": ""
+                        }
                     }
                 ],
-                "forms": [],
-                "embed_forms": [],
+                "embed_forms": [
+                    {
+                        "id": "1",
+                        "module": "5",
+                        "title": "Example",
+                        "table": "",
+                        "fields": [],
+                        "default_position": "",
+                        "default_pending": "",
+                        "css": "",
+                        "hash": "5720da88ee939",
+                        "redirect_url": "",
+                        "thank_you_message": "",
+                        "hooks": "null"
+                    }
+                ],
                 "reports": []
             }
         ],
@@ -184,7 +643,7 @@
                 ],
                 "module": "0",
                 "level": "0",
-                "position": "0",
+                "position": "1",
                 "extension": "com.fastspot.form-builder"
             }
         ],
@@ -207,8 +666,8 @@
         ],
         "tables": {
             "btx_form_builder_entries": "CREATE TABLE `btx_form_builder_entries` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `form` int(11) NOT NULL,   `data` longtext NOT NULL,   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',   PRIMARY KEY (`id`),   KEY `form` (`form`),    FOREIGN KEY (`form`) REFERENCES `btx_form_builder_forms` (`id`) ON DELETE CASCADE ) ENGINE=InnoDB DEFAULT CHARSET=utf8",
-            "btx_form_builder_fields": "CREATE TABLE `btx_form_builder_fields` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `form` int(11) NOT NULL,   `column` int(11) NOT NULL,   `alignment` char(5) NOT NULL,   `type` varchar(255) NOT NULL DEFAULT '',   `data` longtext NOT NULL,   `position` int(11) NOT NULL,   PRIMARY KEY (`id`),   KEY `form` (`form`),   KEY `column` (`column`),   KEY `position` (`position`),    FOREIGN KEY (`form`) REFERENCES `btx_form_builder_forms` (`id`) ON DELETE CASCADE ) ENGINE=InnoDB DEFAULT CHARSET=utf8",
-            "btx_form_builder_forms": "CREATE TABLE `btx_form_builder_forms` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `title` varchar(255) NOT NULL DEFAULT '',   `paid` char(2) NOT NULL DEFAULT '',   `base_price` float NOT NULL,   `early_bird_base_price` float NOT NULL,   `early_bird_date` datetime DEFAULT NULL,   `total_collected` float NOT NULL,   `entries` int(11) NOT NULL,   `limit_entries` char(2) NOT NULL DEFAULT '',   `max_entries` int(11) NOT NULL,   `scheduling` char(2) NOT NULL,   `scheduling_open_date` datetime DEFAULT NULL,   `scheduling_close_date` datetime DEFAULT NULL,   `scheduling_before_message` longtext,   `scheduling_after_message` longtext,   `last_entry` datetime DEFAULT NULL,   PRIMARY KEY (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8"
+            "btx_form_builder_fields": "CREATE TABLE `btx_form_builder_fields` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `form` int(11) NOT NULL,   `column` int(11) NOT NULL,   `alignment` char(5) NOT NULL,   `type` varchar(255) NOT NULL DEFAULT '',   `data` longtext NOT NULL,   `position` int(11) NOT NULL,   `tester` int(11) DEFAULT NULL,   PRIMARY KEY (`id`),   KEY `form` (`form`),   KEY `column` (`column`),   KEY `position` (`position`),    FOREIGN KEY (`form`) REFERENCES `btx_form_builder_forms` (`id`) ON DELETE CASCADE ) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "btx_form_builder_forms": "CREATE TABLE `btx_form_builder_forms` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `title` varchar(255) NOT NULL DEFAULT '',   `paid` char(2) NOT NULL DEFAULT '',   `base_price` float NOT NULL,   `early_bird_base_price` float NOT NULL,   `early_bird_date` datetime DEFAULT NULL,   `total_collected` float NOT NULL,   `entries` int(11) NOT NULL,   `limit_entries` char(2) NOT NULL DEFAULT '',   `max_entries` int(11) NOT NULL,   `last_entry` datetime DEFAULT NULL,   PRIMARY KEY (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8"
         }
     },
     "sql_revisions": {
@@ -218,6 +677,14 @@
             "ALTER TABLE `btx_form_builder_forms` ADD COLUMN `scheduling_close_date` datetime NULL DEFAULT NULL AFTER `scheduling_open_date`",
             "ALTER TABLE `btx_form_builder_forms` ADD COLUMN `scheduling_before_message` longtext NULL AFTER `scheduling_close_date`",
             "ALTER TABLE `btx_form_builder_forms` ADD COLUMN `scheduling_after_message` longtext NULL AFTER `scheduling_before_message`"
+        ],
+        "31": [
+            "ALTER TABLE `btx_form_builder_fields` ADD COLUMN `tester` int(11) NULL DEFAULT NULL AFTER `position`",
+            "ALTER TABLE `btx_form_builder_forms` DROP COLUMN `scheduling`",
+            "ALTER TABLE `btx_form_builder_forms` DROP COLUMN `scheduling_open_date`",
+            "ALTER TABLE `btx_form_builder_forms` DROP COLUMN `scheduling_close_date`",
+            "ALTER TABLE `btx_form_builder_forms` DROP COLUMN `scheduling_before_message`",
+            "ALTER TABLE `btx_form_builder_forms` DROP COLUMN `scheduling_after_message`"
         ]
     }
 }

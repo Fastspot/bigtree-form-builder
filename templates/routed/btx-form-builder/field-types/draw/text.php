@@ -19,7 +19,7 @@
 		$classes[] = "form_builder_error";
 	}
 ?>
-<fieldset>
+<fieldset id="<?=$field_name?>">
 	<label for="form_builder_field_<?=$count?>">
 		<?php
 			echo htmlspecialchars($field_data["label"]);
@@ -31,7 +31,7 @@
 			}
 		?>
 	</label>
-	<input type="text" id="form_builder_field_<?=$count?>" name="<?=$field_name?>" class="<?=implode(" ", $classes)?>" value="<?=htmlspecialchars($default)?>" placeholder="<?=htmlspecialchars($field_data["placeholder"])?>" <?php if (intval($field_data["maxlength"])) { ?>maxlength="<?=intval($field_data["maxlength"])?>" <?php } ?>/>
+	<input type="text" id="form_builder_field_<?=$count?>" name="<?=$field_name?>" class="<?=implode(" ", $classes)?>" value="<?=htmlspecialchars($default)?>" placeholder="<?=htmlspecialchars($field_data["placeholder"])?>" <?php if (intval($field_data["maxlength"])) { ?>maxlength="<?=intval($field_data["maxlength"])?>" <?php } ?><?php if (!empty($field_data["required"])) { ?> required<?php } ?>>
 </fieldset>
 <?php
 	if ($form["paid"] && $field_data["price"] == "on") {

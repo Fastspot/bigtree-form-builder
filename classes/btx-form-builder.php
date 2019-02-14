@@ -121,6 +121,24 @@
 		
 		static function getEntry($id) {
 			$mod = new BigTreeModule("btx_form_builder_entries");
+
+			return $mod->get($id);
+		}
+
+		/*
+			Function: getField
+				Returns a decoded field.
+
+			Parameters:
+				id - A field ID
+
+			Returns:
+				An array.
+		*/
+
+		static function getField($id) {
+			$mod = new BigTreeModule("btx_form_builder_fields");
+			
 			return $mod->get($id);
 		}
 
