@@ -1,8 +1,8 @@
 {
     "type": "extension",
     "id": "com.fastspot.form-builder",
-    "version": "2.3",
-    "revision": 33,
+    "version": "2.3.1",
+    "revision": 34,
     "compatibility": "4.2+",
     "title": "Form Builder",
     "description": "An easy to use form builder allowing the administrative users to easily add fields to a form that stores entries in the database and sends out emails. Also supports paid forms.",
@@ -24,93 +24,49 @@
         "module_groups": [],
         "modules": [
             {
-                "id": "13",
-                "group": null,
                 "name": "Form Builder",
                 "route": "com.fastspot.form-builder*btx-form-builder",
                 "class": "BTXFormBuilder",
                 "icon": "form",
+                "group": null,
                 "gbp": {
                     "name": "",
                     "table": "",
                     "other_table": ""
                 },
-                "position": "0",
                 "extension": "com.fastspot.form-builder",
-                "actions": [
-                    {
-                        "id": "57",
-                        "module": "13",
-                        "name": "View Forms",
-                        "route": "",
-                        "in_nav": "on",
-                        "form": null,
-                        "view": "19",
-                        "report": null,
-                        "class": "list",
-                        "level": "0",
-                        "position": "3"
-                    },
-                    {
-                        "id": "58",
-                        "module": "13",
-                        "name": "Add Form",
-                        "route": "add",
-                        "in_nav": "on",
-                        "form": null,
-                        "view": null,
-                        "report": null,
-                        "class": "add",
-                        "level": "0",
-                        "position": "2"
-                    },
-                    {
-                        "id": "59",
-                        "module": "13",
-                        "name": "Settings",
-                        "route": "settings",
-                        "in_nav": "on",
-                        "form": null,
-                        "view": null,
-                        "report": null,
-                        "class": "server",
-                        "level": "2",
-                        "position": "1"
-                    }
-                ],
+                "id": "modules-15c9cf24c01f2e",
                 "views": [
                     {
-                        "id": "19",
-                        "module": "13",
                         "title": "Forms",
                         "description": "",
-                        "type": "searchable",
                         "table": "btx_form_builder_forms",
-                        "fields": {
-                            "title": {
-                                "title": "Title",
-                                "parser": "",
-                                "width": 222,
-                                "numeric": false
-                            },
-                            "entries": {
-                                "title": "Entries",
-                                "parser": "",
-                                "width": 222,
-                                "numeric": true
-                            },
-                            "last_entry": {
-                                "title": "Last Entry",
-                                "parser": "if ($value) { $value = date(\"F j @ g:ia\",strtotime($value)); }",
-                                "width": 222,
-                                "numeric": false
-                            }
-                        },
-                        "options": {
+                        "type": "searchable",
+                        "settings": {
                             "sort_column": "title",
                             "sort_direction": "ASC",
                             "per_page": "15",
                             "filter": ""
+                        },
+                        "fields": {
+                            "title": {
+                                "title": "Title",
+                                "parser": "",
+                                "width": "222",
+                                "numeric": ""
+                            },
+                            "entries": {
+                                "title": "Entries",
+                                "parser": "",
+                                "width": "222",
+                                "numeric": "1"
+                            },
+                            "last_entry": {
+                                "title": "Last Entry",
+                                "parser": "if ($value) { $value = date(\"F j @ g:ia\",strtotime($value)); }",
+                                "width": "222",
+                                "numeric": ""
+                            }
                         },
                         "actions": {
                             "entries": "{\"name\":\"Entries\",\"class\":\"icon_view\",\"route\":\"entries\",\"function\":\"\"}",
@@ -118,20 +74,67 @@
                             "edit": "on",
                             "delete": "on"
                         },
+                        "related_form": null,
                         "preview_url": "",
-                        "related_form": null
+                        "exclude_from_search": "",
+                        "id": "views-15c9cf24c0c358"
+                    }
+                ],
+                "actions": [
+                    {
+                        "route": "",
+                        "in_nav": "on",
+                        "class": "list",
+                        "name": "View Forms",
+                        "form": null,
+                        "view": "views-15c9cf24c0c358",
+                        "report": null,
+                        "level": "0",
+                        "position": "3",
+                        "0": "route",
+                        "id": "actions-15c9cf24c0f819",
+                        "module": "modules-15c9cf24c01f2e"
+                    },
+                    {
+                        "route": "add",
+                        "in_nav": "on",
+                        "class": "add",
+                        "name": "Add Form",
+                        "form": null,
+                        "view": null,
+                        "report": null,
+                        "level": "0",
+                        "position": "2",
+                        "0": "route",
+                        "id": "actions-15c9cf24c19adf",
+                        "module": "modules-15c9cf24c01f2e"
+                    },
+                    {
+                        "route": "settings",
+                        "in_nav": "on",
+                        "class": "server",
+                        "name": "Settings",
+                        "form": null,
+                        "view": null,
+                        "report": null,
+                        "level": "2",
+                        "position": "1",
+                        "0": "route",
+                        "id": "actions-15c9cf24c2d77a",
+                        "module": "modules-15c9cf24c01f2e"
                     }
                 ],
                 "forms": [],
-                "embed_forms": [],
-                "reports": []
+                "embeddable-forms": [],
+                "reports": [],
+                "embed_forms": []
             }
         ],
         "templates": [
             {
                 "id": "com.fastspot.form-builder*btx-form-builder",
                 "name": "Form Builder",
-                "routed": "on",
+                "module": null,
                 "resources": [
                     {
                         "id": "page_header",
@@ -182,9 +185,8 @@
                         "options": []
                     }
                 ],
-                "module": "0",
                 "level": "0",
-                "position": "0",
+                "routed": "on",
                 "extension": "com.fastspot.form-builder"
             }
         ],
