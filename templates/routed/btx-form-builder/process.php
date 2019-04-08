@@ -85,6 +85,13 @@
 		}
 	}
 
+	// If we're disabling duplicate entries, check the hash
+	$hash = md5(json_encode($entry).BigTree::remoteIP());
+
+	if (!count($errors) && !empty($settings["reject_duplicates"]) && BTXFormBuilder::hashCheck($form["id"], $hash)) {
+		$errors[] = "duplicate"; 
+	}
+
 	$errors = array_unique($errors);
 	
 	// If we had errors, redirect back with the saved data and errors.
@@ -161,7 +168,7 @@
 	unset($_SESSION["form_builder"]);
 	
 	// Add the entry to the entries table.
-	BigTreeAutoModule::createItem("btx_form_builder_entries", array("form" => $form["id"], "data" => $entry, "created_at" => "NOW()"));
+	BigTreeAutoModule::createItem("btx_form_builder_entries", array("form" => $form["id"], "data" => $entry, "hash" => $hash, "created_at" => "NOW()"));
 	
 	// Update the totals for the form and recache it.
 	sqlquery("UPDATE btx_form_builder_forms SET entries = (entries + 1), last_entry = NOW(), total_collected = (total_collected + ".round($total, 2).") WHERE id = '".$form["id"]."'");

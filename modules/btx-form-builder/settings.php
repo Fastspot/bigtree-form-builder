@@ -36,6 +36,11 @@
 				<label for="fb_field_no_columns" class="for_checkbox">Disable Columns Field Type</label>
 			</fieldset>
 
+			<fieldset>
+				<input id="fb_field_no_columns" type="checkbox"<?php if (!empty($settings["reject_duplicates"])) { ?> checked="checked"<?php } ?> name="reject_duplicates" />
+				<label for="fb_field_no_columns" class="for_checkbox">Reject Duplicate Form Submissions of Exact Data <small>(within 10 minutes)</small></label>
+			</fieldset>
+
 			<hr>
 
 			<h3>Text Wrapper</h3>

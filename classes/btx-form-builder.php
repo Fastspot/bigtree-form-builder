@@ -168,6 +168,27 @@
 
 			return $pages;
 		}
+
+		/*
+			Function: hashCheck
+				Checks to see if a recently submitted value to a form has the same hash.
+
+			Parameters:
+				form - Form ID to check against
+				hash - The hash to check against
+
+			Returns:
+				boolean
+		*/
+
+		static function hashCheck($form, $hash) {
+			$result = SQL::fetch("SELECT id FROM btx_form_builder_entries 
+								  WHERE form = ? 
+								    AND hash = ? 
+								    AND created_at >= '".date("Y-m-d H:i:s", strtotime("-10 minutes"))."'", $form, $hash);
+
+			return !empty($result);
+		}
 		
 		/*
 			Function: parseTokens

@@ -54,6 +54,13 @@
 		$error_count = is_array($_SESSION["form_builder"]["errors"]) ? count($_SESSION["form_builder"]["errors"]) : 0;
 		
 		if ($error_count) {
+			if ($_SESSION["form_builder"]["errors"][0] == "duplicate") {
+	?>
+	<div class="form_builder_errors">
+		<p>Your entry has already been recorded and this form does not allow for duplicate submissions.</p>
+	</div>
+	<?php
+			} else {
 	?>
 	<div class="form_builder_errors">
 		<p>The following required fields are missing or have an incorrect value:</p>
@@ -69,6 +76,7 @@
 		</ul>
 	</div>
 	<?php
+			}
 		}
 		
 		if ($_SESSION["form_builder"]["payment_error"]) {
