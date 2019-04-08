@@ -57,7 +57,7 @@
 			if ($_SESSION["form_builder"]["errors"][0] == "duplicate") {
 	?>
 	<div class="form_builder_errors">
-		<p>Your entry has already been recorded and this form does not allow for duplicate submissions.</p>
+		<p>Your submission has already been recorded — this form does not allow for duplicate submissions.</p>
 	</div>
 	<?php
 			} else {

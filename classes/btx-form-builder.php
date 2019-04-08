@@ -182,10 +182,12 @@
 		*/
 
 		static function hashCheck($form, $hash) {
-			$result = SQL::fetch("SELECT id FROM btx_form_builder_entries 
-								  WHERE form = ? 
-								    AND hash = ? 
-								    AND created_at >= '".date("Y-m-d H:i:s", strtotime("-10 minutes"))."'", $form, $hash);
+			$form = sqlescape($form);
+			$hash = sqlescape($hash);
+			$result = sqlfetch(sqlquery("SELECT id FROM btx_form_builder_entries 
+										 WHERE form = '$form'
+										   AND hash = '$hash'
+										   AND created_at >= '".date("Y-m-d H:i:s", strtotime("-10 minutes"))."'"));
 
 			return !empty($result);
 		}
