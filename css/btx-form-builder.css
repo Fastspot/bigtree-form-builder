@@ -106,3 +106,6 @@ form.form_builder_entry { border: 1px solid #EEE; overflow: hidden; padding: 0; 
 form.form_builder_entry fieldset:last-child { margin: 0; }
 fieldset.form_builder { padding: 5px; }
 fieldset.form_builder_odd { background-gradient: #FCFCFC #EEEEEE; border-bottom: 1px solid #EEE; padding: 5px; }
+.form_builder_entry_contain { border-bottom: 1px solid #EEE; margin: 0px -30px 30px; padding: 0 30px 30px; overflow: hidden; }
+fieldset.form_builder_entry_left { float: left; margin: 0; width: 50%; }
+fieldset.form_builder_entry_right { float: right; margin: 0; width: 50%; }

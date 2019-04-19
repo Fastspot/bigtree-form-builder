@@ -72,10 +72,17 @@
 		</h2>
 	</summary>
 	<section>
-		<fieldset>
-			<label><strong>Date Created</strong></label>
-			<p><?=date("F j, Y @ g:ia", strtotime($entry["created_at"]))?></p>
-		</fieldset>
+		<div class="form_builder_entry_contain">
+			<fieldset class="form_builder_entry_left">
+				<label><strong>Date Created</strong></label>
+				<p><?=date("F j, Y @ g:ia", strtotime($entry["created_at"]))?></p>
+			</fieldset>
+			<fieldset class="form_builder_entry_right">
+				<label><strong>IP Address of Submitter</strong></label>
+				<p><?=$entry["ip"]?></p>
+			</fieldset>
+		</div>
+
 		<?php _local_draw_form_builder_form_fields($form["fields"]) ?>
 	</section>
 </div>
