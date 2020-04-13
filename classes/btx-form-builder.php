@@ -247,20 +247,14 @@
 		*/
 		
 		static function searchEntries($id,$query,$page = 1) {
+			$query = SQL::escape($query);
 			$mod = new BigTreeModule("btx_form_builder_entries");
-			$results = $mod->search($query,"id DESC");
-			$form_results = array();
-
-			// Get only the results for the given form
-			foreach ($results as $result) {
-				if ($result["form"] == $id) {
-					$form_results[] = $result;
-				}
-			}
+			$results = $mod->fetch("id DESC", (($page - 1) * 15).", 15", "data LIKE '%$query%' AND form = '".SQL::escape($id)."'");
+			$count = SQL::fetchSingle("SELECT COUNT(*) FROM btx_form_builder_entries WHERE form = ? AND data LIKE '%$query%'", $id);
 			
-			$pages = ceil(count($form_results) / 15);
-			self::$SearchPageCount = $pages ? $pages : 1;
+			$pages = ceil($count / 15);
+			self::$SearchPageCount = $pages ?: 1;
 
-			return array_slice($form_results,($page - 1) * 15,15);
+			return $results;
 		}
 	}
