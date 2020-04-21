@@ -17,7 +17,7 @@
 </label>
 <?php foreach ($data["list"] as $item) { ?>
 <div class="form_builder_option">
-	<input type="radio"<?php if ($item["selected"]) { ?> checked="checked"<?php } ?> class="form_builder_radio custom_control" />
+	<input type="radio"<?php if ($item["selected"]) { ?> checked="checked"<?php } ?> class="custom_control" />
 	<?=htmlspecialchars($item["description"])?>
 </div>
 <?php } ?>

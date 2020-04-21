@@ -17,7 +17,7 @@
 </label>
 <?php foreach ($data["list"] as $item) { ?>
 <div class="form_builder_option">
-	<input type="checkbox"<?php if ($item["selected"]) { ?> checked="checked"<?php } ?> class="form_builder_checkbox custom_control" />
+	<input type="checkbox"<?php if ($item["selected"]) { ?> checked="checked"<?php } ?> class="custom_control" />
 	<?=htmlspecialchars($item["description"])?>
 </div>
 <?php } ?>
