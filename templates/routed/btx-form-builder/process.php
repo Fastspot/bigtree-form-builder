@@ -96,8 +96,8 @@
 	
 	// If we had errors, redirect back with the saved data and errors.
 	if (count($errors)) {
-		unset($_POST["fb_cc_card"]["number"]);
-		unset($_POST["fb_cc_card"]["code"]);
+		unset($_POST["form_builder_data_fb_cc_card"]["number"]);
+		unset($_POST["form_builder_data_fb_cc_card"]["code"]);
 		
 		$_SESSION["form_builder"]["fields"] = $_POST;
 		$_SESSION["form_builder"]["errors"] = $errors;
@@ -110,20 +110,20 @@
 		$pg = new BigTreePaymentGateway;
 		
 		$transaction = $pg->charge(
-			round($total, 2),                                                       // Total
-			0,                                                                      // Tax
-			implode(" ", $_POST["fb_cc_billing_name"]),                             // Credit Card Name
-			$_POST["fb_cc_card"]["number"],                                         // Credit Card Number
-			$_POST["fb_cc_card"]["month"].$_POST["fb_cc_card"]["year"],             // Credit Card Expiration
-			$_POST["fb_cc_card"]["code"],                                           // Credit Card CVV
-			$_POST["fb_cc_billing_address"],                                        // Billing Address
+			round($total, 2),
+			0, // Tax
+			implode(" ", $_POST["form_builder_data_fb_cc_billing_name"]),
+			$_POST["form_builder_data_fb_cc_card"]["number"],
+			$_POST["form_builder_data_fb_cc_card"]["month"].$_POST["form_builder_data_fb_cc_card"]["year"],
+			$_POST["form_builder_data_fb_cc_card"]["code"],
+			$_POST["form_builder_data_fb_cc_billing_address"],
 			(!empty($page_header) ? $page_header : $bigtree["page"]["nav_title"]),  // Transaction Description
-			$_POST["fb_cc_billing_email"]                                           // Email
+			$_POST["form_builder_data_fb_cc_billing_email"]
 		);
 		
 		if (!$transaction) {
-			unset($_POST["fb_cc_card"]["number"]);
-			unset($_POST["fb_cc_card"]["code"]);
+			unset($_POST["form_builder_data_fb_cc_card"]["number"]);
+			unset($_POST["form_builder_data_fb_cc_card"]["code"]);
 			
 			$_SESSION["form_builder"]["fields"] = $_POST;
 			$_SESSION["form_builder"]["errors"] = $errors;
@@ -133,18 +133,18 @@
 		}
 		
 		// Save Billing Info to the DB.
-		$_POST["fb_cc_card"]["number"] = $pg->Last4CC;
+		$_POST["form_builder_data_fb_cc_card"]["number"] = $pg->Last4CC;
 		$entry["payment"] = array(
-			"name" => $_POST["fb_cc_billing_name"],
-			"address" => $_POST["fb_cc_billing_address"],
-			"card" => $_POST["fb_cc_card"]
+			"name" => $_POST["form_builder_data_fb_cc_billing_name"],
+			"address" => $_POST["form_builder_data_fb_cc_billing_address"],
+			"card" => $_POST["form_builder_data_fb_cc_card"]
 		);
 		
 		// Add Billing Info to the Email
-		$address = $_POST["fb_cc_billing_address"];
-		$card = $_POST["fb_cc_card"];
+		$address = $_POST["form_builder_data_fb_cc_billing_address"];
+		$card = $_POST["form_builder_data_fb_cc_card"];
 		$email_body .= "Billing Address:\n";
-		$email_body .= implode(" ", $_POST["fb_cc_billing_name"])."\n";
+		$email_body .= implode(" ", $_POST["form_builder_data_fb_cc_billing_name"])."\n";
 		$email_body .= $address["street"]."\n";
 		
 		if ($address["street2"]) {

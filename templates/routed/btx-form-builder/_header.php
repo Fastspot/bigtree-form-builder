@@ -37,11 +37,11 @@
 					"description" => "Please enter your billing information as it appears on your credit card.",
 				))
 			),
-			// Billing Nmae
+			// Billing Name
 			array(
 				"type" => "name",
+				"id" => "fb_cc_billing_name",
 				"data" => json_encode(array(
-					"name" => "fb_cc_billing_name",
 					"required" => true,
 					"label" => "Billing Name"
 				))
@@ -49,8 +49,8 @@
 			// Billing Email
 			array(
 				"type" => "email",
+				"id" => "fb_cc_billing_email",
 				"data" => json_encode(array(
-					"name" => "fb_cc_billing_email",
 					"required" => true,
 					"label" => "Billing Email"
 				))
@@ -58,8 +58,8 @@
 			// Billing Address
 			array(
 				"type" => "address",
+				"id" => "fb_cc_billing_address",
 				"data" => json_encode(array(
-					"name" => "fb_cc_billing_address",
 					"required" => true,
 					"label" => "Billing Address"
 				))
@@ -67,8 +67,8 @@
 			// Credit Card
 			array(
 				"type" => "credit-card",
+				"id" => "fb_cc_card",
 				"data" => json_encode(array(
-					"name" => "fb_cc_card",
 					"required" => true
 				))
 			)

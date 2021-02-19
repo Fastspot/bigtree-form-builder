@@ -288,7 +288,7 @@
 					price = 0;
 				}
 				Total += price;
-				PreviousValues[item.getAttribute("name")] = price;
+				PreviousValues[element.getAttribute("name")] = price;
 				element.value = formatMoney(price);
 			}
 			<?php
@@ -299,7 +299,7 @@
 			element = document.getElementById("<?=$id?>");
 			
 			if (element.checked) {
-				Total += parseFloat(i.getAttribute("data-price"));
+				Total += parseFloat(element.getAttribute("data-price"));
 			}
 			<?php
 				}
@@ -309,8 +309,8 @@
 			element = document.getElementById("<?=$id?>");
 			
 			if (element.checked) {
-				Total += parseFloat(i.getAttribute("data-price"));
-				PreviousValues[i.getAttribute("name")] = parseFloat(i.getAttribute("data-price"));
+				Total += parseFloat(element.getAttribute("data-price"));
+				PreviousValues[element.getAttribute("name")] = parseFloat(element.getAttribute("data-price"));
 			}
 			<?php
 				}
