@@ -1,8 +1,8 @@
 {
     "type": "extension",
     "id": "com.fastspot.form-builder",
-    "version": "2.5.3",
-    "revision": 41,
+    "version": "2.5.4",
+    "revision": 42,
     "compatibility": "4.2+",
     "title": "Form Builder",
     "description": "An easy to use form builder allowing the administrative users to easily add fields to a form that stores entries in the database and sends out emails. Also supports paid forms.",
@@ -246,7 +246,7 @@
             "ALTER TABLE `btx_form_builder_forms` ADD COLUMN `scheduling_before_message` longtext NULL AFTER `scheduling_close_date`",
             "ALTER TABLE `btx_form_builder_forms` ADD COLUMN `scheduling_after_message` longtext NULL AFTER `scheduling_before_message`"
         ],
-        "41": [
+        "42": [
             "ALTER TABLE `btx_form_builder_entries` ADD COLUMN `hash` varchar(255) NOT NULL DEFAULT '' AFTER `data`",
             "ALTER TABLE `btx_form_builder_entries` ADD COLUMN `ip` varchar(255) NOT NULL DEFAULT '' AFTER `created_at`"
         ]
