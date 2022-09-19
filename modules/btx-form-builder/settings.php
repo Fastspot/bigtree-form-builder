@@ -49,12 +49,12 @@
 
 			<fieldset>
 				<label for="fb_field_text_wrapper">Opening Wrapper</label>
-				<input id="fb_field_text_wrapper" type="text" name="text_wrapper" value="<?=htmlspecialchars($settings["text_wrapper"])?>" />
+				<input id="fb_field_text_wrapper" type="text" name="text_wrapper" value="<?=htmlspecialchars($settings["text_wrapper"] ?? "")?>" />
 			</fieldset>
 
 			<fieldset>
 				<label for="fb_field_text_wrapper_end">Closing Wrapper</label>
-				<input id="fb_field_text_wrapper_end" type="text" name="text_wrapper_end" value="<?=htmlspecialchars($settings["text_wrapper_end"])?>" />
+				<input id="fb_field_text_wrapper_end" type="text" name="text_wrapper_end" value="<?=htmlspecialchars($settings["text_wrapper_end"] ?? "")?>" />
 			</fieldset>
 
 			<hr>
@@ -65,12 +65,12 @@
 			
 			<fieldset>
 				<label for="fb_field_site_key"><strong>Site</strong> Key</label>
-				<input id="fb_field_site_key" type="text" name="recaptcha[site_key]" value="<?=htmlspecialchars($settings["recaptcha"]["site_key"])?>" />
+				<input id="fb_field_site_key" type="text" name="recaptcha[site_key]" value="<?=htmlspecialchars($settings["recaptcha"]["site_key"] ?? "")?>" />
 			</fieldset>
 
 			<fieldset>
 				<label for="fb_field_secret_key"><strong>Secret</strong> Key</label>
-				<input id="fb_field_secret_key" type="text" name="recaptcha[secret_key]" value="<?=htmlspecialchars($settings["recaptcha"]["secret_key"])?>" />
+				<input id="fb_field_secret_key" type="text" name="recaptcha[secret_key]" value="<?=htmlspecialchars($settings["recaptcha"]["secret_key"] ?? "")?>" />
 			</fieldset>
 
 			<hr>
@@ -79,7 +79,7 @@
 
 			<fieldset>
 				<label for="fb_field_country_phone">Default Country Code <small>(e.g. 1 for USA)</small></label>
-				<input id="fb_field_country_phone" type="text" name="phone_default_country_code" value="<?=$settings["phone_default_country_code"]?>" />
+				<input id="fb_field_country_phone" type="text" name="phone_default_country_code" value="<?=htmlspecialchars($settings["phone_default_country_code"] ?? "")?>" />
 			</fieldset>
 
 			<fieldset>

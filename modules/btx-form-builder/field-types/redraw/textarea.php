@@ -6,13 +6,13 @@
 ?>
 <label>
 	<?php
-		echo htmlspecialchars($data["label"]);
+		echo htmlspecialchars($data["label"] ?? "");
 		
-		if ($data["required"]) {
+		if (!empty($data["required"])) {
 	?>
 	<span class="required">*</span>
 	<?php
 		}
 	?>
 </label>
-<textarea class="form_builder_textarea" placeholder="<?=htmlspecialchars($data["placeholder"])?>"></textarea>
+<textarea class="form_builder_textarea" placeholder="<?=htmlspecialchars($data["placeholder"] ?? "")?>"></textarea>

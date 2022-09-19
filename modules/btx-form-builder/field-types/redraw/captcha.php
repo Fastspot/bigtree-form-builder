@@ -6,16 +6,16 @@
 ?>
 <label>
 	<?php
-		echo htmlspecialchars($data["label"]);
+		echo htmlspecialchars($data["label"] ?? "");
 		
-		if ($data["required"]) {
+		if (!empty($data["required"])) {
 	?>
 	<span class="required">*</span>
 	<?php
 		}
 	?>
 </label>
-<p><?=htmlspecialchars($data["instructions"])?></p>
+<p><?=htmlspecialchars($data["instructions"] ?? "")?></p>
 <div class="form_builder_object">
 	<img src="<?=ADMIN_ROOT?>*/com.fastspot.form-builder/images/recaptcha.gif" alt="" height="75" />
 </div>

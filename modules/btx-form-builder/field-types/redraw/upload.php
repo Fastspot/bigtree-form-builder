@@ -4,10 +4,10 @@
 	 * @global bool $paid
 	 */
 
-	$sub_label_parts = array();
+	$sub_label_parts = [];
 
-	if (is_array($data["allowed_filetypes"]) && count($data["allowed_filetypes"])) {
-		$types = array();
+	if (!empty($data["allowed_filetypes"]) && is_array($data["allowed_filetypes"])) {
+		$types = [];
 
 		foreach ($data["allowed_filetypes"] as $type) {
 			$types[] = ltrim(trim($type["extension"]), ".");
@@ -22,9 +22,9 @@
 ?>
 <label>
 	<?php
-		echo htmlspecialchars($data["label"]);
+		echo htmlspecialchars($data["label"] ?? "");
 		
-		if ($data["required"]) {
+		if (!empty($data["required"])) {
 	?>
 	<span class="required">*</span>
 	<?php

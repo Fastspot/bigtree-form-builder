@@ -12,7 +12,7 @@
 	$form = sqlescape($bigtree["commands"][0]);
 	
 	// Get cleaned up prices, dates, and entries
-	if ($_POST["early_bird"]) {
+	if (!empty($_POST["early_bird"])) {
 		$date = DateTime::createFromFormat($bigtree["config"]["date_format"]." h:i a", $_POST["early_bird_date"]);
 
 		if ($date) {
@@ -28,32 +28,19 @@
 	}
 
 	if (!empty($_POST["scheduling"])) {
-		$open_date = DateTime::createFromFormat($bigtree["config"]["date_format"]." h:i a", $_POST["scheduling_open_date"]);
-		$close_date = DateTime::createFromFormat($bigtree["config"]["date_format"]." h:i a", $_POST["scheduling_close_date"]);
-		
-		if ($open_date) {
-			$scheduling_open_date = $open_date->format("Y-m-d H:i:s");
-		} else {
-			$scheduling_open_date = "NULL";
-		}
-
-		if ($close_date) {
-			$scheduling_close_date = $close_date->format("Y-m-d H:i:s");
-		} else {
-			$scheduling_close_date = "NULL";
-		}
-
+		$scheduling_open_date = !empty($_POST["scheduling_open_date"]) ? $admin->convertTimestampFromUser($_POST["scheduling_open_date"]) : null;
+		$scheduling_close_date = !empty($_POST["scheduling_open_date"]) ? $admin->convertTimestampFromUser($_POST["scheduling_close_date"]) : null;
 		$scheduling_before_message = $_POST["scheduling_before_message"];
 		$scheduling_after_message = $_POST["scheduling_after_message"];
 	} else {
-		$scheduling_open_date = "NULL";
-		$scheduling_close_date = "NULL";
+		$scheduling_open_date = null;
+		$scheduling_close_date = null;
 		$scheduling_before_message = "";
 		$scheduling_after_message = "";
 	}
 	
-	$base_price = floatval(str_replace(array('$', ',', ' '), '', $_POST["base_price"]));
-	$max_entries = intval($_POST["max_entries"]);
+	$base_price = floatval(str_replace(array('$', ',', ' '), '', $_POST["base_price"] ?? 0));
+	$max_entries = intval($_POST["max_entries"] ?? 0);
 	
 	BigTreeAutoModule::updateItem("btx_form_builder_forms", $form, array(
 		"title" => BigTree::safeEncode($_POST["title"]),
@@ -95,11 +82,11 @@
 			// If we're starting a set of columns and don't have an alignment it's a new set.
 			if (!$alignment) {
 				if (!$id) {
-					$column = $fieldMod->add(array(
+					$column = $fieldMod->add([
 						"form" => $form,
 						"type" => "column",
 						"position" => $position
-					), false, false, true);
+					], false, false, true);
 				} else {
 					$column = $id;
 					$fieldMod->update($id, "position", $position, true);
@@ -118,23 +105,23 @@
 		} elseif ($type) {
 			if ($id) {
 				// Update the field, ignore cache
-				$fieldMod->update($id, array(
+				$fieldMod->update($id, [
 					"type" => $type,
 					"data" => $_POST["data"][$key],
 					"position" => $position,
 					"column" => $column,
 					"alignment" => $alignment
-				), false, true);
+				], false, true);
 			} else {
 				// Add the field, ignore cache
-				$fieldMod->add(array(
+				$fieldMod->add([
 					"form" => $form,
 					"type" => $type,
 					"data" => $_POST["data"][$key],
 					"position" => $position,
 					"column" => $column,
 					"alignment" => $alignment
-				), false, false, true);
+				], false, false, true);
 			}
 		}
 		

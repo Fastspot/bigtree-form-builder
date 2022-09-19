@@ -12,7 +12,7 @@
 		foreach ($fields as $field) {
 			$value = _local_recursive_clean($entry["data"][$field["id"]]);
 			$field["data"] = json_decode($field["data"], true);
-			$label = $field["data"]["label"] ? $field["data"]["label"] : ucwords($field["type"]);
+			$label = !empty($field["data"]["label"]) ? $field["data"]["label"] : ucwords($field["type"]);
 			
 			if ($field["type"] == "column") {
 				_local_draw_form_builder_form_fields($field["fields"]);
@@ -77,12 +77,19 @@
 				<label><strong>Date Created</strong></label>
 				<p><?=date("F j, Y @ g:ia", strtotime($entry["created_at"]))?></p>
 			</fieldset>
+			
+			<?php
+				if (!empty($entry["ip"])) {
+			?>
 			<fieldset class="form_builder_entry_right">
 				<label><strong>IP Address of Submitter</strong></label>
 				<p><?=$entry["ip"]?></p>
 			</fieldset>
+			<?php
+				}
+			?>
 		</div>
-
+		
 		<?php _local_draw_form_builder_form_fields($form["fields"]) ?>
 	</section>
 </div>

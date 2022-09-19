@@ -3,7 +3,7 @@
 	 * @global array $bigtree
 	 */
 
-	if ($_GET["template"]) {
+	if (!empty($_GET["template"])) {
 		$bigtree["form"] = $form = BTXFormBuilder::getForm($_GET["template"]);
 	} else {
 		$bigtree["form"] = $form = [];

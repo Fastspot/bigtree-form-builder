@@ -1,7 +1,7 @@
 <?php
-	$page = $_POST["page"] ? $_POST["page"] : 1;
-	$search = $_POST["search"] ? $_POST["search"] : "";
-	$form = $_POST["form"] ? BTXFormBuilder::getForm($_POST["form"]) : $form;
+	$page = !empty($_POST["page"]) ? $_POST["page"] : 1;
+	$search = !empty($_POST["search"]) ? $_POST["search"] : "";
+	$form = !empty($_POST["form"]) ? BTXFormBuilder::getForm($_POST["form"]) : $form;
 	$entries = BTXFormBuilder::searchEntries($form["id"], $search, $page);
 	
 	$get_table_record = function($fields) {

@@ -8,7 +8,7 @@
 	$type = BigTreeCMS::urlify(trim($_POST["type"]));
 	
 	// Clean up prices
-	if ($_POST["list"]["list"]) {
+	if (!empty($_POST["list"]["list"]) && is_array($_POST["list"]["list"])) {
 		foreach ($_POST["list"]["list"] as &$item) {
 			if ($item["price"]) {
 				$item["price"] = floatval(str_replace(array('$', ',', ' '), '', $item["price"]));

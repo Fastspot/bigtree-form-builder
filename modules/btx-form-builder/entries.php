@@ -8,11 +8,11 @@
 	// Figure out what the headers should be…
 	$get_table_header = function($fields) {
 		global $get_table_header;
-		static $columns = array();
+		static $columns = [];
 
 		foreach ($fields as $field) {
 			$fdata = json_decode($field["data"],true);
-			$label = $fdata["label"] ? $fdata["label"] : ucwords($field["type"]);
+			$label = !empty($fdata["label"]) ? $fdata["label"] : ucwords($field["type"]);
 			
 			if ($field["type"] == "column") {
 				$get_table_header($field["fields"]);

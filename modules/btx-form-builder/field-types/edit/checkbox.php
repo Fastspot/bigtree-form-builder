@@ -4,10 +4,14 @@
 	 * @global bool $paid
 	 */
 	
+	if (empty($data["list"])) {
+		$data["list"] = [];
+	}
+	
 	// Format pricing if paid.
 	if ($paid) {
 		foreach ($data["list"] as &$option) {
-			$option["price"] = floatval(str_replace(array('$', ','), '', $option["price"]));
+			$option["price"] = floatval(str_replace(array('$', ','), '', $option["price"] ?? 0));
 
 			if ($option["price"] < 0) {
 				$option["price"] = '- $'.number_format(abs($option["price"]),2);
@@ -19,7 +23,7 @@
 ?>
 <fieldset>
 	<label>Field Label</label>
-	<input type="text" name="label" value="<?=htmlspecialchars($data["label"])?>" />
+	<input type="text" name="label" value="<?=htmlspecialchars($data["label"] ?? "")?>" />
 </fieldset>
 <div id="checkbox_option_list"></div>
 <p id="checkbox_list_error" class="error_message" style="margin: 10px 0 0 0; display: none;">All options must have a unique value.</p>

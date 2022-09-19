@@ -11,11 +11,11 @@
 	$draw_csv_header = function ($fields) {
 		global $draw_csv_header;
 		
-		$columns = array();
+		$columns = [];
 		
 		foreach ($fields as $field) {
 			$fdata = json_decode($field["data"], true);
-			$label = str_replace('"', '""', ($fdata["label"] ? $fdata["label"] : ucwords($field["type"])));
+			$label = str_replace('"', '""', (!empty($fdata["label"]) ? $fdata["label"] : ucwords($field["type"])));
 			
 			if ($field["type"] == "column") {
 				$columns = array_merge($columns, $draw_csv_header($field["fields"]));
@@ -40,7 +40,7 @@
 	$draw_csv_record = function ($entry, $fields) {
 		global $draw_csv_record;
 		
-		$record = array();
+		$record = [];
 		
 		foreach ($fields as $field) {
 			$value = $entry["data"][$field["id"]];
