@@ -3,16 +3,16 @@
 	 * @global array $field
 	 */
 	
-	$fields = array();
-	$form = isset($_POST["form"]) ? $_POST["form"] : $field["value"]["form"];
-	$q = sqlquery("SELECT * FROM btx_form_builder_fields WHERE form = '".sqlescape($form)."' AND type = 'email'");
-
+	$fields = [];
+	$form = $_POST["form"] ?? $field["value"]["form"];
+	$query = SQL::query("SELECT * FROM btx_form_builder_fields WHERE form = ? AND type = 'email'", $form);
+	
 	// Reset cache
 	BTXFormBuilder::parseTokens($fields, false, false, false, true);
 	
-	while ($f = sqlfetch($q)) {
-		$data = json_decode($f["data"], true);
-		BTXFormBuilder::parseTokens($fields, $f["type"], $data["label"], $data["name"]);
+	while ($row = $query->fetch()) {
+		$data = json_decode($row["data"], true);
+		BTXFormBuilder::parseTokens($fields, $row["type"], $data["label"] ?? "", $data["name"] ?? "");
 	}
 	
 	ksort($fields);
@@ -21,13 +21,12 @@
 <?php
 	foreach ($fields as $key => $name) {
 ?>
-<option<?php if ($key == $field["value"]["email_field"]) { ?> selected="selected"<?php } ?>><?=$key?></option>
+<option<?php if (!empty($field["value"]["email_field"]) && $key == $field["value"]["email_field"]) { ?> selected="selected"<?php } ?>><?=$key?></option>
 <?php
 	}
 	
-	if (sqlrows($q) == 0) {
+	if (!count($fields)) {
 ?>
 <option value="" disabled="disabled">No Email Fields Found</option>
 <?php
 	}
-	

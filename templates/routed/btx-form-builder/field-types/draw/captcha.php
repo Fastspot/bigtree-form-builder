@@ -16,7 +16,7 @@
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <fieldset id="<?=$field_name?>">
 	<?php
-		if ($field_data["label"]) {
+		if (!empty($field_data["label"])) {
 	?>
 	<label>
 		<?=htmlspecialchars($field_data["label"])?>
@@ -25,7 +25,7 @@
 	<?php
 		}
 		
-		if ($field_data["instructions"]) {
+		if (!empty($field_data["instructions"])) {
 	?>
 	<p><?=htmlspecialchars($field_data["instructions"])?></p>
 	<?php

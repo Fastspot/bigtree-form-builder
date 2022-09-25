@@ -3,12 +3,12 @@
 	 * @global array $field
 	 */
 	
-	if (!is_array($field["value"])) {
-		$field["value"] = array(
+	if (empty($field["value"]) || !is_array($field["value"])) {
+		$field["value"] = [
 			"form" => $field["value"],
 			"email_field" => false,
-			"email_template" => false
-		);
+			"email_template" => false,
+		];
 	}
 	
 	$forms = BTXFormBuilder::getAllForms("title ASC");
@@ -20,16 +20,16 @@
 	<select id="form_builder_form_field" name="<?=$field["key"]?>[form]" class="required">
 		<option></option>
 		<?php foreach ($forms as $form) { ?>
-		<option value="<?=$form["id"]?>"<?php if ($form["id"] == $field["value"]["form"]) { ?> selected="selected"<?php } ?>><?=$form["title"]?></option>
+		<option value="<?=$form["id"]?>"<?php if (!empty($field["value"]["form"]) && $form["id"] == $field["value"]["form"]) { ?> selected="selected"<?php } ?>><?=$form["title"]?></option>
 		<?php } ?>
 	</select>
 </fieldset>
 
 <fieldset>
 	<label for="form_builder_email_field">Email Field <small>(for confirmation email)</small></label>
-	<select id="form_builder_email_field"<?php if (!$field["value"]["form"]) { ?> disabled="disabled"<?php } ?> name="<?=$field["key"]?>[email_field]">
+	<select id="form_builder_email_field"<?php if (empty($field["value"]["form"])) { ?> disabled="disabled"<?php } ?> name="<?=$field["key"]?>[email_field]">
 		<?php
-			if ($field["value"]["form"]) {
+			if (!empty($field["value"]["form"])) {
 				include SERVER_ROOT."extensions/com.fastspot.form-builder/ajax/get-form-email-picker.php";
 			} else {
 		?>
@@ -42,7 +42,7 @@
 
 <fieldset>
 	<label for="form_builder_email_subject_field">Confirmation Email Subject</label>
-	<input id="form_builder_email_subject_field" type="text" name="<?=$field["key"]?>[email_subject]" value="<?=BigTree::safeEncode($field["value"]["email_subject"])?>" />
+	<input id="form_builder_email_subject_field" type="text" name="<?=$field["key"]?>[email_subject]" value="<?=BigTree::safeEncode($field["value"]["email_subject"] ?? "")?>" />
 </fieldset>
 
 <fieldset>
@@ -50,7 +50,7 @@
 	<label>
 		<small id="form_builder_email_tokens" style="display: block; margin: 10px 0; user-select: text; -moz-user-select: text; -webkit-user-select: text;">
 			<?php
-				if ($field["value"]["form"]) {
+				if (!empty($field["value"]["form"])) {
 					include SERVER_ROOT."extensions/com.fastspot.form-builder/ajax/get-form-token-list.php";
 				} else {
 					echo "Choose a form to populate available replacement tokens and enable this field.";
@@ -58,7 +58,7 @@
 			?>
 		</small>
 	</label>
-	<textarea id="form_builder_email_template_field" name="<?=$field["key"]?>[email_template]?>"<?php if (!$field["value"]["form"]) { ?> disabled="disabled"<?php } ?>><?=$field["value"]["email_template"]?></textarea>
+	<textarea id="form_builder_email_template_field" name="<?=$field["key"]?>[email_template]?>"<?php if (empty($field["value"]["form"])) { ?> disabled="disabled"<?php } ?>><?=$field["value"]["email_template"]?></textarea>
 </fieldset>
 
 <hr>
@@ -82,7 +82,6 @@
 					EmailField.html(html).removeClass("custom_control");
 					EmailField.prev(".select").remove();
 					EmailField.prop("disabled", false);
-					new BigTreeSelect("#form_builder_email_field");
 				});
 				
 				$.ajax({

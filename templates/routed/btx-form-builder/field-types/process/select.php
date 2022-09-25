@@ -1,16 +1,19 @@
 <?php
 	/**
 	 * @global array $field_data
+	 * @global string $field_name
 	 * @global array $form
 	 * @global array $settings
-	 * @global string $field_name
+	 * @global float $total
 	 */
 	
+	$submitted_value = $_POST[$field_name] ?? "";
+	
 	foreach ($field_data["list"] as $key => $item) {
-		$value = $item["value"] ? $item["value"] : $item["description"];
+		$value = (isset($item["value"]) && $item["value"] !== "") ? $item["value"] : $item["description"];
 		
-		if ($_POST[$field_name] == $value) {
-			$total += floatval(str_replace(array('$', ','), '', $item["price"]));
+		if ($submitted_value == $value) {
+			$total += floatval(str_replace(['$', ','], '', $item["price"] ?? 0));
 		}
 	}
 	

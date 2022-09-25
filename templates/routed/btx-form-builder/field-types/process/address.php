@@ -1,49 +1,53 @@
 <?php
 	/**
+	 * @global string $email_body
 	 * @global array $field_data
+	 * @global string $field_name
 	 * @global array $form
 	 * @global array $settings
-	 * @global string $field_name
 	 */
 	
-	if (!$field_data["label"]) {
-		$field_data["label"] = "Address";
-	}
-	
-	$value = $_POST[$field_name];
+	$label = !empty($field_data["label"]) ? $field_data["label"] : "Address";
+	$value = $_POST[$field_name] ?? [];
+	$street = $value["street"] ?? "";
+	$street2 = $value["street2"] ?? "";
+	$city = $value["city"] ?? "";
+	$state = $value["state"] ?? "";
+	$zip = $value["zip"] ?? "";
+	$country = $value["country"] ?? "";
 	
 	// Build out the notification email
-	$email_body .= $field_data["label"]."\n";
-	$email_body .= str_repeat("-", strlen($field_data["label"]))."\n";
-	$email_body .= $value["street"]."\n";
+	$email_body .= $label."\n";
+	$email_body .= str_repeat("-", strlen($label))."\n";
+	$email_body .= $street."\n";
 	
-	if ($value["street2"]) {
-		$email_body .= $value["street2"]."\n";
+	if ($street2 != "") {
+		$email_body .= $street2."\n";
 	}
 	
-	$email_body .= $value["city"].", ".$value["state"]." ".$value["zip"]."\n";
-	$email_body .= $value["country"];
+	$email_body .= $city.", ".$state." ".$zip."\n";
+	$email_body .= $country;
 	$email_body .= "\n\n";
 	
 	// Build out the confirmation email value
-	$confirmation_email_value = $value["street"];
+	$confirmation_email_value = $street;
 	
-	if ($value["street2"]) {
-		$confirmation_email_value .= ", ".$value["street2"];
+	if ($street2 != "") {
+		$confirmation_email_value .= ", ".$street2;
 	}
 	
-	if ($value["city"]) {
-		$confirmation_email_value .= ", ".$value["city"];
+	if ($city != "") {
+		$confirmation_email_value .= ", ".$city;
 	}
 	
-	if ($value["state"] || $value["zip"]) {
-		$confirmation_email_value .= ", ".trim($value["state"]." ".$value["zip"]);
+	if ($state != "" || $zip != "") {
+		$confirmation_email_value .= ", ".trim($state." ".$zip);
 	}
 	
-	if ($value["country"]) {
-		$confirmation_email_value .= ", ".$value["country"];
+	if ($country != "") {
+		$confirmation_email_value .= ", ".$country;
 	}
 	
-	if ($field_data["required"] && (!$value["street"] || !$value["city"] || !$value["state"] || !$value["zip"] || !$value["country"])) {
+	if (!empty($field_data["required"]) && (!$street || !$city || !$state || !$zip || !$country)) {
 		$errors[] = $field_name;
 	}

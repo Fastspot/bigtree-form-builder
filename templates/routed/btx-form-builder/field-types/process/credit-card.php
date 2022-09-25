@@ -1,13 +1,17 @@
 <?php
 	/**
 	 * @global array $field_data
+	 * @global string $field_name
 	 * @global array $form
 	 * @global array $settings
-	 * @global string $field_name
 	 */
 	
-	$cc = $_POST[$field_name];
+	$cc = $_POST[$field_name] ?? [];
+	$cc_number = $cc["number"] ?? "";
+	$cc_month = $cc["month"] ?? "";
+	$cc_year = $cc["year"] ?? "";
+	$cc_code = $cc["code"] ?? "";
 	
-	if ($cc["number"] && $cc["month"] && $cc["year"] && $cc["code"]) {
-		$value = substr(trim($cc["number"]), -4, 4);
+	if ($cc_number !== "" && $cc_month !== "" && $cc_year !== "" && $cc_code !== "") {
+		$value = substr(trim($cc_number), -4, 4);
 	}

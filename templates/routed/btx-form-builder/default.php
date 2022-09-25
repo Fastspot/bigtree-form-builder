@@ -25,7 +25,7 @@
 
 	echo $page_content;
 	
-	if ($form["limit_entries"] && $form["entries"] >= $form["max_entries"]) {
+	if (!empty($form["limit_entries"]) && $form["entries"] >= $form["max_entries"]) {
 		$form_closed = true;
 ?>
 <h2>Maximum Entries Reached</h2>
@@ -33,7 +33,7 @@
 <?php
 	}
 
-	if ($form["scheduling"]) {
+	if (!empty($form["scheduling"])) {
 		if (!empty($form["scheduling_open_date"]) && strtotime($form["scheduling_open_date"]) > time()) {
 			$form_closed = true;
 			echo $form["scheduling_before_message"];
@@ -51,9 +51,7 @@
 ?>
 <form method="post" action="<?=$page_link?>process/" enctype="multipart/form-data" class="form_builder">
 	<?php
-		$error_count = is_array($_SESSION["form_builder"]["errors"]) ? count($_SESSION["form_builder"]["errors"]) : 0;
-		
-		if ($error_count) {
+		if (!empty($_SESSION["form_builder"]["errors"]) && is_array($_SESSION["form_builder"]["errors"]) && count($_SESSION["form_builder"]["errors"])) {
 			if ($_SESSION["form_builder"]["errors"][0] == "duplicate") {
 	?>
 	<div class="form_builder_errors">
@@ -79,7 +77,7 @@
 			}
 		}
 		
-		if ($_SESSION["form_builder"]["payment_error"]) {
+		if (!empty($_SESSION["form_builder"]["payment_error"])) {
 	?>
 	<div class="form_builder_errors">
 		<p>Checkout failed — your credit card has not been charged.</p>
@@ -116,7 +114,10 @@
 					}
 				}
 				
-				if (is_array($_SESSION["form_builder"]["errors"]) && in_array($field_name,$_SESSION["form_builder"]["errors"])) {
+				if (!empty($_SESSION["form_builder"]["errors"]) &&
+					is_array($_SESSION["form_builder"]["errors"]) &&
+					in_array($field_name,$_SESSION["form_builder"]["errors"])
+				) {
 					$error = true;
 				}
 				

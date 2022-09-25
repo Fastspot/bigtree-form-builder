@@ -3,25 +3,25 @@
 	 * @global array $field
 	 */
 	
-	$fields = array();
-	$form = isset($_POST["form"]) ? $_POST["form"] : $field["value"]["form"];
+	$fields = [];
+	$form = $_POST["form"] ?? $field["value"]["form"];
 	$form = $form ?: $_GET["form"];
-	$q = sqlquery("SELECT * FROM btx_form_builder_fields 
-				   WHERE form = '".sqlescape($form)."' 
-				     AND type != 'columns' 
-					 AND type != 'section' 
-					 AND type != 'captcha'");
+	$query = SQL::query("SELECT * FROM btx_form_builder_fields
+	                     WHERE form = ?
+	                       AND type != 'columns'
+	                       AND type != 'section'
+	                       AND type != 'captcha'", $form);
 	
 	// Reset cache
 	BTXFormBuilder::parseTokens($fields, false, false, false, true);
 	
-	while ($f = sqlfetch($q)) {
-		$data = json_decode($f["data"], true);
-		BTXFormBuilder::parseTokens($fields, $f["type"], $data["label"], $data["name"]);
+	while ($row = $query->fetch()) {
+		$data = json_decode($row["data"], true);
+		BTXFormBuilder::parseTokens($fields, $row["type"], $data["label"] ?? "", $data["name"] ?? "");
 	}
 	
 	ksort($fields);
-	$keys = array();
+	$keys = [];
 	
 	foreach ($fields as $key => $name) {
 		$keys[] = '{'.$key.'}';

@@ -1,8 +1,8 @@
 {
     "type": "extension",
     "id": "com.fastspot.form-builder",
-    "version": "2.5.5",
-    "revision": 43,
+    "version": "2.6",
+    "revision": 41,
     "compatibility": "4.2+",
     "title": "Form Builder",
     "description": "An easy to use form builder allowing the administrative users to easily add fields to a form that stores entries in the database and sends out emails. Also supports paid forms.",
@@ -188,7 +188,7 @@
                 "level": "0",
                 "routed": "on",
                 "extension": "com.fastspot.form-builder",
-                "position": "1"
+                "position": 3
             }
         ],
         "callouts": [],
@@ -209,7 +209,7 @@
             }
         ],
         "tables": {
-            "btx_form_builder_entries": "CREATE TABLE `btx_form_builder_entries` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `form` int(11) NOT NULL,   `data` longtext NOT NULL, `hash` varchar(255) NOT NULL DEFAULT '',  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, `ip` varchar(255) NOT NULL DEFAULT '',  PRIMARY KEY (`id`),   KEY `form` (`form`),    FOREIGN KEY (`form`) REFERENCES `btx_form_builder_forms` (`id`) ON DELETE CASCADE ) ENGINE=InnoDB DEFAULT CHARSET=utf8",
+            "btx_form_builder_entries": "CREATE TABLE `btx_form_builder_entries` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `form` int(11) NOT NULL,   `data` longtext NOT NULL,   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',   PRIMARY KEY (`id`),   KEY `form` (`form`),    FOREIGN KEY (`form`) REFERENCES `btx_form_builder_forms` (`id`) ON DELETE CASCADE ) ENGINE=InnoDB DEFAULT CHARSET=utf8",
             "btx_form_builder_fields": "CREATE TABLE `btx_form_builder_fields` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `form` int(11) NOT NULL,   `column` int(11) NOT NULL,   `alignment` char(5) NOT NULL,   `type` varchar(255) NOT NULL DEFAULT '',   `data` longtext NOT NULL,   `position` int(11) NOT NULL,   PRIMARY KEY (`id`),   KEY `form` (`form`),   KEY `column` (`column`),   KEY `position` (`position`),    FOREIGN KEY (`form`) REFERENCES `btx_form_builder_forms` (`id`) ON DELETE CASCADE ) ENGINE=InnoDB DEFAULT CHARSET=utf8",
             "btx_form_builder_forms": "CREATE TABLE `btx_form_builder_forms` (   `id` int(11) NOT NULL AUTO_INCREMENT,   `title` varchar(255) NOT NULL DEFAULT '',   `paid` char(2) NOT NULL DEFAULT '',   `base_price` float NOT NULL,   `early_bird_base_price` float NOT NULL,   `early_bird_date` datetime DEFAULT NULL,   `total_collected` float NOT NULL,   `entries` int(11) NOT NULL,   `limit_entries` char(2) NOT NULL DEFAULT '',   `max_entries` int(11) NOT NULL,   `scheduling` char(2) NOT NULL DEFAULT '',   `scheduling_open_date` datetime DEFAULT NULL,   `scheduling_close_date` datetime DEFAULT NULL,   `scheduling_before_message` longtext,   `scheduling_after_message` longtext,   `last_entry` datetime DEFAULT NULL,   PRIMARY KEY (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8"
         }
@@ -245,10 +245,6 @@
             "ALTER TABLE `btx_form_builder_forms` ADD COLUMN `scheduling_close_date` datetime NULL DEFAULT NULL AFTER `scheduling_open_date`",
             "ALTER TABLE `btx_form_builder_forms` ADD COLUMN `scheduling_before_message` longtext NULL AFTER `scheduling_close_date`",
             "ALTER TABLE `btx_form_builder_forms` ADD COLUMN `scheduling_after_message` longtext NULL AFTER `scheduling_before_message`"
-        ],
-        "42": [
-            "ALTER TABLE `btx_form_builder_entries` ADD COLUMN `hash` varchar(255) NOT NULL DEFAULT '' AFTER `data`",
-            "ALTER TABLE `btx_form_builder_entries` ADD COLUMN `ip` varchar(255) NOT NULL DEFAULT '' AFTER `created_at`"
         ]
     }
 }

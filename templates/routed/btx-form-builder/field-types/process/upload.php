@@ -42,7 +42,7 @@
 		$confirmation_email_value = "No File Uploaded";
 		$email_body .= "No File Uploaded";
 		
-		if ($field_data["required"]) {
+		if (!empty($field_data["required"])) {
 			$errors[] = $field_name;
 		}
 		

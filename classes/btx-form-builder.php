@@ -3,11 +3,11 @@
 		Class: BTXFormBuilder
 			Provides an interface for form builder data.
 	*/
-
+	
 	class BTXFormBuilder extends BigTreeModule {
-
+		
 		public $Table = "btx_form_builder_forms";
-
+		
 		public static $SearchPageCount = false;
 		
 		/*
@@ -20,7 +20,7 @@
 			Returns:
 				A form array or false if the form doesn't exist.
 		*/
-
+		
 		static function getForm($id) {
 			$id = sqlescape($id);
 			$form = sqlfetch(sqlquery("SELECT * FROM btx_form_builder_forms WHERE id = '$id'"));
@@ -28,29 +28,29 @@
 			if (!$form) {
 				return false;
 			}
-
-			$fields = array();
+			
+			$fields = [];
 			$object_count = 0;
 			$field_query = sqlquery("SELECT * FROM btx_form_builder_fields WHERE form = '$id' AND `column` = '0' ORDER BY position DESC, id ASC");
 			
 			while ($field = sqlfetch($field_query)) {
 				$object_count++;
-
+				
 				if ($field["type"] == "column") {
 					// Get left column
-					$column_fields = array();
+					$column_fields = [];
 					$column_query = sqlquery("SELECT * FROM btx_form_builder_fields WHERE `column` = '".$field["id"]."' AND `alignment` = 'left' ORDER BY position DESC, id ASC");
 					
 					while ($sub_field = sqlfetch($column_query)) {
 						$column_fields[] = $sub_field;
 						$object_count++;
 					}
-
+					
 					$field["fields"] = $column_fields;
 					$fields[] = $field;
-
+					
 					// Get right column
-					$column_fields = array();
+					$column_fields = [];
 					$column_query = sqlquery("SELECT * FROM btx_form_builder_fields WHERE `column` = '".$field["id"]."' AND `alignment` = 'right' ORDER BY position DESC, id ASC");
 					
 					while ($sub_field = sqlfetch($column_query)) {
@@ -60,20 +60,20 @@
 					
 					$field["fields"] = $column_fields;
 					$fields[] = $field;
-
+					
 					// Column start/end count as objects so we add 3 since there's two columns
 					$object_count += 3;
 				} else {
-					$fields[] = $field;				
+					$fields[] = $field;
 				}
 			}
-
+			
 			$form["fields"] = $fields;
 			$form["object_count"] = $object_count - 1; // We start at 0
-
+			
 			return $form;
 		}
-
+		
 		/*
 			Function: getAllForms
 				Returns all forms (without fields).
@@ -87,10 +87,10 @@
 		
 		static function getAllForms($sort = "id ASC") {
 			$mod = new BigTreeModule("btx_form_builder_forms");
-
+			
 			return $mod->getAll($sort);
 		}
-
+		
 		/*
 			Function: getEntries
 				Returns a form's user entries, most recent first.
@@ -104,10 +104,10 @@
 		
 		static function getEntries($id) {
 			$mod = new BigTreeModule("btx_form_builder_entries");
-
-			return $mod->getMatching("form",$id,"id DESC");
+			
+			return $mod->getMatching("form", $id, "id DESC");
 		}
-
+		
 		/*
 			Function: getEntry
 				Returns a user entry.
@@ -121,10 +121,10 @@
 		
 		static function getEntry($id) {
 			$mod = new BigTreeModule("btx_form_builder_entries");
-
+			
 			return $mod->get($id);
 		}
-
+		
 		/*
 			Function: getField
 				Returns a decoded field.
@@ -135,13 +135,13 @@
 			Returns:
 				An array.
 		*/
-
+		
 		static function getField($id) {
 			$mod = new BigTreeModule("btx_form_builder_fields");
 			
 			return $mod->get($id);
 		}
-
+		
 		/*
 			Function: getFormUsage
 				Returns an array of pages that use this form.
@@ -152,23 +152,23 @@
 			Returns:
 				An array.
 		*/
-
+		
 		static function getFormUsage($id) {
-			$pages = array();
+			$pages = [];
 			$q = sqlquery("SELECT * FROM bigtree_pages WHERE template LIKE '%form-builder%' ORDER BY nav_title ASC");
-
+			
 			while ($page = sqlfetch($q)) {
 				$page["resources"] = json_decode($page["resources"], true);
-
+				
 				if ((is_array($page["resources"]["form"]) && $page["resources"]["form"]["form"] == $id) ||
 					$page["resources"]["form"] == $id) {
 					$pages[] = $page;
 				}
 			}
-
+			
 			return $pages;
 		}
-
+		
 		/*
 			Function: hashCheck
 				Checks to see if a recently submitted value to a form has the same hash.
@@ -180,7 +180,7 @@
 			Returns:
 				boolean
 		*/
-
+		
 		static function hashCheck($form, $hash) {
 			$form = sqlescape($form);
 			$hash = sqlescape($hash);
@@ -188,7 +188,7 @@
 										 WHERE form = '$form'
 										   AND hash = '$hash'
 										   AND created_at >= '".date("Y-m-d H:i:s", strtotime("-10 minutes"))."'"));
-
+			
 			return !empty($result);
 		}
 		
@@ -205,10 +205,11 @@
 		*/
 		
 		static function parseTokens(&$token_list, $type, $label, $value, $reset = false) {
-			static $duplicates = array();
+			static $duplicates = [];
 			
 			if ($reset) {
-				$duplicates = array();
+				$duplicates = [];
+				
 				return false;
 			}
 			
@@ -231,7 +232,7 @@
 				}
 			}
 		}
-
+		
 		/*
 			Function: searchEntries
 				Searches a form's entries and returns a page of 15 ordered by most recent first.
@@ -247,14 +248,23 @@
 		*/
 		
 		static function searchEntries($id,$query,$page = 1) {
-			$query = SQL::escape($query);
-			$mod = new BigTreeModule("btx_form_builder_entries");
-			$results = $mod->fetch("id DESC", (($page - 1) * 15).", 15", "data LIKE '%$query%' AND form = '".SQL::escape($id)."'");
-			$count = SQL::fetchSingle("SELECT COUNT(*) FROM btx_form_builder_entries WHERE form = ? AND data LIKE '%$query%'", $id);
+			$total_string = "SELECT COUNT(*) FROM btx_form_builder_entries WHERE `form` = '".((int) $id)."'";
+			$query_string = "SELECT * FROM btx_form_builder_entries WHERE `form` = '".((int) $id)."'";
+			$query_parts = explode(" ", $query);
 			
-			$pages = ceil($count / 15);
-			self::$SearchPageCount = $pages ?: 1;
-
+			foreach ($query_parts as $part) {
+				$part = SQL::escape($part);
+				$query_string .= " AND data LIKE '%$part%'";
+				$total_string .= " AND data LIKE '%$part%'";
+			}
+			
+			$query_string .= " ORDER BY id DESC LIMIT ".(($page - 1) * 15).", 15";
+			
+			$mod = new BigTreeModule("btx_form_builder_entries");
+			$total = SQL::fetchSingle($total_string);
+			$results = array_map([$mod, "get"], SQL::fetchAll($query_string));
+			self::$SearchPageCount = ceil($total / 15) ?? 1;
+			
 			return $results;
 		}
 	}

@@ -1,12 +1,12 @@
 <?php
 	/**
 	 * @global array $field_data
+	 * @global string $field_name
 	 * @global array $form
 	 * @global array $settings
-	 * @global string $field_name
 	 */
 	
-	if (!$field_data["label"]) {
+	if (empty($field_data["label"])) {
 		$field_data["label"] = "Email";
 	}
 	

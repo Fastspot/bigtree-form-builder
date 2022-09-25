@@ -1,19 +1,25 @@
 <?php
 	/**
+	 * @global string $email_body
 	 * @global array $field_data
+	 * @global string $field_name
 	 * @global array $form
 	 * @global array $settings
-	 * @global string $field_name
 	 */
 	
-	if (!$field_data["label"]) {
+	if (empty($field_data["label"])) {
 		$field_data["label"] = "Phone";
 	}
 	
+	$phone = $_POST[$field_name] ?? [];
+	$first = $phone["first"] ?? "";
+	$second = $phone["second"] ?? "";
+	$third = $phone["third"] ?? "";
+	
 	if (empty($field_data["international"])) {
-		$value = $_POST[$field_name]["first"]."-".$_POST[$field_name]["second"]."-".$_POST[$field_name]["third"];
+		$value = $first."-".$second."-".$third;
 	} else {
-		$value = "+".$_POST[$field_name]["first"]." ".$_POST[$field_name]["second"]." ".$_POST[$field_name]["third"];
+		$value = "+".$first." ".$second." ".$third;
 	}
 	
 	$email_body .= $field_data["label"]."\n";

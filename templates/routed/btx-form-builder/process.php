@@ -1,41 +1,43 @@
 <?php
 	/**
 	 * @global array $bigtree
-	 * @global array $form
+	 * @global string $emails
 	 * @global string $email_field
 	 * @global string $email_subject
 	 * @global string $email_template
+	 * @global array $form
+	 * @global string $page_link
 	 */
 	
 	$storage = new BigTreeStorage;
 	$total = 0;
 	$email_body = "";
-	$errors = $entry = $confirmation_email_tokens = $duplicate_labels = array();
+	$errors = $entry = $confirmation_email_tokens = $duplicate_labels = [];
 	$form_closed = false;
-
+	
 	// Check to make sure this form didn't close or reach max entries while being filled out
-	if ($form["scheduling"]) {
+	if (!empty($form["scheduling"])) {
 		if (!empty($form["scheduling_open_date"]) && strtotime($form["scheduling_open_date"]) > time()) {
 			$form_closed = true;
 		} elseif (!empty($form["scheduling_close_date"]) && strtotime($form["scheduling_close_date"]) < time()) {
 			$form_closed = true;
 		}
 	}
-
-	if ($form["limit_entries"] && $form["entries"] >= $form["max_entries"]) {
+	
+	if (!empty($form["limit_entries"]) && $form["entries"] >= $form["max_entries"]) {
 		$form_closed = true;
 	}
-
+	
 	if ($form_closed) {
 		BigTree::redirect($page_link);
 	}
 	
 	// Start up the running total if we're paid.
-	if ($form["paid"]) {
+	if (!empty($form["paid"])) {
 		if ($form["early_bird_date"] && strtotime($form["early_bird_date"]) > time()) {
-			$total = $form["early_bird_base_price"] ? $form["early_bird_base_price"] : $form["base_price"];
+			$total = $form["early_bird_base_price"] ?: $form["base_price"];
 		} else {
-			$total = $form["base_price"] ? $form["base_price"] : 0;
+			$total = $form["base_price"] ?: 0;
 		}
 	}
 	
@@ -47,28 +49,28 @@
 		// If it's not a column, just process it.
 		if ($field_type != "column") {
 			$field_name = "form_builder_data_".$field["id"];
-			$value = $confirmation_email_value = false;
-		
+			$value = $confirmation_email_value = null;
+			
 			include "field-types/process/$field_type.php";
 			
-			if ($value !== false && $field["id"]) {
+			if ($value !== null && $field["id"]) {
 				$entry[$field["id"]] = $value;
 			}
 			
-			if ($field_data["required"] && ($value === "" || $value === false || is_null($value))) {
+			if (!empty($field_data["required"]) && ($value === "" || $value === false || is_null($value))) {
 				$errors[] = $field_name;
 			}
 			
 			BTXFormBuilder::parseTokens($confirmation_email_tokens, $field_type,
-										$field_data["label"], $confirmation_email_value);
+			                            $field_data["label"], $confirmation_email_value);
 			
-		// If it is a column, we need to process everything inside the column first.
+			// If it is a column, we need to process everything inside the column first.
 		} else {
 			foreach ($field["fields"] as $subfield) {
 				$field_data = json_decode($subfield["data"], true);
-				$field_name = "form_builder_data_".$subfield["id"];				
+				$field_name = "form_builder_data_".$subfield["id"];
 				$value = $confirmation_email_value = false;
-
+				
 				include "field-types/process/".$subfield["type"].".php";
 				
 				if ($value !== false) {
@@ -80,18 +82,18 @@
 				}
 				
 				BTXFormBuilder::parseTokens($confirmation_email_tokens, $field_type,
-											$field_data["label"], $confirmation_email_value);
+				                            $field_data["label"], $confirmation_email_value);
 			}
 		}
 	}
-
+	
 	// If we're disabling duplicate entries, check the hash
 	$hash = md5(json_encode($entry).BigTree::remoteIP());
-
+	
 	if (!count($errors) && !empty($settings["reject_duplicates"]) && BTXFormBuilder::hashCheck($form["id"], $hash)) {
-		$errors[] = "duplicate"; 
+		$errors[] = "duplicate";
 	}
-
+	
 	$errors = array_unique($errors);
 	
 	// If we had errors, redirect back with the saved data and errors.
@@ -134,11 +136,11 @@
 		
 		// Save Billing Info to the DB.
 		$_POST["form_builder_data_fb_cc_card"]["number"] = $pg->Last4CC;
-		$entry["payment"] = array(
+		$entry["payment"] = [
 			"name" => $_POST["form_builder_data_fb_cc_billing_name"],
 			"address" => $_POST["form_builder_data_fb_cc_billing_address"],
 			"card" => $_POST["form_builder_data_fb_cc_card"]
-		);
+		];
 		
 		// Add Billing Info to the Email
 		$address = $_POST["form_builder_data_fb_cc_billing_address"];
@@ -168,21 +170,27 @@
 	unset($_SESSION["form_builder"]);
 	
 	// Add the entry to the entries table.
-	BigTreeAutoModule::createItem("btx_form_builder_entries", array("form" => $form["id"], "data" => $entry, "hash" => $hash, "created_at" => "NOW()", "ip" => BigTree::remoteIP()));
+	BigTreeAutoModule::createItem("btx_form_builder_entries", [
+		"form" => $form["id"],
+		"data" => $entry,
+		"hash" => $hash,
+		"created_at" => "NOW()",
+		"ip" => BigTree::remoteIP()
+	]);
 	
 	// Update the totals for the form and recache it.
 	sqlquery("UPDATE btx_form_builder_forms SET entries = (entries + 1), last_entry = NOW(), total_collected = (total_collected + ".round($total, 2).") WHERE id = '".$form["id"]."'");
 	BigTreeAutoModule::recacheItem($form["id"], "btx_form_builder_forms");
 	
 	// Get the no-reply domain
-	$no_reply_domain = str_replace(array("http://www.", "https://www.", "http://", "https://"), "", DOMAIN);
+	$no_reply_domain = str_replace(["http://www.", "https://www.", "http://", "https://"], "", DOMAIN);
 	$email_title = !empty($page_header) ? $page_header : $bigtree["page"]["nav_title"];
 	$email_body = $email_title." - Form Submission\n".str_repeat("=", strlen($email_title))."==================\n\n$email_body";
 	
 	// Send out email alerts
-	$emails = explode(",", $emails);
+	$email_array = explode(",", $emails);
 	
-	foreach ($emails as $email_address) {
+	foreach ($email_array as $email_address) {
 		$email_address = trim($email_address);
 		mail($email_address, $email_title." - Form Submission", $email_body, "From: no-reply@$no_reply_domain");
 	}
@@ -190,7 +198,7 @@
 	// Send out confirmation email
 	if (!empty($email_field)) {
 		$send_to_email = $confirmation_email_tokens[$email_field];
-		$tokens = array();
+		$tokens = [];
 		
 		foreach ($confirmation_email_tokens as $key => $token) {
 			$tokens[] = '{'.$key.'}';

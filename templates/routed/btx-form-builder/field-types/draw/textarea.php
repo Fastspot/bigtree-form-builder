@@ -9,13 +9,13 @@
 	 * @global string $field_name
 	 */
 	
-	$classes = array();
+	$classes = [];
 	
-	if ($field_data["required"]) {
+	if (!empty($field_data["required"])) {
 		$classes[] = "form_builder_required";
 	}
 	
-	if ($field_data["default"]) {
+	if (!empty($field_data["default"])) {
 		$classes[] = "default";
 	}
 	
@@ -26,14 +26,17 @@
 <fieldset id="<?=$field_name?>">
 	<label for="form_builder_field_<?=$count?>">
 		<?php
-			echo htmlspecialchars($field_data["label"]);
+			echo htmlspecialchars($field_data["label"] ?? "");
 			
-			if ($field_data["required"]) {
+			if (!empty($field_data["required"])) {
 		?>
 		<span class="form_builder_required_star">*</span>
 		<?php
 			}
 		?>
 	</label>
-	<textarea id="form_builder_field_<?=$count?>" name="<?=$field_name?>"<?php if (count($classes)) { ?> class="<?=implode(" ", $classes)?>"<?php } ?> placeholder="<?=htmlspecialchars($field_data["placeholder"])?>"<?php if (!empty($field_data["required"])) { ?> required<?php } ?>><?=htmlspecialchars($default)?></textarea>
+	<textarea id="form_builder_field_<?=$count?>" name="<?=$field_name?>"
+		      <?php if (count($classes)) { ?> class="<?=implode(" ", $classes)?>"<?php } ?>
+			  placeholder="<?=htmlspecialchars($field_data["placeholder"] ?? "")?>"
+		      <?php if (!empty($field_data["required"])) { ?> required<?php } ?>><?=htmlspecialchars($default)?></textarea>
 </fieldset>

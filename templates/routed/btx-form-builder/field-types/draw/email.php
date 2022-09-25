@@ -9,9 +9,9 @@
 	 * @global string $field_name
 	 */
 	
-	$classes = array("form_builder_text", "form_builder_email");
+	$classes = ["form_builder_text", "form_builder_email"];
 	
-	if ($field_data["required"]) {
+	if (!empty($field_data["required"])) {
 		$classes[] = "form_builder_required";
 	}
 	
@@ -26,12 +26,14 @@
 		<?php
 			echo htmlspecialchars($field_data["label"]);
 			
-			if ($field_data["required"]) {
+			if (!empty($field_data["required"])) {
 		?>
 		<span class="form_builder_required_star">*</span>
 		<?php
 			}
 		?>
 	</label>
-	<input type="email" id="form_builder_field_<?=$count?>" name="<?=$field_name?>" class="<?=implode(" ", $classes)?>" value="<?=htmlspecialchars($default)?>" autocomplete="<?=$section_token?> email"<?php if (!empty($field_data["required"])) { ?> required<?php } ?>>
+	<input type="email" id="form_builder_field_<?=$count?>" name="<?=$field_name?>"
+		   class="<?=implode(" ", $classes)?>" value="<?=htmlspecialchars($default)?>"
+		   autocomplete="<?=$section_token?> email"<?php if (!empty($field_data["required"])) { ?> required<?php } ?>>
 </fieldset>

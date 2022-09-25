@@ -1,9 +1,9 @@
 <?php
 	/**
 	 * @global array $field_data
+	 * @global string $field_name
 	 * @global array $form
 	 * @global array $settings
-	 * @global string $field_name
 	 */
 	
 	$recaptcha_url = "https://www.google.com/recaptcha/api/siteverify".

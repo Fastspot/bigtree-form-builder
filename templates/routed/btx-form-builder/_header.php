@@ -11,11 +11,11 @@
 	
 	// $form is an array in newer form builder
 	if (!is_array($form)) {
-		$form = array(
+		$form = [
 			"form" => $form,
 			"email_field" => false,
 			"email_template" => false
-		);
+		];
 	}
 	
 	$email_template = $form["email_template"];
@@ -28,51 +28,49 @@
 	if ($form["paid"]) {
 		$cms->makeSecure();
 		
-		$form["fields"] = array_merge($form["fields"], array(
+		$form["fields"] = array_merge($form["fields"], [
 			// Section Header
-			array(
+			[
 				"type" => "section",
-				"data" => json_encode(array(
+				"data" => json_encode([
 					"title" => "Billing Address & Payment",
 					"description" => "Please enter your billing information as it appears on your credit card.",
-				))
-			),
+				]),
+			],
 			// Billing Name
-			array(
+			[
 				"type" => "name",
 				"id" => "fb_cc_billing_name",
-				"data" => json_encode(array(
+				"data" => json_encode([
 					"required" => true,
 					"label" => "Billing Name"
-				))
-			),
+				]),
+			],
 			// Billing Email
-			array(
+			[
 				"type" => "email",
 				"id" => "fb_cc_billing_email",
-				"data" => json_encode(array(
+				"data" => json_encode([
 					"required" => true,
 					"label" => "Billing Email"
-				))
-			),
+				]),
+			],
 			// Billing Address
-			array(
+			[
 				"type" => "address",
 				"id" => "fb_cc_billing_address",
-				"data" => json_encode(array(
+				"data" => json_encode([
 					"required" => true,
 					"label" => "Billing Address"
-				))
-			),
+				]),
+			],
 			// Credit Card
-			array(
+			[
 				"type" => "credit-card",
 				"id" => "fb_cc_card",
-				"data" => json_encode(array(
-					"required" => true
-				))
-			)
-		));
+				"data" => json_encode(["required" => true]),
+			],
+		]);
 		
 		$page_link = str_replace("http://", "https://", $cms->getLink($bigtree["page"]["id"]));
 	} else {
