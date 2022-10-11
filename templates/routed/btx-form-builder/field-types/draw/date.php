@@ -14,7 +14,7 @@
 		<?php
 			echo htmlspecialchars($field_data["label"] ?? "");
 			
-			if (empty($field_data["required"])) {
+			if (!empty($field_data["required"])) {
 		?>
 		<span class="form_builder_required_star">*</span>
 		<?php
