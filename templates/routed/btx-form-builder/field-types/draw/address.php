@@ -12,6 +12,10 @@
 	$required = !empty($field_data["required"]) ? " form_builder_required" : "";
 	
 	if (empty($default["country"])) {
+		if (empty($default)) {
+			$default = [];
+		}
+
 		$default["country"] = "United States";
 	}
 	
