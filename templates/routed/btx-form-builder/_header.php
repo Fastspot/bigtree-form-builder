@@ -18,9 +18,9 @@
 		];
 	}
 	
-	$email_template = $form["email_template"];
-	$email_subject = $form["email_subject"];
-	$email_field = $form["email_field"];
+	$email_template = $form["email_template"] ?? "";
+	$email_subject = $form["email_subject"] ?? "";
+	$email_field = $form["email_field"] ?? "";
 	$form = BTXFormBuilder::getForm($form["form"]);
 	$settings = $cms->getSetting("settings");
 	
