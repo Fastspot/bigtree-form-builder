@@ -148,7 +148,7 @@
 						}
 					}
 					
-					if (is_array($_SESSION["form_builder"]["errors"]) && in_array($field_name,$_SESSION["form_builder"]["errors"])) {
+					if (!empty($_SESSION["form_builder"]["errors"]) && is_array($_SESSION["form_builder"]["errors"]) && in_array($field_name,$_SESSION["form_builder"]["errors"])) {
 						$error = true;
 					}
 					
