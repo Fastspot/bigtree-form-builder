@@ -17,7 +17,7 @@
 	$day = $date["day"] ?? "";
 	$year = $date["year"] ?? "";
 	
-	if (checkdate($month, $day, $year)) {
+	if (checkdate(intval($month), intval($day), intval($year))) {
 		$value = $year."-".$month."-".$day;
 		$confirmation_email_value = date("F j, Y", strtotime($value));
 		$email_body .= $confirmation_email_value;
