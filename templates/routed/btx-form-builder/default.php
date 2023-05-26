@@ -105,7 +105,7 @@
 				$error = false;
 				
 				if (isset($_SESSION["form_builder"]["fields"])) {
-					$default = $_SESSION["form_builder"]["fields"][$field_name];
+					$default = $_SESSION["form_builder"]["fields"][$field_name] ?? "";
 				} else {
 					if (isset($field_data["default"])) {
 						$default = $field_data["default"];
