@@ -64,6 +64,14 @@
 			<br />
 			
 			<fieldset>
+				<label for="fb_field_recaptcha_version">Version</label>
+				<select id="fb_field_recaptcha_version" name="recaptcha[version]">
+					<option value="2"<?php if (empty($settings["recaptcha"]["version"]) || $settings["recaptcha"]["version"] == "2") { ?> selected="selected"<?php } ?>>2 (checkbox)</option>
+					<option value="3"<?php if (!empty($settings["recaptcha"]["version"]) && $settings["recaptcha"]["version"] == "3") { ?> selected="selected"<?php } ?>>3 (invisible)</option>
+				</select>
+			</fieldset>
+			
+			<fieldset>
 				<label for="fb_field_site_key"><strong>Site</strong> Key</label>
 				<input id="fb_field_site_key" type="text" name="recaptcha[site_key]" value="<?=htmlspecialchars($settings["recaptcha"]["site_key"] ?? "")?>" />
 			</fieldset>
@@ -71,6 +79,11 @@
 			<fieldset>
 				<label for="fb_field_secret_key"><strong>Secret</strong> Key</label>
 				<input id="fb_field_secret_key" type="text" name="recaptcha[secret_key]" value="<?=htmlspecialchars($settings["recaptcha"]["secret_key"] ?? "")?>" />
+			</fieldset>
+			
+			<fieldset>
+				<label for="fb_field_recaptcha_threshold">Version 3 Threshold <small>(number between 0 and 100 with 100 most likely to be a human)</small></label>
+				<input id="fb_field_recaptcha_threshold" type="text" name="recaptcha[threshold]" value="<?=htmlspecialchars($settings["recaptcha"]["threshold"] ?? "")?>" />
 			</fieldset>
 
 			<hr>

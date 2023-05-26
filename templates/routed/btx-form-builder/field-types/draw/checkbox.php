@@ -33,7 +33,7 @@
 	<div class="form_builder_checkbox">
 		<input type="checkbox" id="form_builder_field_<?=$count?>"
 			   name="<?=$field_name?><?php if (count($field_data["list"]) > 1) { ?>[]<?php } ?>"
-			   value="<?=$value?>"<?php if ((is_array($default) && in_array($value, $default)) || ($default === false && !empty($item["selected"]))) { ?> checked="checked"<?php } ?>
+			   value="<?=$value?>"<?php if ((is_array($default) && in_array($value, $default)) || $default === $value || ($default === false && !empty($item["selected"]))) { ?> checked="checked"<?php } ?>
 			   data-price="<?=floatval(str_replace(['$', ','], '', $item["price"] ?? 0))?>">
 		<span class="form_builder_checkbox_indicator"></span>
 		<label class="form_builder_for_checkbox" for="form_builder_field_<?=$count?>">

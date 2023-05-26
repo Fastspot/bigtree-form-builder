@@ -49,7 +49,7 @@
 
 	if (!$form_closed) {
 ?>
-<form method="post" action="<?=$page_link?>process/" enctype="multipart/form-data" class="form_builder">
+<form id="btx_form_<?=$form["id"]?>" method="post" action="<?=$page_link?>process/" enctype="multipart/form-data" class="form_builder">
 	<?php
 		if (!empty($_SESSION["form_builder"]["errors"]) && is_array($_SESSION["form_builder"]["errors"]) && count($_SESSION["form_builder"]["errors"])) {
 			if ($_SESSION["form_builder"]["errors"][0] == "duplicate") {

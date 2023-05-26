@@ -1,8 +1,8 @@
 {
     "type": "extension",
     "id": "com.fastspot.form-builder",
-    "version": "2.6.5",
-    "revision": 54,
+    "version": "2.7",
+    "revision": 55,
     "compatibility": "4.2+",
     "title": "Form Builder",
     "description": "An easy to use form builder allowing the administrative users to easily add fields to a form that stores entries in the database and sends out emails. Also supports paid forms.",
@@ -35,7 +35,7 @@
                     "other_table": ""
                 },
                 "extension": "com.fastspot.form-builder",
-                "id": "modules-15c9cf24c01f2e",
+                "id": "modules-1646fdfb0ebdbc",
                 "views": [
                     {
                         "title": "Forms",
@@ -53,7 +53,7 @@
                                 "title": "Title",
                                 "parser": "",
                                 "width": "222",
-                                "numeric": ""
+                                "numeric": false
                             },
                             "entries": {
                                 "title": "Entries",
@@ -65,7 +65,7 @@
                                 "title": "Last Entry",
                                 "parser": "if ($value) { $value = date(\"F j @ g:ia\",strtotime($value)); }",
                                 "width": "222",
-                                "numeric": ""
+                                "numeric": false
                             }
                         },
                         "actions": {
@@ -76,8 +76,8 @@
                         },
                         "related_form": null,
                         "preview_url": "",
-                        "exclude_from_search": "",
-                        "id": "views-15c9cf24c0c358"
+                        "exclude_from_search": false,
+                        "id": "views-1646fdfb0ec0cf"
                     }
                 ],
                 "actions": [
@@ -87,13 +87,13 @@
                         "class": "list",
                         "name": "View Forms",
                         "form": null,
-                        "view": "views-15c9cf24c0c358",
+                        "view": "views-1646fdfb0ec0cf",
                         "report": null,
-                        "level": "0",
+                        "level": 0,
                         "position": "3",
                         "0": "route",
-                        "id": "actions-15c9cf24c0f819",
-                        "module": "modules-15c9cf24c01f2e"
+                        "id": "actions-1646fdfb0f020a",
+                        "module": "modules-1646fdfb0ebdbc"
                     },
                     {
                         "route": "add",
@@ -103,11 +103,11 @@
                         "form": null,
                         "view": null,
                         "report": null,
-                        "level": "0",
+                        "level": 0,
                         "position": "2",
                         "0": "route",
-                        "id": "actions-15c9cf24c19adf",
-                        "module": "modules-15c9cf24c01f2e"
+                        "id": "actions-1646fdfb0f0682",
+                        "module": "modules-1646fdfb0ebdbc"
                     },
                     {
                         "route": "settings",
@@ -120,8 +120,8 @@
                         "level": "2",
                         "position": "1",
                         "0": "route",
-                        "id": "actions-15c9cf24c2d77a",
-                        "module": "modules-15c9cf24c01f2e"
+                        "id": "actions-1646fdfb0f0b55",
+                        "module": "modules-1646fdfb0ebdbc"
                     }
                 ],
                 "forms": [],
@@ -187,8 +187,7 @@
                 ],
                 "level": "0",
                 "routed": "on",
-                "extension": "com.fastspot.form-builder",
-                "position": 3
+                "extension": "com.fastspot.form-builder"
             }
         ],
         "callouts": [],
