@@ -1,7 +1,7 @@
 {
     "type": "extension",
     "id": "com.fastspot.form-builder",
-    "version": "2.7",
+    "version": "2.6.6",
     "revision": 55,
     "compatibility": "4.2+",
     "title": "Form Builder",
@@ -35,7 +35,7 @@
                     "other_table": ""
                 },
                 "extension": "com.fastspot.form-builder",
-                "id": "modules-1646fdfb0ebdbc",
+                "id": "modules-15c9cf24c01f2e",
                 "views": [
                     {
                         "title": "Forms",
@@ -53,7 +53,7 @@
                                 "title": "Title",
                                 "parser": "",
                                 "width": "222",
-                                "numeric": false
+                                "numeric": ""
                             },
                             "entries": {
                                 "title": "Entries",
@@ -65,7 +65,7 @@
                                 "title": "Last Entry",
                                 "parser": "if ($value) { $value = date(\"F j @ g:ia\",strtotime($value)); }",
                                 "width": "222",
-                                "numeric": false
+                                "numeric": ""
                             }
                         },
                         "actions": {
@@ -76,8 +76,8 @@
                         },
                         "related_form": null,
                         "preview_url": "",
-                        "exclude_from_search": false,
-                        "id": "views-1646fdfb0ec0cf"
+                        "exclude_from_search": "",
+                        "id": "views-15c9cf24c0c358"
                     }
                 ],
                 "actions": [
@@ -87,13 +87,13 @@
                         "class": "list",
                         "name": "View Forms",
                         "form": null,
-                        "view": "views-1646fdfb0ec0cf",
+                        "view": "views-15c9cf24c0c358",
                         "report": null,
-                        "level": 0,
+                        "level": "0",
                         "position": "3",
                         "0": "route",
-                        "id": "actions-1646fdfb0f020a",
-                        "module": "modules-1646fdfb0ebdbc"
+                        "id": "actions-15c9cf24c0f819",
+                        "module": "modules-15c9cf24c01f2e"
                     },
                     {
                         "route": "add",
@@ -103,11 +103,11 @@
                         "form": null,
                         "view": null,
                         "report": null,
-                        "level": 0,
+                        "level": "0",
                         "position": "2",
                         "0": "route",
-                        "id": "actions-1646fdfb0f0682",
-                        "module": "modules-1646fdfb0ebdbc"
+                        "id": "actions-15c9cf24c19adf",
+                        "module": "modules-15c9cf24c01f2e"
                     },
                     {
                         "route": "settings",
@@ -120,8 +120,8 @@
                         "level": "2",
                         "position": "1",
                         "0": "route",
-                        "id": "actions-1646fdfb0f0b55",
-                        "module": "modules-1646fdfb0ebdbc"
+                        "id": "actions-15c9cf24c2d77a",
+                        "module": "modules-15c9cf24c01f2e"
                     }
                 ],
                 "forms": [],
@@ -187,7 +187,8 @@
                 ],
                 "level": "0",
                 "routed": "on",
-                "extension": "com.fastspot.form-builder"
+                "extension": "com.fastspot.form-builder",
+                "position": 3
             }
         ],
         "callouts": [],
