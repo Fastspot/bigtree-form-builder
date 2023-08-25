@@ -19,7 +19,7 @@
 		$classes[] = "form_builder_error";
 	}
 	
-	if (!empty($field_data["allowed_fieldtypes"]) && is_array($field_data["allowed_filetypes"]) && count($field_data["allowed_filetypes"])) {
+	if (!empty($field_data["allowed_filetypes"]) && is_array($field_data["allowed_filetypes"])) {
 		$allowed_types = [];
 		$accept = [];
 		
