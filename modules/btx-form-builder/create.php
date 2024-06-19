@@ -10,7 +10,7 @@
 	// Create the form.
 	$form = BigTreeAutoModule::createItem("btx_form_builder_forms", [
 		"title" => BigTree::safeEncode($_POST["title"]),
-		"paid" => $_POST["paid"] ? "on" : "",
+		"paid" => !empty($_POST["paid"]) ? "on" : "",
 		"base_price" => floatval(str_replace(['$', ',', ' '], '', $_POST["base_price"])),
 		"early_bird_base_price" => floatval(str_replace(['$', ',', ' '], '', $_POST["early_bird_base_price"])),
 		"early_bird_date" => !empty($_POST["early_bird"]) ? $admin->convertTimestampFromUser($_POST["early_bird"]) : null,
@@ -24,41 +24,43 @@
 	]);
 	
 	// Setup the default column, sort position, alignment inside columns.
-	$position = count($_POST["type"]);
+	$position = count($_POST["type"] ?? []);
 	$column = 0;
 	$alignment = "";
 	
-	foreach ($_POST["type"] as $key => $type) {
-		if ($type == "column_start") {
-			// If we're starting a set of columns and don't have an alignment it's a new set.
-			if (!$alignment) {
-				$column = BigTreeAutoModule::createItem("btx_form_builder_fields", [
+	if (!empty($_POST["type"])) {
+		foreach ($_POST["type"] as $key => $type) {
+			if ($type == "column_start") {
+				// If we're starting a set of columns and don't have an alignment it's a new set.
+				if (!$alignment) {
+					$column = BigTreeAutoModule::createItem("btx_form_builder_fields", [
+						"form" => $form,
+						"type" => "column",
+						"position" => $position,
+					]);
+					$alignment = "left";
+				// Otherwise we're starting the second column of the set, just change the alignment.
+				} elseif ($alignment == "left") {
+					$alignment = "right";
+				}
+			} elseif ($type == "column_end") {
+				if ($alignment == "right") {
+					$column = 0;
+					$alignment = "";
+				}
+			} elseif ($type) {
+				BigTreeAutoModule::createItem("btx_form_builder_fields", [
 					"form" => $form,
-					"type" => "column",
+					"column" => $column,
+					"alignment" => $alignment,
+					"type" => $type,
+					"data" => $_POST["data"][$key],
 					"position" => $position,
 				]);
-				$alignment = "left";
-			// Otherwise we're starting the second column of the set, just change the alignment.
-			} elseif ($alignment == "left") {
-				$alignment = "right";
 			}
-		} elseif ($type == "column_end") {
-			if ($alignment == "right") {
-				$column = 0;
-				$alignment = "";
-			}
-		} elseif ($type) {
-			BigTreeAutoModule::createItem("btx_form_builder_fields", [
-				"form" => $form,
-				"column" => $column,
-				"alignment" => $alignment,
-				"type" => $type,
-				"data" => $_POST["data"][$key],
-				"position" => $position,
-			]);
+			
+			$position--;
 		}
-		
-		$position--;
 	}
 	
 	$admin->growl("Form Builder", "Created Form");
