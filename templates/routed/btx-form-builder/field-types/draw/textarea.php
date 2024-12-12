@@ -36,7 +36,8 @@
 		?>
 	</label>
 	<textarea id="form_builder_field_<?=$count?>" name="<?=$field_name?>"
-		      <?php if (count($classes)) { ?> class="<?=implode(" ", $classes)?>"<?php } ?>
-			  placeholder="<?=htmlspecialchars($field_data["placeholder"] ?? "")?>"
+	          <?php if (count($classes)) { ?> class="<?=implode(" ", $classes)?>"<?php } ?>
+	          placeholder="<?=htmlspecialchars($field_data["placeholder"] ?? "")?>"
+	          <?php if (!empty($field_data["maxlength"]) && intval($field_data["maxlength"])) { ?>maxlength="<?=intval($field_data["maxlength"])?>"<?php } ?>
 		      <?php if (!empty($field_data["required"])) { ?> required<?php } ?>><?=htmlspecialchars($default)?></textarea>
 </fieldset>
