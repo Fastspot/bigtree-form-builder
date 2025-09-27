@@ -65,7 +65,7 @@
 		?>
 		<div class="form_builder_phone_country">
 			<input type="text" maxlength="3" name="<?=$field_name?>[first]" id="form_builder_field_<?=$count?>"
-				   class="form_builder_text<?php if (!empty($field_data["required"])) { ?> form_builder_required<?php if ($error && (empty($default["first"]) || strlen($default["first"]) != 3 || !is_numeric($default["first"]))) { ?> form_builder_error<?php } ?><?php } ?>"
+				   class="form_builder_text<?php if (!empty($field_data["required"])) { ?> form_builder_required<?php if ($error && (empty($default["first"]) || strlen($default["first"]) > 3 || !is_numeric(str_replace("+", "", $default["first"])))) { ?> form_builder_error<?php } ?><?php } ?>"
 				   value="<?=htmlspecialchars($default["first"] ?? "")?>"
 				   autocomplete="<?=$section_token?> tel-country-code"<?php if (!empty($field_data["required"])) { ?> required<?php } ?>>
 			<label for="form_builder_field_<?=($count++)?>" class="form_builder_sublabel form_builder_centered">
@@ -85,7 +85,7 @@
 		
 		<div class="form_builder_phone_number">
 			<input type="text" maxlength="8" name="<?=$field_name?>[third]" id="form_builder_field_<?=$count?>"
-				   class="form_builder_text<?php if (!empty($field_data["required"])) { ?> form_builder_required<?php if ($error && (empty($default["third"]) || strlen($default["third"]) != 4 || !is_numeric($default["third"]))) { ?> form_builder_error<?php } ?><?php } ?>"
+				   class="form_builder_text<?php if (!empty($field_data["required"])) { ?> form_builder_required<?php if ($error && (empty($default["third"]) || strlen($default["third"]) > 8 || !is_numeric($default["third"]))) { ?> form_builder_error<?php } ?><?php } ?>"
 				   value="<?=htmlspecialchars($default["third"] ?? "")?>"
 				   autocomplete="<?=$section_token?> tel-local"<?php if (!empty($field_data["required"])) { ?> required<?php } ?>>
 			<label for="form_builder_field_<?=$count?>" class="form_builder_sublabel form_builder_centered">
