@@ -10,9 +10,11 @@
 	 */
 	
 	$classes = [];
+	$input_attributes = [];
 	
 	if (!empty($field_data["required"])) {
 		$classes[] = "form_builder_required";
+		$input_attributes[] = "required";
 	}
 	
 	if (!empty($field_data["default"])) {
@@ -39,5 +41,5 @@
 	          <?php if (count($classes)) { ?> class="<?=implode(" ", $classes)?>"<?php } ?>
 	          placeholder="<?=htmlspecialchars($field_data["placeholder"] ?? "")?>"
 	          <?php if (!empty($field_data["maxlength"]) && intval($field_data["maxlength"])) { ?>maxlength="<?=intval($field_data["maxlength"])?>"<?php } ?>
-		      <?php if (!empty($field_data["required"])) { ?> required<?php } ?>><?=htmlspecialchars($default)?></textarea>
+		      <?=implode(" ", $input_attributes)?>><?=htmlspecialchars($default)?></textarea>
 </fieldset>

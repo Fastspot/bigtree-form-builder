@@ -8,6 +8,16 @@
 	 * @global int $count
 	 * @global string $field_name
 	 */
+
+	$classes = [];
+	$input_attributes = [];
+	
+	if (!empty($field_data["required"])) {
+		$classes[] = "form_builder_required";
+		if (count($field_data["list"]) === 1) {
+			$input_attributes[] = "required";
+		}
+	}
 ?>
 <fieldset id="<?=$field_name?>">
 	<?php
@@ -33,8 +43,10 @@
 	<div class="form_builder_checkbox">
 		<input type="checkbox" id="form_builder_field_<?=$count?>"
 			   name="<?=$field_name?><?php if (count($field_data["list"]) > 1) { ?>[]<?php } ?>"
+			   <?php if (count($classes)) { ?>class="<?=implode(" ", $classes)?>"<?php } ?>
 			   value="<?=$value?>"<?php if ((is_array($default) && in_array($value, $default)) || $default === $value || ($default === false && !empty($item["selected"]))) { ?> checked="checked"<?php } ?>
-			   data-price="<?=floatval(str_replace(['$', ','], '', $item["price"] ?? 0))?>">
+			   data-price="<?=floatval(str_replace(['$', ','], '', $item["price"] ?? 0))?>"
+			   <?=implode(" ", $input_attributes)?>>
 		<span class="form_builder_checkbox_indicator"></span>
 		<label class="form_builder_for_checkbox" for="form_builder_field_<?=$count?>">
 			<?=htmlspecialchars($item["description"] ?? "")?>

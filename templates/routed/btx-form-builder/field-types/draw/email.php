@@ -10,9 +10,11 @@
 	 */
 	
 	$classes = ["form_builder_text", "form_builder_email"];
+	$input_attributes = [];
 	
 	if (!empty($field_data["required"])) {
 		$classes[] = "form_builder_required";
+		$input_attributes[] = "required";
 	}
 	
 	if ($error) {
@@ -35,5 +37,5 @@
 	</label>
 	<input type="email" id="form_builder_field_<?=$count?>" name="<?=$field_name?>"
 		   class="<?=implode(" ", $classes)?>" value="<?=htmlspecialchars($default)?>"
-		   autocomplete="<?=$section_token?> email"<?php if (!empty($field_data["required"])) { ?> required<?php } ?>>
+		   autocomplete="<?=$section_token?> email" <?=implode(" ", $input_attributes)?>>
 </fieldset>
