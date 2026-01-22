@@ -10,9 +10,11 @@
 	 */
 	
 	$classes = ["form_builder_upload"];
+	$input_attributes = [];
 	
 	if (!empty($field_data["required"])) {
 		$classes[] = "form_builder_required";
+		$input_attributes[] = "required";
 	}
 	
 	if ($error) {
@@ -59,7 +61,7 @@
 		   value="<?=htmlspecialchars($field_data["default"] ?? "")?>"
 		   <?php if (count($classes)) { ?>class="<?=implode(" ", $classes)?>"<?php } ?>
 	       <?php if (!is_null($accept)) { ?> accept="<?=implode(",", $accept)?>"<?php } ?>
-	       <?php if (!empty($field_data["required"])) { ?> required<?php } ?>>
+	       <?=implode(" ", $input_attributes)?>>
 	<?php
 		if (count($sub_label_parts)) {
 	?>

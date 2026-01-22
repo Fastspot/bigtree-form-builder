@@ -8,6 +8,18 @@
 	 * @global int $count
 	 * @global string $field_name
 	 */
+
+	$classes = [];
+	$input_attributes = [];
+	
+	if (!empty($field_data["required"])) {
+		$classes[] = "form_builder_required";
+		$input_attributes[] = "required";
+	}
+	
+	if ($error) {
+		$classes[] = "form_builder_error";
+	}
 ?>
 	<fieldset id="<?=$field_name?>">
 		<label for="form_builder_field_<?=$count?>">
@@ -23,7 +35,7 @@
 		</label>
 		<div class="form_builder_select">
 			<select id="form_builder_field_<?=$count?>"
-					name="<?=$field_name?>"<?php if (!empty($field_data["required"])) { ?> class="form_builder_required<?php if ($error) { ?> form_builder_error<?php } ?>"<?php } ?><?php if (!empty($field_data["required"])) { ?> required<?php } ?>>
+					name="<?=$field_name?>"<?php if (count($classes)) { ?> class="<?=implode(" ", $classes)?>"<?php } ?> <?=implode(" ", $input_attributes)?>>
 				<?php foreach ($field_data["list"] as $item) { ?>
 				<option
 					value="<?=htmlspecialchars($item["value"])?>"

@@ -10,9 +10,11 @@
 	 */
 	
 	$classes = ["form_builder_text"];
+	$input_attributes = [];
 	
 	if (!empty($field_data["required"])) {
 		$classes[] = "form_builder_required";
+		$input_attributes[] = "required";
 	}
 	
 	$section_token = "section-".BigTreeCMS::urlify($field_data["label"] ?? "");
@@ -34,7 +36,7 @@
 			<input type="text" name="<?=$field_name?>[first]" id="form_builder_field_<?=$count?>"
 				   class="<?=implode(" ", $classes)?><?php if ($error && empty($default["first"])) { ?> form_builder_error<?php } ?>"
 				   value="<?=htmlspecialchars($default["first"] ?? "")?>"
-				   autocomplete="<?=$section_token?> given-name"<?php if (!empty($field_data["required"])) { ?> required<?php } ?>>
+				   autocomplete="<?=$section_token?> given-name" <?=implode(" ", $input_attributes)?>>
 			<label for="form_builder_field_<?=($count++)?>" class="form_builder_sublabel">First</label>
 		</div>
 		
@@ -42,7 +44,7 @@
 			<input type="text" name="<?=$field_name?>[last]" id="form_builder_field_<?=$count?>"
 				   class="<?=implode(" ", $classes)?><?php if ($error && empty($default["last"])) { ?> form_builder_error<?php } ?>"
 				   value="<?=htmlspecialchars($default["last"] ?? "")?>"
-				   autocomplete="<?=$section_token?> family-name"<?php if (!empty($field_data["required"])) { ?> required<?php } ?>>
+				   autocomplete="<?=$section_token?> family-name" <?=implode(" ", $input_attributes)?>>
 			<label for="form_builder_field_<?=$count?>" class="form_builder_sublabel">Last</label>
 		</div>
 	</div>

@@ -8,6 +8,14 @@
 	 * @global int $count
 	 * @global string $field_name
 	 */
+
+	$input_attributes = [];
+	$classes = [];
+	
+	if (!empty($field_data["required"])) {
+		$classes[] = "form_builder_required";
+		$input_attributes[] = "required";
+	}
 ?>
 <fieldset id="<?=$field_name?>">
 	<?php
@@ -32,8 +40,10 @@
 	<div class="form_builder_radio">
 		<input type="radio" id="form_builder_field_<?=$count?>" name="<?=$field_name?>"
 			   value="<?=htmlspecialchars($item["value"])?>"
+			   <?php if (count($classes)) { ?>class="<?=implode(" ", $classes)?>"<?php } ?>
 			   <?php if ($default == $item["value"] || ($default === false && !empty($item["selected"]))) { ?>checked="checked" <?php } ?>
-			   data-price="<?=floatval(str_replace(['$', ','], '', $item["price"] ?? 0))?>">
+			   data-price="<?=floatval(str_replace(['$', ','], '', $item["price"] ?? 0))?>"
+			   <?=implode(" ", $input_attributes)?>>
 		<span class="form_builder_radio_indicator"></span>
 		<label class="form_builder_for_checkbox" for="form_builder_field_<?=$count?>">
 			<?=htmlspecialchars($item["description"] ?? "")?>

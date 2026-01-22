@@ -10,9 +10,11 @@
 	 */
 	
 	$classes = ["form_builder_text"];
+	$input_attributes = [];
 	
 	if (!empty($field_data["required"])) {
 		$classes[] = "form_builder_required";
+		$input_attributes[] = "required";
 	}
 	
 	if ($error) {
@@ -35,7 +37,7 @@
 		   class="<?=implode(" ", $classes)?>" value="<?=htmlspecialchars($default)?>"
 		   placeholder="<?=htmlspecialchars($field_data["placeholder"] ?? "")?>"
 		   <?php if (!empty($field_data["maxlength"]) && intval($field_data["maxlength"])) { ?>maxlength="<?=intval($field_data["maxlength"])?>"<?php } ?>
-		   <?php if (!empty($field_data["required"])) { ?>required<?php } ?>>
+		   <?=implode(" ", $input_attributes)?>>
 </fieldset>
 <?php
 	if (!empty($form["paid"]) && !empty($field_data["price"]) && $field_data["price"] == "on") {
